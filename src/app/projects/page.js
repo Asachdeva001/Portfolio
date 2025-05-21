@@ -6,45 +6,24 @@ import Link from 'next/link';
 const projects = [
   {
     id: 1,
-    title: 'E-commerce Platform',
-    description: 'A full-stack e-commerce platform built with Next.js and Node.js',
+    title: 'Project One',
+    description: 'A brief description of the first project and its key features.',
+    technologies: ['React', 'Node.js', 'MongoDB'],
     image: '/project1.jpg',
-    tags: ['Next.js', 'Node.js', 'MongoDB', 'Tailwind CSS'],
   },
   {
     id: 2,
-    title: 'Task Management App',
-    description: 'A collaborative task management application with real-time updates',
+    title: 'Project Two',
+    description: 'A brief description of the second project and its key features.',
+    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS'],
     image: '/project2.jpg',
-    tags: ['React', 'Firebase', 'Material-UI'],
   },
   {
     id: 3,
-    title: 'Portfolio Website',
-    description: 'A modern portfolio website with animations and responsive design',
+    title: 'Project Three',
+    description: 'A brief description of the third project and its key features.',
+    technologies: ['React', 'Express', 'PostgreSQL'],
     image: '/project3.jpg',
-    tags: ['Next.js', 'Tailwind CSS', 'Framer Motion'],
-  },
-  {
-    id: 4,
-    title: 'Weather Dashboard',
-    description: 'A weather dashboard with real-time data and interactive maps',
-    image: '/project4.jpg',
-    tags: ['React', 'OpenWeather API', 'Chart.js'],
-  },
-  {
-    id: 5,
-    title: 'Social Media Dashboard',
-    description: 'A social media analytics dashboard with data visualization',
-    image: '/project5.jpg',
-    tags: ['Vue.js', 'D3.js', 'Express'],
-  },
-  {
-    id: 6,
-    title: 'Fitness Tracker',
-    description: 'A mobile-first fitness tracking application with progress charts',
-    image: '/project6.jpg',
-    tags: ['React Native', 'Redux', 'Firebase'],
   },
 ];
 
@@ -57,8 +36,8 @@ export default function Projects() {
         transition={{ duration: 0.8 }}
       >
         <h1 className="text-4xl font-bold text-gray-100 mb-4">Projects</h1>
-        <p className="text-xl text-gray-300 mb-12">
-          A collection of my recent work and personal projects
+        <p className="text-xl text-gray-400 mb-12">
+        A curated collection of my recent professional work, personal projects, and experimental builds that highlight my skills, creativity, and technical capabilities across different domains.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -69,30 +48,32 @@ export default function Projects() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -10 }}
-              className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+              className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-700/50"
             >
-              <div className="aspect-video bg-gray-200 relative">
+              <div className="aspect-video bg-gray-700/50 relative">
                 {/* Add actual project images here */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 to-transparent" />
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">{project.title}</h3>
-                <p className="text-gray-600 mb-4">{project.description}</p>
+                <h3 className="text-xl font-semibold text-gray-100 mb-2">{project.title}</h3>
+                <p className="text-gray-400 mb-4">
+                  {project.description}
+                </p>
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tags.map((tag) => (
+                  {project.technologies.map((tech) => (
                     <span
-                      key={tag}
-                      className="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm"
+                      key={tech}
+                      className="px-3 py-1 text-sm bg-blue-500/10 text-blue-400 rounded-full"
                     >
-                      {tag}
+                      {tech}
                     </span>
                   ))}
                 </div>
                 <Link
                   href={`/projects/${project.id}`}
-                  className="text-blue-600 hover:text-blue-700 font-medium inline-flex items-center"
+                  className="text-blue-400 hover:text-blue-300 font-medium inline-flex items-center transition-colors"
                 >
-                  View Project
+                  Learn More
                   <svg
                     className="w-4 h-4 ml-2"
                     fill="none"

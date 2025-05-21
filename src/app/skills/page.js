@@ -161,7 +161,7 @@ const SkillCard = ({ skill, color }) => {
         <span className="text-2xl">{skill.icon}</span>
         <h3 className="text-xl font-semibold text-white">{skill.name}</h3>
       </div>
-      <p className="text-gray-400 mb-4">{skill.description}</p>
+      <p className="text-gray-400 mb-4 text-justify">{skill.description}</p>
       <div>
         <h4 className="text-sm font-semibold text-gray-300 mb-2">Key Projects:</h4>
         <ul className="list-disc list-inside text-gray-400">
@@ -183,8 +183,8 @@ export default function Skills() {
         transition={{ duration: 0.8 }}
       >
         <h1 className="text-4xl font-bold text-gray-100 mb-8">Technical Skills</h1>
-        <p className="text-xl text-gray-400 mb-12 max-w-3xl">
-          A comprehensive overview of my technical expertise and experience across various technologies and tools.
+        <p className="text-xl text-gray-400 mb-12 text-justify max-w-4xl">
+          A comprehensive overview of my technical expertise and hands-on experience across various modern technologies, tools, platforms, and development environments used in real-world projects.
         </p>
 
         <div className="space-y-16">

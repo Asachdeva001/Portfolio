@@ -57,12 +57,12 @@ export default function Home() {
         >
           <h2 className="text-3xl font-bold text-gray-100 mb-8">About Me</h2>
           <div className="max-w-2xl mx-auto">
-            <p className="text-lg text-gray-600 leading-relaxed">
+            <p className="text-lg text-gray-500 leading-relaxed">
               I&apos;m a Computer Science student at Punjab Engineering College (PEC), passionate about building impactful digital solutions. I specialize in full-stack web development with experience in technologies like HTML5, CSS, JavaScript, React, and the MERN stack.
 
 I enjoy translating ideas into clean, responsive, and engaging web experiences. I stay updated on emerging technologies and cloud infrastructure.
 
-Driven by curiosity and creativity, I'm always eager to learn, build, and contribute—whether through code, design, or strategy.entrepreneurship.
+Driven by curiosity and creativity, I'm always eager to learn, build, and contribute—whether through code, design, or strategy.
             </p> <a href="/about">Know More</a>
           </div>
         </motion.div>
@@ -82,17 +82,20 @@ Driven by curiosity and creativity, I'm always eager to learn, build, and contri
               <motion.div
                 key={project}
                 whileHover={{ y: -10 }}
-                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-700/50"
               >
-                <div className="aspect-video bg-gray-200" />
+                <div className="aspect-video bg-gray-700/50 relative">
+                  {/* Add actual project images here */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 to-transparent" />
+                </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-600 mb-2">Project {project}</h3>
-                  <p className="text-gray-600 mb-4">
+                  <h3 className="text-xl font-semibold text-gray-100 mb-2">Project {project}</h3>
+                  <p className="text-gray-400 mb-4">
                     A brief description of the project and its key features.
                   </p>
                   <Link
                     href={`/projects/${project}`}
-                    className="text-blue-600 hover:text-blue-700 font-medium inline-flex items-center"
+                    className="text-blue-400 hover:text-blue-300 font-medium inline-flex items-center transition-colors"
                   >
                     Learn More
                     <svg
@@ -129,7 +132,7 @@ Driven by curiosity and creativity, I'm always eager to learn, build, and contri
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {/* Frontend */}
-            <div className="text-left bg-white/5 p-6 rounded-xl backdrop-blur-sm">
+            <div className="text-left bg-gray-800/50 p-6 rounded-xl backdrop-blur-sm border border-gray-700/50">
               <h3 className="text-2xl font-semibold text-blue-400 mb-6">Frontend Development</h3>
               <div className="space-y-3">
                 {[
@@ -147,7 +150,7 @@ Driven by curiosity and creativity, I'm always eager to learn, build, and contri
             </div>
 
             {/* Backend */}
-            <div className="text-left bg-white/5 p-6 rounded-xl backdrop-blur-sm">
+            <div className="text-left bg-gray-800/50 p-6 rounded-xl backdrop-blur-sm border border-gray-700/50">
               <h3 className="text-2xl font-semibold text-green-400 mb-6">Backend Development</h3>
               <div className="space-y-3">
                 {[
@@ -165,7 +168,7 @@ Driven by curiosity and creativity, I'm always eager to learn, build, and contri
             </div>
 
             {/* Database */}
-            <div className="text-left bg-white/5 p-6 rounded-xl backdrop-blur-sm">
+            <div className="text-left bg-gray-800/50 p-6 rounded-xl backdrop-blur-sm border border-gray-700/50">
               <h3 className="text-2xl font-semibold text-purple-400 mb-6">Database & Storage</h3>
               <div className="space-y-3">
                 {[
@@ -183,7 +186,7 @@ Driven by curiosity and creativity, I'm always eager to learn, build, and contri
             </div>
 
             {/* DevOps & Tools */}
-            <div className="text-left bg-white/5 p-6 rounded-xl backdrop-blur-sm">
+            <div className="text-left bg-gray-800/50 p-6 rounded-xl backdrop-blur-sm border border-gray-700/50">
               <h3 className="text-2xl font-semibold text-orange-400 mb-6">DevOps & Tools</h3>
               <div className="space-y-3">
                 {[

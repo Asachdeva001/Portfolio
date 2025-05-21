@@ -4,15 +4,15 @@ import { motion } from 'framer-motion';
 
 const AnimatedAS = () => (
   <motion.svg
-    width="320"
-    height="140"
-    viewBox="0 0 320 140"
+    width="400"
+    height="180"
+    viewBox="0 0 400 180"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className="mx-auto"
+    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
   >
     <defs>
-      <linearGradient id="as-gradient" x1="0" y1="0" x2="320" y2="140" gradientUnits="userSpaceOnUse">
+      <linearGradient id="as-gradient" x1="0" y1="0" x2="400" y2="180" gradientUnits="userSpaceOnUse">
         <stop stopColor="#2563eb" />
         <stop offset="1" stopColor="#38bdf8" />
       </linearGradient>
@@ -29,7 +29,7 @@ const AnimatedAS = () => (
         repeat: Infinity,
         ease: 'easeInOut',
       }}
-      style={{ transformOrigin: '160px 70px' }}
+      style={{ transformOrigin: '200px 90px' }}
     >
       <motion.text
         x="50%"
@@ -38,7 +38,7 @@ const AnimatedAS = () => (
         dominantBaseline="middle"
         fontFamily="Montserrat, Inter, Arial, sans-serif"
         fontWeight="900"
-        fontSize="120"
+        fontSize="150"
         stroke="url(#as-gradient)"
         strokeWidth="6"
         fill="white"
@@ -69,12 +69,14 @@ const AnimatedAS = () => (
 const SplashScreen = () => {
   return (
     <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-gray-900">
-      <AnimatedAS />
+      <div className="relative w-full h-full">
+        <AnimatedAS />
+      </div>
       <motion.h1
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.5 }}
-        className="mt-4 text-3xl md:text-4xl font-bold text-gray-100 text-center"
+        className="absolute bottom-[15%] text-4xl md:text-5xl font-bold text-gray-100 text-center"
       >
         Aashish Sachdeva
       </motion.h1>
