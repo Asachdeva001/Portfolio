@@ -69,7 +69,7 @@ export default function Home() {
               technologies like HTML5, CSS, JavaScript, React, and the MERN
               stack. I enjoy translating ideas into clean, responsive, and
               engaging web experiences. I stay updated on emerging technologies
-              and cloud infrastructure. Driven by curiosity and creativity, I'm
+              and cloud infrastructure. Driven by curiosity and creativity, I&apos;m
               always eager to learn, build, and contribute—whether through code,
               design, or strategy.
             </p>{" "}
