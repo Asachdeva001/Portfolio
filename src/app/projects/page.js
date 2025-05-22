@@ -1,29 +1,52 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from "next/image";
+
 import Link from 'next/link';
 
 const projects = [
   {
     id: 1,
-    title: 'Project One',
-    description: 'A brief description of the first project and its key features.',
-    technologies: ['React', 'Node.js', 'MongoDB'],
-    image: '/project1.jpg',
+    title: "AI-Workspace",
+    description:
+      "A platform for teams to collaborate on workspaces, where they can create, edit, and share documents.",
+    technologies: ["Next.js", "Tailwind CSS", "MongoDB", "Node.js", "Express.js"],
+    image: "/AI-Workspace.png",
+    repos: ["https://github.com/Ashisach001/AiWorkspace-client", "https://github.com/Ashisach001/AiWorkspace-server"],
   },
   {
     id: 2,
-    title: 'Project Two',
-    description: 'A brief description of the second project and its key features.',
-    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS'],
-    image: '/project2.jpg',
+    title: "Noteflow",
+    description:
+      "A note and task management app that allows users to create, edit, and share notes/tasks.",
+    technologies: ["React.js", "Firebase", "Material-UI"],
+    image: "/Noteflow.png",
+    repos: "https://github.com/Ashisach001/Noteflow",
   },
   {
     id: 3,
-    title: 'Project Three',
-    description: 'A brief description of the third project and its key features.',
-    technologies: ['React', 'Express', 'PostgreSQL'],
-    image: '/project3.jpg',
+    title: "NewsDiary",
+    description: "A news app that allows users to read news articles based on their interests.",
+    technologies: ["React", "Tailwind CSS", "News API"],
+    image: "/News-Diary.png",
+    repos: "https://github.com/Ashisach001/News-Diary",
+  },
+  {
+    id: 4,
+    title: "Portfolio",
+    description: "A portfolio website that showcases my projects and skills.",
+    technologies: ["Next.js", "Tailwind CSS", "React"],
+    image: "/Portfolio.png",
+    repos: "https://github.com/Ashisach001/Portfolio",
+  },
+  {
+    id: 5,
+    title: "TextUtils",
+    description: "A text utility website that allows users to analyze text and perform various text-related operations.",
+    technologies: ["React", "CSS", "JavaScript"],
+    image: "/TextUtils.png",
+    repos: "https://github.com/Ashisach001/TextUtils",
   },
 ];
 
@@ -41,56 +64,92 @@ export default function Projects() {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
-              className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-700/50"
-            >
-              <div className="aspect-video bg-gray-700/50 relative">
-                {/* Add actual project images here */}
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 to-transparent" />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-100 mb-2">{project.title}</h3>
-                <p className="text-gray-400 mb-4">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-3 py-1 text-sm bg-blue-500/10 text-blue-400 rounded-full"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+          {projects.map((project) => (
+              <motion.div
+                key={project.id}
+                whileHover={{ y: -5 }}
+                className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-700/50"
+              >
+                <div className="aspect-video bg-gray-700/50 relative">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 to-transparent" />
                 </div>
-                <Link
-                  href={`/projects/${project.id}`}
-                  className="text-blue-400 hover:text-blue-300 font-medium inline-flex items-center transition-colors"
-                >
-                  Learn More
-                  <svg
-                    className="w-4 h-4 ml-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </Link>
-              </div>
-            </motion.div>
-          ))}
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold text-gray-100 mb-2">
+                    {project.title}
+                  </h3>
+                  <p className="text-sm text-gray-400 mb-3">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5 mb-3">
+                    {project.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-2 py-0.5 text-xs bg-blue-600/20 text-blue-400 rounded"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex gap-3">
+                    {Array.isArray(project.repos) ? (
+                      project.repos.map((repo, index) => (
+                        <a
+                          key={index}
+                          href={repo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-blue-400 hover:text-blue-300 font-medium inline-flex items-center transition-colors"
+                        >
+                          {index === 0 ? "Frontend" : "Backend"}
+                          <svg
+                            className="w-3 h-3 ml-1"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                            />
+                          </svg>
+                        </a>
+                      ))
+                    ) : (
+                      <a
+                        href={project.repos}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-blue-400 hover:text-blue-300 font-medium inline-flex items-center transition-colors"
+                      >
+                        View Code
+                        <svg
+                          className="w-3 h-3 ml-1"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                          />
+                        </svg>
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
         </div>
       </motion.div>
     </div>
