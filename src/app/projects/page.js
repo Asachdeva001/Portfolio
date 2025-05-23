@@ -27,7 +27,7 @@ const projects = [
     title: "NewsDiary",
     description: "A news app that allows users to read news articles based on their interests.",
     technologies: ["React", "Tailwind CSS", "News API"],
-    image: "/News-Diary.png",
+    image: "/NewsDiary.png",
     repos: "https://github.com/Ashisach001/News-Diary",
   },
   {
