@@ -1,9 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Image from "next/image";
-
-import Link from 'next/link';
+import Image from 'next/image';
 
 const projects = [
   {
@@ -133,17 +131,17 @@ export default function Projects() {
                         View Code
                         <svg
                           className="w-3 h-3 ml-1"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
                             d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                          />
-                        </svg>
+                      />
+                    </svg>
                       </a>
                     )}
                   </div>

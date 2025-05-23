@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import React, { Suspense } from "react";
+import React from "react";
 
 export default function Home() {
   return (
@@ -69,7 +69,7 @@ export default function Home() {
               technologies like HTML5, CSS, JavaScript, React, and the MERN
               stack. I enjoy translating ideas into clean, responsive, and
               engaging web experiences. I stay updated on emerging technologies
-              and cloud infrastructure. Driven by curiosity and creativity, I&apos;m
+              and cloud infrastructure. Driven by curiosity and creativity, I'm
               always eager to learn, build, and contribute—whether through code,
               design, or strategy.
             </p>{" "}
@@ -77,7 +77,7 @@ export default function Home() {
           </div>
         </motion.div>
       </section>
-
+      
       {/* Featured Projects Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -178,17 +178,17 @@ export default function Home() {
                         View Code
                         <svg
                           className="w-3 h-3 ml-1"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
                             d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                          />
-                        </svg>
+                      />
+                    </svg>
                       </a>
                     )}
                   </div>
@@ -211,10 +211,17 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-gray-100 mb-12">
             Skills & Technologies
           </h2>
-
+          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {/* Frontend */}
-            <div className="text-left bg-gray-800/50 p-6 rounded-xl backdrop-blur-sm border border-gray-700/50">
+            <motion.div 
+              className="text-left bg-gray-800/50 p-6 rounded-xl backdrop-blur-sm border border-gray-700/50"
+              whileHover={{ y: -5 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
               <h3 className="text-2xl font-semibold text-blue-400 mb-6">
                 Frontend Development
               </h3>
@@ -231,10 +238,17 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
             {/* Backend */}
-            <div className="text-left bg-gray-800/50 p-6 rounded-xl backdrop-blur-sm border border-gray-700/50">
+            <motion.div 
+              className="text-left bg-gray-800/50 p-6 rounded-xl backdrop-blur-sm border border-gray-700/50"
+              whileHover={{ y: -5 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
               <h3 className="text-2xl font-semibold text-green-400 mb-6">
                 Backend Development
               </h3>
@@ -251,10 +265,17 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
             {/* Database */}
-            <div className="text-left bg-gray-800/50 p-6 rounded-xl backdrop-blur-sm border border-gray-700/50">
+            <motion.div 
+              className="text-left bg-gray-800/50 p-6 rounded-xl backdrop-blur-sm border border-gray-700/50"
+              whileHover={{ y: -5 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
               <h3 className="text-2xl font-semibold text-purple-400 mb-6">
                 Database & Storage
               </h3>
@@ -271,10 +292,17 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
             {/* DevOps & Tools */}
-            <div className="text-left bg-gray-800/50 p-6 rounded-xl backdrop-blur-sm border border-gray-700/50">
+            <motion.div 
+              className="text-left bg-gray-800/50 p-6 rounded-xl backdrop-blur-sm border border-gray-700/50"
+              whileHover={{ y: -5 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
               <h3 className="text-2xl font-semibold text-orange-400 mb-6">
                 DevOps & Tools
               </h3>
@@ -291,7 +319,7 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           </div>
 
           <div className="mt-8">

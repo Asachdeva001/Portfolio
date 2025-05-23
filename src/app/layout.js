@@ -20,8 +20,15 @@ export default function RootLayout({ children }) {
         <Background3D />
         <AppWrapper>
           <Navbar />
-          <main className="min-h-screen pt-16">
-            {children}
+          <main className="min-h-screen pt-16 sm:backdrop-blur-2xl sm:from-gray-900 sm:to-gray-950">
+            <div className="relative">
+              {/* Background overlay for small devices */}
+              <div className="fixed inset-0 bg-gradient-to-b from-gray-900/95 via-gray-900/90 to-gray-950/95 sm:hidden z-0" />
+              {/* Content container */}
+              <div className="relative z-10">
+                {children}
+              </div>
+            </div>
           </main>
           <Footer />
           <ScrollToTop />

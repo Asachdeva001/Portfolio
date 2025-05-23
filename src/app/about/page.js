@@ -20,7 +20,7 @@ export default function About() {
             transition={{ delay: 0.2 }}
             className="text-gray-500 mb-6 text-justify"
           >
-            I&apos;m a passionate web developer and Computer Science student at Punjab Engineering College (PEC) with a strong focus on full-stack development and user-centric design. I’ve built a range of projects—from event platforms like eicpec.in for E-Summit 2025 to dynamic web apps for startups and freelance clients—using modern technologies like React, Node.js, and MongoDB. I enjoy turning ideas into responsive, impactful digital experiences while continuously learning and growing in the ever-evolving tech landscape.
+            I'm a passionate web developer and Computer Science student at Punjab Engineering College (PEC) with a strong focus on full-stack development and user-centric design. I’ve built a range of projects—from event platforms like eicpec.in for E-Summit 2025 to dynamic web apps for startups and freelance clients—using modern technologies like React, Node.js, and MongoDB. I enjoy turning ideas into responsive, impactful digital experiences while continuously learning and growing in the ever-evolving tech landscape.
           </motion.p>
 
           <motion.p
