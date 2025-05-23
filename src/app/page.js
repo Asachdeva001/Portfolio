@@ -69,7 +69,7 @@ export default function Home() {
               technologies like HTML5, CSS, JavaScript, React, and the MERN
               stack. I enjoy translating ideas into clean, responsive, and
               engaging web experiences. I stay updated on emerging technologies
-              and cloud infrastructure. Driven by curiosity and creativity, I'm
+              and cloud infrastructure. Driven by curiosity and creativity, I&apos;m
               always eager to learn, build, and contribute—whether through code,
               design, or strategy.
             </p>{" "}
@@ -195,6 +195,27 @@ export default function Home() {
                 </div>
               </motion.div>
             ))}
+          </div>
+          <div className="mt-8 text-center">
+            <Link
+              href="/projects"
+              className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300"
+            >
+              View More Projects
+              <svg
+                className="w-4 h-4 ml-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </Link>
           </div>
         </motion.div>
       </section>
