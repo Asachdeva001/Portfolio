@@ -237,9 +237,9 @@ export default function Home() {
             {/* Frontend */}
             <motion.div 
               className="text-left bg-gray-800/50 p-6 rounded-xl backdrop-blur-sm border border-gray-700/50"
-              whileHover={{ skewX: 0, scale: 1.02 }}
-              initial={{ opacity: 0, y: 20, skewX: -2 }}
-              whileInView={{ opacity: 1, y: 0, skewX: -2 }}
+              whileHover={{ perspective: 1000, rotateX: 0, scale: 1.02 }}
+              initial={{ opacity: 0, y: 20, perspective: 1000, rotateX: -2 }}
+              whileInView={{ opacity: 1, y: 0, perspective: 1000, rotateX: -2 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
@@ -264,9 +264,9 @@ export default function Home() {
             {/* Backend */}
             <motion.div 
               className="text-left bg-gray-800/50 p-6 rounded-xl backdrop-blur-sm border border-gray-700/50"
-              whileHover={{ skewX: 0, scale: 1.02 }}
-              initial={{ opacity: 0, y: 20, skewX: 2 }}
-              whileInView={{ opacity: 1, y: 0, skewX: 2 }}
+              whileHover={{ perspective: 1000, rotateX: 0, scale: 1.02 }}
+              initial={{ opacity: 0, y: 20, perspective: 1000, rotateX: 2 }}
+              whileInView={{ opacity: 1, y: 0, perspective: 1000, rotateX: 2 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
@@ -291,9 +291,9 @@ export default function Home() {
             {/* Database */}
             <motion.div 
               className="text-left bg-gray-800/50 p-6 rounded-xl backdrop-blur-sm border border-gray-700/50"
-              whileHover={{ skewX: 0, scale: 1.02 }}
-              initial={{ opacity: 0, y: 20, skewX: -2 }}
-              whileInView={{ opacity: 1, y: 0, skewX: -2 }}
+              whileHover={{ perspective: 1000, rotateX: 0, scale: 1.02 }}
+              initial={{ opacity: 0, y: 20, perspective: 1000, rotateX: -2 }}
+              whileInView={{ opacity: 1, y: 0, perspective: 1000, rotateX: -2 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
@@ -318,9 +318,9 @@ export default function Home() {
             {/* DevOps & Tools */}
             <motion.div 
               className="text-left bg-gray-800/50 p-6 rounded-xl backdrop-blur-sm border border-gray-700/50"
-              whileHover={{ skewX: 0, scale: 1.02 }}
-              initial={{ opacity: 0, y: 20, skewX: 2 }}
-              whileInView={{ opacity: 1, y: 0, skewX: 2 }}
+              whileHover={{ perspective: 1000, rotateX: 0, scale: 1.02 }}
+              initial={{ opacity: 0, y: 20, perspective: 1000, rotateX: 2 }}
+              whileInView={{ opacity: 1, y: 0, perspective: 1000, rotateX: 2 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
