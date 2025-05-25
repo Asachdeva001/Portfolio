@@ -22,8 +22,8 @@ export default function RootLayout({ children }) {
           <Navbar />
           <main className="min-h-screen pt-16 sm:backdrop-blur-2xl sm:from-gray-900 sm:to-gray-950">
             <div className="relative">
-              {/* Background overlay for small devices */}
-              <div className="fixed inset-0 bg-gradient-to-b from-gray-900/95 via-gray-900/90 to-gray-950/95 sm:hidden z-0" />
+              {/* Background overlay for small devices - only for main content */}
+              <div className="fixed inset-0 bg-gradient-to-b from-gray-900/95 via-gray-900/90 to-transparent sm:hidden z-0" style={{ height: 'calc(100vh - 4rem)' }} />
               {/* Content container */}
               <div className="relative z-10">
                 {children}

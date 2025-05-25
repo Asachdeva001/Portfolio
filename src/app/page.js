@@ -151,7 +151,7 @@ export default function Home() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-sm text-blue-400 hover:text-blue-300 font-medium inline-flex items-center transition-colors"
-                        >
+                  >
                           {index === 0 ? "Frontend" : "Backend"}
                           <svg
                             className="w-3 h-3 ml-1"
@@ -176,7 +176,7 @@ export default function Home() {
                         className="text-sm text-blue-400 hover:text-blue-300 font-medium inline-flex items-center transition-colors"
                       >
                         View Code
-                        <svg
+                    <svg
                           className="w-3 h-3 ml-1"
                       fill="none"
                       stroke="currentColor"
@@ -237,9 +237,9 @@ export default function Home() {
             {/* Frontend */}
             <motion.div 
               className="text-left bg-gray-800/50 p-6 rounded-xl backdrop-blur-sm border border-gray-700/50"
-              whileHover={{ y: -5 }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ skewX: 0, scale: 1.02 }}
+              initial={{ opacity: 0, y: 20, skewX: -2 }}
+              whileInView={{ opacity: 1, y: 0, skewX: -2 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
@@ -248,14 +248,14 @@ export default function Home() {
               </h3>
               <div className="space-y-3">
                 {[
-                  { name: "React", icon: "⚛️" },
-                  { name: "Next.js", icon: "▲" },
-                  { name: "Tailwind CSS", icon: "🎨" },
-                  { name: "Redux", icon: "📦" },
+                  "React",
+                  "Next.js",
+                  "Tailwind CSS",
+                  "Redux",
                 ].map((skill) => (
-                  <div key={skill.name} className="flex items-center space-x-3">
-                    <span className="text-xl">{skill.icon}</span>
-                    <span className="text-gray-300">{skill.name}</span>
+                  <div key={skill} className="flex items-center space-x-3">
+                    <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+                    <span className="text-gray-300">{skill}</span>
                   </div>
                 ))}
               </div>
@@ -264,25 +264,25 @@ export default function Home() {
             {/* Backend */}
             <motion.div 
               className="text-left bg-gray-800/50 p-6 rounded-xl backdrop-blur-sm border border-gray-700/50"
-              whileHover={{ y: -5 }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ skewX: 0, scale: 1.02 }}
+              initial={{ opacity: 0, y: 20, skewX: 2 }}
+              whileInView={{ opacity: 1, y: 0, skewX: 2 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <h3 className="text-2xl font-semibold text-green-400 mb-6">
+              <h3 className="text-2xl font-semibold text-blue-400 mb-6">
                 Backend Development
               </h3>
               <div className="space-y-3">
                 {[
-                  { name: "Node.js", icon: "🟢" },
-                  { name: "Express.js", icon: "🚂" },
-                  { name: "REST APIs", icon: "🌐" },
-                  { name: "WebSockets", icon: "🔌" },
+                  "Node.js",
+                  "Express.js",
+                  "REST APIs",
+                  "WebSockets",
                 ].map((skill) => (
-                  <div key={skill.name} className="flex items-center space-x-3">
-                    <span className="text-xl">{skill.icon}</span>
-                    <span className="text-gray-300">{skill.name}</span>
+                  <div key={skill} className="flex items-center space-x-3">
+                    <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+                    <span className="text-gray-300">{skill}</span>
                   </div>
                 ))}
               </div>
@@ -291,25 +291,25 @@ export default function Home() {
             {/* Database */}
             <motion.div 
               className="text-left bg-gray-800/50 p-6 rounded-xl backdrop-blur-sm border border-gray-700/50"
-              whileHover={{ y: -5 }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ skewX: 0, scale: 1.02 }}
+              initial={{ opacity: 0, y: 20, skewX: -2 }}
+              whileInView={{ opacity: 1, y: 0, skewX: -2 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <h3 className="text-2xl font-semibold text-purple-400 mb-6">
+              <h3 className="text-2xl font-semibold text-blue-400 mb-6">
                 Database & Storage
               </h3>
               <div className="space-y-3">
                 {[
-                  { name: "MongoDB", icon: "🍃" },
-                  { name: "PostgreSQL", icon: "🐘" },
-                  { name: "Redis", icon: "🔴" },
-                  { name: "AWS S3", icon: "☁️" },
+                  "MongoDB",
+                  "PostgreSQL",
+                  "Redis",
+                  "AWS S3",
                 ].map((skill) => (
-                  <div key={skill.name} className="flex items-center space-x-3">
-                    <span className="text-xl">{skill.icon}</span>
-                    <span className="text-gray-300">{skill.name}</span>
+                  <div key={skill} className="flex items-center space-x-3">
+                    <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+                    <span className="text-gray-300">{skill}</span>
                   </div>
                 ))}
               </div>
@@ -318,25 +318,25 @@ export default function Home() {
             {/* DevOps & Tools */}
             <motion.div 
               className="text-left bg-gray-800/50 p-6 rounded-xl backdrop-blur-sm border border-gray-700/50"
-              whileHover={{ y: -5 }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ skewX: 0, scale: 1.02 }}
+              initial={{ opacity: 0, y: 20, skewX: 2 }}
+              whileInView={{ opacity: 1, y: 0, skewX: 2 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <h3 className="text-2xl font-semibold text-orange-400 mb-6">
+              <h3 className="text-2xl font-semibold text-blue-400 mb-6">
                 DevOps & Tools
               </h3>
               <div className="space-y-3">
                 {[
-                  { name: "Docker", icon: "🐳" },
-                  { name: "AWS", icon: "☁️" },
-                  { name: "Git & GitHub", icon: "📦" },
-                  { name: "Linux", icon: "🐧" },
+                  "Docker",
+                  "AWS",
+                  "Git & GitHub",
+                  "Linux",
                 ].map((skill) => (
-                  <div key={skill.name} className="flex items-center space-x-3">
-                    <span className="text-xl">{skill.icon}</span>
-                    <span className="text-gray-300">{skill.name}</span>
+                  <div key={skill} className="flex items-center space-x-3">
+                    <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+                    <span className="text-gray-300">{skill}</span>
                   </div>
                 ))}
               </div>
