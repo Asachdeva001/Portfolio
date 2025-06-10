@@ -5,21 +5,79 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import React from "react";
 
+const TextAnimation = ({ text, isGradient = false }) => {
+  const words = text.split(" ");
+
+  const container = {
+    hidden: { opacity: 0 },
+    visible: (i = 1) => ({
+      opacity: 1,
+      transition: { 
+        staggerChildren: 0.15,
+        delayChildren: 0.1 * i,
+        duration: 2
+      },
+    }),
+  };
+
+  const child = {
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        damping: 15,
+        stiffness: 100,
+        mass: 0.5,
+      },
+    },
+    hidden: {
+      opacity: 0,
+      y: 50,
+      scale: 0.8,
+      transition: {
+        type: "spring",
+        damping: 15,
+        stiffness: 100,
+        mass: 0.5,
+      },
+    },
+  };
+
+  return (
+    <motion.div
+      variants={container}
+      initial="hidden"
+      animate="visible"
+      className={`flex flex-wrap justify-center ${isGradient ? 'bg-gradient-to-r from-blue-800 to-blue-400 bg-clip-text text-transparent' : ''}`}
+    >
+      {words.map((word, index) => (
+        <motion.span
+          key={index}
+          variants={child}
+          style={{ marginRight: "5px" }}
+        >
+          {word}
+        </motion.span>
+      ))}
+    </motion.div>
+  );
+};
+
 export default function Home() {
   return (
     <div className="space-y-24 pb-24">
       {/* Hero Section Centered */}
-      <section className="relative min-h-[60vh] flex flex-col items-center justify-center text-center px-4">
+      <section className="relative min-h-[80vh] flex flex-col items-center justify-center text-center px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
           <h1 className="text-4xl sm:text-6xl font-bold text-gray-300 mb-6">
-            Hi, I&apos;m{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
-              Aashish Sachdeva
-            </span>
+            <TextAnimation text="Hi, I'm" />
+            <TextAnimation text="Aashish Sachdeva" isGradient={true} />
           </h1>
           <p className="text-xl sm:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto">
             A Passionate web developer creating elegant, high-performance
