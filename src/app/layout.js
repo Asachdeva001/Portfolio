@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 import Background3D from '../components/Background3D';
 
 export const metadata = {
-  title: 'Portfolio',
+  title: 'Aashish Sachdeva',
   description: 'My professional portfolio showcasing my skills and projects',
 };
 

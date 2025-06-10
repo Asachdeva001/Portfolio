@@ -12,11 +12,14 @@ export default function Contact() {
   });
   const [submitting, setSubmitting] = useState(false);
   const [status, setStatus] = useState(null); // { type: 'success'|'error', message: string }
+  const [buttonState, setButtonState] = useState('idle'); // 'idle' | 'sending' | 'success'
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
     setStatus(null);
+    setButtonState('sending');
+    
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
@@ -27,11 +30,18 @@ export default function Contact() {
       if (data.success) {
         setStatus({ type: 'success', message: 'Message sent successfully!' });
         setFormData({ name: '', email: '', phone: '', message: '' });
+        setButtonState('success');
+        // Reset button state after 0.7 seconds
+        setTimeout(() => {
+          setButtonState('idle');
+        }, 1200);
       } else {
         setStatus({ type: 'error', message: data.error || 'Failed to send message.' });
+        setButtonState('idle');
       }
     } catch (err) {
       setStatus({ type: 'error', message: 'Something went wrong. Please try again.' });
+      setButtonState('idle');
     } finally {
       setSubmitting(false);
     }
@@ -125,20 +135,37 @@ export default function Contact() {
                 />
               </div>
 
-              {status && (
-                <div className={`text-center text-sm font-medium mb-2 ${status.type === 'success' ? 'text-green-500' : 'text-red-500'}`}>
-                  {status.message}
-                </div>
-              )}
-
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 type="submit"
-                className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 disabled:opacity-60"
+                className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 disabled:opacity-60 flex items-center justify-center gap-2"
                 disabled={submitting}
               >
-                {submitting ? 'Sending...' : 'Send Message'}
+                {buttonState === 'idle' && (
+                  <>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    Send Message
+                  </>
+                )}
+                {buttonState === 'sending' && (
+                  <>
+                    <svg className="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    Sending...
+                  </>
+                )}
+                {buttonState === 'success' && (
+                  <>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Sent!
+                  </>
+                )}
               </motion.button>
             </form>
           </motion.div>

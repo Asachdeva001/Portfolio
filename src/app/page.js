@@ -3,7 +3,24 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useEffect, useRef } from "react";
+
+const useSound = (url) => {
+  const audioRef = useRef(null);
+
+  useEffect(() => {
+    audioRef.current = new Audio(url);
+  }, [url]);
+
+  const play = () => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play();
+    }
+  };
+
+  return play;
+};
 
 const TextAnimation = ({ text, isGradient = false }) => {
   const words = text.split(" ");
@@ -30,7 +47,7 @@ const TextAnimation = ({ text, isGradient = false }) => {
         damping: 15,
         stiffness: 100,
         mass: 0.5,
-      },
+      }
     },
     hidden: {
       opacity: 0,
