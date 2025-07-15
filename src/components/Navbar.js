@@ -29,9 +29,9 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-gray-900/90 backdrop-blur-md shadow-sm'
-          : 'bg-gray-900'
+          ? 'backdrop-blur-md shadow-sm' : ''
       }`}
+      style={{ background: isScrolled ? 'rgba(10,15,13,0.85)' : 'rgba(10,15,13,0.65)' }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between md:justify-center items-center h-16">
@@ -44,7 +44,7 @@ const Navbar = () => {
                 className="px-4 py-2 text-sm font-medium text-gray-100 hover:text-gray-300 transition-colors relative group"
               >
                 {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all group-hover:w-full" />
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full" />
               </Link>
             ))}
             {/* Resume link as external PDF */}
@@ -55,7 +55,7 @@ const Navbar = () => {
               className="px-4 py-2 text-sm font-medium text-gray-100 hover:text-gray-300 transition-colors relative group"
             >
               Resume
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all group-hover:w-full" />
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full" />
             </a>
           </div>
 
@@ -63,7 +63,7 @@ const Navbar = () => {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex justify-center p-2 rounded-md text-gray-100 hover:text-gray-300 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+              className="inline-flex justify-center p-2 rounded-md text-gray-100 hover:text-gray-300 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black"
             >
               <span className="sr-only">Open main menu</span>
               {!isOpen ? (

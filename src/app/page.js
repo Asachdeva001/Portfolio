@@ -22,17 +22,17 @@ const useSound = (url) => {
   return play;
 };
 
-const TextAnimation = ({ text, isGradient = false }) => {
+const TextAnimation = ({ text, isGradient = false, gradientClass = '' }) => {
   const words = text.split(" ");
 
   const container = {
     hidden: { opacity: 0 },
     visible: (i = 1) => ({
       opacity: 1,
-      transition: { 
+      transition: {
         staggerChildren: 0.15,
         delayChildren: 0.1 * i,
-        duration: 2
+        duration: 2,
       },
     }),
   };
@@ -47,7 +47,7 @@ const TextAnimation = ({ text, isGradient = false }) => {
         damping: 15,
         stiffness: 100,
         mass: 0.5,
-      }
+      },
     },
     hidden: {
       opacity: 0,
@@ -67,7 +67,11 @@ const TextAnimation = ({ text, isGradient = false }) => {
       variants={container}
       initial="hidden"
       animate="visible"
-      className={`flex flex-wrap justify-center ${isGradient ? 'bg-gradient-to-r from-blue-800 to-blue-400 bg-clip-text text-transparent' : ''}`}
+      className={`flex flex-wrap justify-center ${
+        isGradient
+          ? `${gradientClass || 'bg-gradient-to-r from-[#0A0F0D] via-[#2D4F4A] to-[#8DB1A4]'} bg-clip-text text-transparent`
+          : ''
+      }`}
     >
       {words.map((word, index) => (
         <motion.span
@@ -92,9 +96,13 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-4xl sm:text-6xl font-bold text-gray-300 mb-6">
+          <h1 className="text-4xl sm:text-6xl font-bold mb-6">
             <TextAnimation text="Hi, I'm" />
-            <TextAnimation text="Aashish Sachdeva" isGradient={true} />
+            <TextAnimation
+              text="Aashish Sachdeva"
+              isGradient={true}
+              gradientClass="bg-gradient-to-r from-[#F9D29D] to-[#F2B880] text-transparent bg-clip-text"
+            />
           </h1>
           <p className="text-xl sm:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto">
             A Passionate web developer creating elegant, high-performance
@@ -104,7 +112,20 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link
               href="/projects"
-              className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300"
+              className="px-8 py-3 rounded-lg transition-colors duration-300 font-semibold shadow-md"
+              style={{
+                background:
+                  "linear-gradient(135deg, #0A0F0D, #2D4F4A, #8DB1A4)",
+                color: "#fff",
+              }}
+              onMouseOver={(e) =>
+                (e.currentTarget.style.background =
+                  "linear-gradient(135deg, #8DB1A4, #2D4F4A, #0A0F0D)")
+              }
+              onMouseOut={(e) =>
+                (e.currentTarget.style.background =
+                  "linear-gradient(135deg, #0A0F0D, #2D4F4A, #8DB1A4)")
+              }
             >
               View Projects
             </Link>
@@ -112,13 +133,39 @@ export default function Home() {
               href="/Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors duration-300"
+              className="px-8 py-3 border rounded-lg transition-colors duration-300 font-semibold"
+              style={{
+                border: "1px solid #8DB1A4",
+                color: "#8DB1A4",
+                background: "transparent",
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.background = "#8DB1A4";
+                e.currentTarget.style.color = "#0A0F0D";
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.color = "#8DB1A4";
+              }}
             >
               Resume
             </a>
             <Link
               href="/contact"
-              className="px-8 py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors duration-300"
+              className="px-8 py-3 border rounded-lg transition-colors duration-300 font-semibold"
+              style={{
+                border: "1px solid #8DB1A4",
+                color: "#8DB1A4",
+                background: "transparent",
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.background = "#8DB1A4";
+                e.currentTarget.style.color = "#0A0F0D";
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.color = "#8DB1A4";
+              }}
             >
               Contact Me
             </Link>
@@ -144,15 +191,15 @@ export default function Home() {
               technologies like HTML5, CSS, JavaScript, React, and the MERN
               stack. I enjoy translating ideas into clean, responsive, and
               engaging web experiences. I stay updated on emerging technologies
-              and cloud infrastructure. Driven by curiosity and creativity, I&apos;m
-              always eager to learn, build, and contribute—whether through code,
-              design, or strategy.
+              and cloud infrastructure. Driven by curiosity and creativity,
+              I&apos;m always eager to learn, build, and contribute—whether
+              through code, design, or strategy.
             </p>{" "}
             <a href="/about">Know More</a>
           </div>
         </motion.div>
       </section>
-      
+
       {/* Featured Projects Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -171,9 +218,18 @@ export default function Home() {
                 title: "AI-Workspace",
                 description:
                   "A platform for teams to collaborate on workspaces, where they can create, edit, and share documents.",
-                technologies: ["Next.js", "Tailwind CSS", "MongoDB", "Node.js", "Express.js"],
+                technologies: [
+                  "Next.js",
+                  "Tailwind CSS",
+                  "MongoDB",
+                  "Node.js",
+                  "Express.js",
+                ],
                 image: "/AI-Workspace.png",
-                repos: ["https://github.com/Ashisach001/AiWorkspace-client", "https://github.com/Ashisach001/AiWorkspace-server"],
+                repos: [
+                  "https://github.com/Ashisach001/AiWorkspace-client",
+                  "https://github.com/Ashisach001/AiWorkspace-server",
+                ],
               },
               {
                 id: 2,
@@ -211,7 +267,8 @@ export default function Home() {
                     {project.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className="px-2 py-0.5 text-xs bg-blue-600/20 text-blue-400 rounded"
+                        className="px-2 py-0.5 text-xs rounded"
+                        style={{ background: "#2D4F4A20", color: "#8DB1A4" }}
                       >
                         {tech}
                       </span>
@@ -225,8 +282,15 @@ export default function Home() {
                           href={repo}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-sm text-blue-400 hover:text-blue-300 font-medium inline-flex items-center transition-colors"
-                  >
+                          className="text-sm font-medium inline-flex items-center transition-colors"
+                          style={{ color: "#8DB1A4" }}
+                          onMouseOver={(e) =>
+                            (e.currentTarget.style.color = "#2D4F4A")
+                          }
+                          onMouseOut={(e) =>
+                            (e.currentTarget.style.color = "#8DB1A4")
+                          }
+                        >
                           {index === 0 ? "Frontend" : "Backend"}
                           <svg
                             className="w-3 h-3 ml-1"
@@ -248,22 +312,29 @@ export default function Home() {
                         href={project.repos}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm text-blue-400 hover:text-blue-300 font-medium inline-flex items-center transition-colors"
+                        className="text-sm font-medium inline-flex items-center transition-colors"
+                        style={{ color: "#8DB1A4" }}
+                        onMouseOver={(e) =>
+                          (e.currentTarget.style.color = "#2D4F4A")
+                        }
+                        onMouseOut={(e) =>
+                          (e.currentTarget.style.color = "#8DB1A4")
+                        }
                       >
                         View Code
-                    <svg
+                        <svg
                           className="w-3 h-3 ml-1"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
                             d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                      />
-                    </svg>
+                          />
+                        </svg>
                       </a>
                     )}
                   </div>
@@ -274,7 +345,14 @@ export default function Home() {
           <div className="mt-8 text-center">
             <Link
               href="/projects"
-              className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300"
+              className="inline-flex items-center justify-center px-8 py-3 rounded-lg font-semibold shadow-md transition-colors duration-300"
+              style={{
+                background: "linear-gradient(135deg, #0A0F0D, #2D4F4A, #8DB1A4)",
+                color: "#fff",
+                transition: "background 0.5s ease"
+              }}
+              onMouseOver={e => e.currentTarget.style.background = "linear-gradient(135deg, #8DB1A4, #2D4F4A, #0A0F0D)"}
+              onMouseOut={e => e.currentTarget.style.background = "linear-gradient(135deg, #0A0F0D, #2D4F4A, #8DB1A4)"}
             >
               View More Projects
               <svg
@@ -282,6 +360,7 @@ export default function Home() {
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
+                style={{ display: "inline", verticalAlign: "middle" }}
               >
                 <path
                   strokeLinecap="round"
@@ -296,7 +375,7 @@ export default function Home() {
       </section>
 
       {/* Skills Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -307,138 +386,71 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-gray-100 mb-12">
             Skills & Technologies
           </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {/* Frontend */}
-            <motion.div 
-              className="text-left bg-gray-800/50 p-6 rounded-xl backdrop-blur-sm border border-gray-700/50"
-              whileHover={{ perspective: 1000, rotateX: 0, scale: 1.02 }}
-              initial={{ opacity: 0, y: 20, perspective: 1000, rotateX: -2 }}
-              whileInView={{ opacity: 1, y: 0, perspective: 1000, rotateX: -2 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <h3 className="text-2xl font-semibold text-blue-400 mb-6">
-                Frontend Development
-              </h3>
-              <div className="space-y-3">
-                {[
-                  "React",
-                  "Next.js",
-                  "Tailwind CSS",
-                  "Redux",
-                ].map((skill) => (
-                  <div key={skill} className="flex items-center space-x-3">
-                    <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
-                    <span className="text-gray-300">{skill}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Backend */}
-            <motion.div 
-              className="text-left bg-gray-800/50 p-6 rounded-xl backdrop-blur-sm border border-gray-700/50"
-              whileHover={{ perspective: 1000, rotateX: 0, scale: 1.02 }}
-              initial={{ opacity: 0, y: 20, perspective: 1000, rotateX: 2 }}
-              whileInView={{ opacity: 1, y: 0, perspective: 1000, rotateX: 2 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <h3 className="text-2xl font-semibold text-blue-400 mb-6">
-                Backend Development
-              </h3>
-              <div className="space-y-3">
-                {[
-                  "Node.js",
-                  "Express.js",
-                  "REST APIs",
-                  "WebSockets",
-                ].map((skill) => (
-                  <div key={skill} className="flex items-center space-x-3">
-                    <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
-                    <span className="text-gray-300">{skill}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Database */}
-            <motion.div 
-              className="text-left bg-gray-800/50 p-6 rounded-xl backdrop-blur-sm border border-gray-700/50"
-              whileHover={{ perspective: 1000, rotateX: 0, scale: 1.02 }}
-              initial={{ opacity: 0, y: 20, perspective: 1000, rotateX: -2 }}
-              whileInView={{ opacity: 1, y: 0, perspective: 1000, rotateX: -2 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <h3 className="text-2xl font-semibold text-blue-400 mb-6">
-                Database & Storage
-              </h3>
-              <div className="space-y-3">
-                {[
-                  "MongoDB",
-                  "PostgreSQL",
-                  "Redis",
-                  "AWS S3",
-                ].map((skill) => (
-                  <div key={skill} className="flex items-center space-x-3">
-                    <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
-                    <span className="text-gray-300">{skill}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* DevOps & Tools */}
-            <motion.div 
-              className="text-left bg-gray-800/50 p-6 rounded-xl backdrop-blur-sm border border-gray-700/50"
-              whileHover={{ perspective: 1000, rotateX: 0, scale: 1.02 }}
-              initial={{ opacity: 0, y: 20, perspective: 1000, rotateX: 2 }}
-              whileInView={{ opacity: 1, y: 0, perspective: 1000, rotateX: 2 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <h3 className="text-2xl font-semibold text-blue-400 mb-6">
-                DevOps & Tools
-              </h3>
-              <div className="space-y-3">
-                {[
-                  "Docker",
-                  "AWS",
-                  "Git & GitHub",
-                  "Linux",
-                ].map((skill) => (
-                  <div key={skill} className="flex items-center space-x-3">
-                    <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
-                    <span className="text-gray-300">{skill}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-
-          <div className="mt-8">
-            <Link
-              href="/skills"
-              className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors"
-            >
-              Know More About My Skills
-              <svg
-                className="w-4 h-4 ml-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+          <motion.div
+            className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-5 justify-items-center"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={{
+              visible: { transition: { staggerChildren: 0.12 } },
+              hidden: {},
+            }}
+          >
+            {[
+              { name: 'React', icon: '⚛️' },
+              { name: 'Next.js', icon: '▲' },
+              { name: 'TypeScript', icon: '📘' },
+              { name: 'Tailwind CSS', icon: '🎨' },
+              { name: 'Redux', icon: '📦' },
+              { name: 'Node.js', icon: '🟢' },
+              { name: 'Express.js', icon: '🚂' },
+              { name: 'MongoDB', icon: '🍃' },
+              { name: 'PostgreSQL', icon: '🐘' },
+              { name: 'Redis', icon: '🔴' },
+              { name: 'AWS', icon: '☁️' },
+              { name: 'Docker', icon: '🐳' },
+              { name: 'Git & GitHub', icon: '🐙' },
+              { name: 'Linux', icon: '🐧' },
+              { name: 'Firebase', icon: '🔥' },
+              { name: 'Python', icon: '🐍' },
+              { name: 'Pandas', icon: '🧸' },
+              { name: 'SciKit-Learn', icon: '🔬' },
+            ].map((skill) => (
+              <motion.div
+                key={skill.name}
+                className="flex flex-col items-center"
+                variants={{
+                  hidden: { opacity: 0, scale: 0.5, y: 40 },
+                  visible: {
+                    opacity: 1,
+                    scale: 1,
+                    y: 0,
+                    transition: {
+                      type: 'spring',
+                      stiffness: 400,
+                      damping: 18,
+                      duration: 0.7,
+                    },
+                  },
+                }}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </Link>
-          </div>
+                <div
+                  className="w-16 h-16 flex items-center justify-center rounded-full shadow-lg mb-2"
+                  style={{
+                    background: 'linear-gradient(135deg, #0A0F0D 0%, #2D4F4A 50%, #8DB1A4 100%)',
+                    fontSize: '2rem',
+                    color: '#fff',
+                    border: '2px solid #2D4F4A',
+                  }}
+                >
+                  <span>{skill.icon}</span>
+                </div>
+                <span className="text-sm text-gray-100 font-medium mt-1">
+                  {skill.name}
+                </span>
+              </motion.div>
+            ))}
+          </motion.div>
         </motion.div>
       </section>
     </div>
