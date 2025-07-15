@@ -58,7 +58,7 @@ const AnimatedAS = () => (
         }}
         style={{
           paintOrder: 'stroke fill',
-          filter: 'drop-shadow(0 4px 24px rgba(37,99,235,0.3))',
+          filter: 'drop-shadow(0 4px 24px rgba(0, 0, 1, 0.3))',
         }}
       >
         AS
