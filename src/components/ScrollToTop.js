@@ -44,7 +44,10 @@ const ScrollToTop = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 p-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-colors duration-300 z-[9999]"
+          className="fixed bottom-8 right-8 p-3 rounded-full shadow-lg transition-colors duration-300 z-[9999]"
+          style={{ background: 'linear-gradient(135deg, #0A0F0D, #2D4F4A, #8DB1A4)', color: '#fff', transition: 'background 0.5s ease' }}
+          onMouseOver={e => e.currentTarget.style.background = 'linear-gradient(135deg, #8DB1A4, #2D4F4A, #0A0F0D)'}
+          onMouseOut={e => e.currentTarget.style.background = 'linear-gradient(135deg, #0A0F0D, #2D4F4A, #8DB1A4)'}
           aria-label="Scroll to top"
         >
           <svg

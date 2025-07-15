@@ -77,13 +77,13 @@ export default function About() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.8 + index * 0.2 }}
-                className="relative pl-8 border-l-2 border-blue-500"
+                className="relative pl-8 border-l-2 border-[#8DB1A4]"
               >
-                <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-blue-500" />
+                <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full" style={{ background: '#8DB1A4' }} />
                 <h3 className="text-xl font-semibold text-gray-300">
                   {job.title}
                 </h3>
-                <p className="text-blue-600 font-medium">{job.company}</p>
+                <p className="font-medium" style={{ color: '#8DB1A4' }}>{job.company}</p>
                 <p className="text-gray-500 text-sm mb-2">{job.period}</p>
                 <p className="text-gray-550 text-justify">{job.description}</p>
               </motion.div>
@@ -103,7 +103,7 @@ export default function About() {
             <h3 className="text-xl font-semibold text-gray-100">
               Bachelor of Technology in Computer Science (Data Science)
             </h3>
-            <p className="text-blue-600 font-medium">
+            <p className="font-medium" style={{ color: '#8DB1A4' }}>
               Punjab Engineering College (PEC), Chandigarh
             </p>
             <p className="text-gray-400">2023 - 2027</p>

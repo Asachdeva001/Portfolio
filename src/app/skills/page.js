@@ -159,7 +159,7 @@ const SkillCard = ({ skill, color }) => {
     >
       <div className="flex items-center space-x-3 mb-4">
         <span className="text-2xl">{skill.icon}</span>
-        <h3 className="text-xl font-semibold text-white">{skill.name}</h3>
+        <h3 className="text-xl font-semibold" style={{ color: '#8DB1A4' }}>{skill.name}</h3>
       </div>
       <p className="text-gray-400 mb-4 text-justify">{skill.description}</p>
       <div>
@@ -190,7 +190,7 @@ export default function Skills() {
         <div className="space-y-16">
           {skillCategories.map((category) => (
             <div key={category.title}>
-              <h2 className={`text-2xl font-semibold text-${category.color}-400 mb-8`}>
+              <h2 className="text-2xl font-semibold mb-8" style={{ color: '#8DB1A4' }}>
                 {category.title}
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

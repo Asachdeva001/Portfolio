@@ -35,7 +35,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+    <footer className="border-t border-gray-200 dark:border-gray-700" style={{ background: 'rgba(10,15,13,0.85)' }}>
       <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
         {/* Connect Links */}
         <div className="flex justify-center space-x-6 mb-8">

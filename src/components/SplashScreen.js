@@ -12,9 +12,10 @@ const AnimatedAS = () => (
     className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
   >
     <defs>
-      <linearGradient id="as-gradient" x1="0" y1="0" x2="400" y2="180" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#2563eb" />
-        <stop offset="1" stopColor="#38bdf8" />
+      <linearGradient id="as-gradient" x1="0" y1="0" x2="400" y2="400" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#0A0F0D" />
+        <stop offset="0.5" stopColor="#2D4F4A" />
+        <stop offset="1" stopColor="#8DB1A4" />
       </linearGradient>
     </defs>
     <motion.g
@@ -68,7 +69,7 @@ const AnimatedAS = () => (
 
 const SplashScreen = () => {
   return (
-    <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-gray-900">
+    <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center" style={{ background: 'linear-gradient(135deg, #0A0F0D 0%, #2D4F4A 50%, #8DB1A4 100%)' }}>
       <div className="relative w-full h-full">
         <AnimatedAS />
       </div>
