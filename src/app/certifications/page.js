@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const sampleCertificates = [
   {
@@ -125,7 +126,7 @@ export default function Certifications() {
       >
         <h1 className="text-4xl font-bold text-gray-100 mb-4">Certifications</h1>
         <p className="text-lg text-gray-400 mb-6">
-          Here you'll find a curated list of my professional certifications and achievements.
+          Here you&apos;ll find a curated list of my professional certifications and achievements.
         </p>
         <div
           className="relative mx-auto flex flex-col items-center justify-center"
@@ -151,10 +152,13 @@ export default function Certifications() {
             {/* Certificate image (show full, no cropping) */}
             {cert.certificate_image && (
               <div className="flex justify-center items-center w-full mb-4" style={{ minHeight: 220 }}>
-                <img
+                <Image
                   src={cert.certificate_image}
                   alt={cert.certi_name + ' certificate'}
-                  className="rounded-lg shadow-xl border border-[#8DB1A4] bg-black"
+                  width={650}
+                  height={340}
+                  priority
+                  className="rounded-lg shadow-xl border border-[#8DB1A4] bg-black object-contain"
                   style={{
                     maxWidth: '100%',
                     maxHeight: 340,
