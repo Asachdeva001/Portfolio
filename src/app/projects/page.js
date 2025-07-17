@@ -16,7 +16,7 @@ const projects = [
       "Node.js",
       "Express.js",
     ],
-    image: "/AI-Workspace.png",
+    image: "/projects/AI-Workspace.png",
     repos: [
       "https://github.com/Ashisach001/AiWorkspace-client",
       "https://github.com/Ashisach001/AiWorkspace-server",
@@ -28,7 +28,7 @@ const projects = [
     description:
       "A note and task management app that allows users to create, edit, and share notes/tasks.",
     technologies: ["React.js", "Firebase", "Material-UI"],
-    image: "/Noteflow.png",
+    image: "/projects/Noteflow.png",
     repos: "https://github.com/Ashisach001/Noteflow",
   },
   {
@@ -37,7 +37,7 @@ const projects = [
     description:
       "A news app that allows users to read news articles based on their interests.",
     technologies: ["React", "Tailwind CSS", "News API"],
-    image: "/NewsDiary.png",
+    image: "/projects/NewsDiary.png",
     repos: "https://github.com/Ashisach001/News-Diary",
   },
   {
@@ -45,7 +45,7 @@ const projects = [
     title: "Portfolio",
     description: "A portfolio website that showcases my projects and skills.",
     technologies: ["Next.js", "Tailwind CSS", "React"],
-    image: "/Portfolio.png",
+    image: "/projects/Portfolio.png",
     repos: "https://github.com/Ashisach001/Portfolio",
   },
   {
@@ -54,7 +54,7 @@ const projects = [
     description:
       "A text utility website that allows users to analyze text and perform various text-related operations.",
     technologies: ["React", "CSS", "JavaScript"],
-    image: "/TextUtils.png",
+    image: "/projects/TextUtils.png",
     repos: "https://github.com/Ashisach001/TextUtils",
   },
 ];

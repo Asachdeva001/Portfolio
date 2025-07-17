@@ -3,7 +3,6 @@ import Navbar from '@/components/Navbar';
 import Footer from '../components/Footer';
 import ScrollToTop from '../components/ScrollToTop';
 import dynamic from 'next/dynamic';
-import Background3D from '../components/Background3D';
 
 export const metadata = {
   title: 'Aashish Sachdeva',
@@ -17,7 +16,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <Background3D />
         <AppWrapper>
           <Navbar />
           <main className="min-h-screen pt-16" style={{ background: 'transparent' }}>

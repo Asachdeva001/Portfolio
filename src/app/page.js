@@ -104,7 +104,7 @@ export default function Home() {
               gradientClass="bg-gradient-to-r from-[#F9D29D] to-[#F2B880] text-transparent bg-clip-text"
             />
           </h1>
-          <p className="text-xl sm:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl sm:text-2xl text-gray-400 mb-8 max-w-2xl mx-auto">
             A Passionate web developer creating elegant, high-performance
             digital solutions that combine usability, visual appeal, and
             seamless functionality
@@ -225,7 +225,7 @@ export default function Home() {
                   "Node.js",
                   "Express.js",
                 ],
-                image: "/AI-Workspace.png",
+                image: "/projects/AI-Workspace.png",
                 repos: [
                   "https://github.com/Ashisach001/AiWorkspace-client",
                   "https://github.com/Ashisach001/AiWorkspace-server",
@@ -237,7 +237,7 @@ export default function Home() {
                 description:
                   "A note and task management app that allows users to create, edit, and share notes/tasks.",
                 technologies: ["React.js", "Firebase", "Material-UI"],
-                image: "/Noteflow.png",
+                image: "/projects/Noteflow.png",
                 repos: "https://github.com/Ashisach001/Noteflow",
               },
             ].map((project) => (
