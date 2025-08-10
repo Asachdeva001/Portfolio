@@ -97,7 +97,7 @@ export default function Home() {
           transition={{ duration: 0.8 }}
         >
           <h1 className="text-4xl sm:text-6xl font-bold mb-6">
-            <TextAnimation text="Hi, I'm" />
+            <TextAnimation text="Hi, I&apos;m" />
             <TextAnimation
               text="Aashish Sachdeva"
               isGradient={true}
