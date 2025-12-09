@@ -5,8 +5,11 @@ import ScrollToTop from '../components/ScrollToTop';
 import dynamic from 'next/dynamic';
 
 export const metadata = {
-  title: 'Aashish Sachdeva',
-  description: 'My professional portfolio showcasing my skills and projects',
+  title: 'Aashish Sachdeva - Full Stack Developer',
+  description: 'Passionate full-stack developer creating elegant, high-performance digital solutions. Specializing in React, Next.js, Node.js, and modern web technologies.',
+  keywords: 'Full Stack Developer, React, Next.js, Node.js, JavaScript, Web Development, Portfolio',
+  author: 'Aashish Sachdeva',
+  viewport: 'width=device-width, initial-scale=1',
 };
 
 // AppWrapper client component

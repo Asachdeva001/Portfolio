@@ -3,10 +3,12 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,8 +25,11 @@ const Navbar = () => {
     { name: 'Projects', path: '/projects' },
     { name: 'Skills', path: '/skills' },
     { name: 'Certifications', path: '/certifications' },
+    { name: 'Resume', path: '/resume' },
     { name: 'Contact', path: '/contact' },
   ];
+
+  const isActive = (path) => pathname === path;
 
   return (
     <nav
@@ -42,29 +47,27 @@ const Navbar = () => {
               <Link
                 key={item.name}
                 href={item.path}
-                className="px-4 py-2 text-sm font-medium text-gray-100 hover:text-gray-300 transition-colors relative group"
+                className={`px-4 py-2 text-sm font-medium transition-colors relative group ${
+                  isActive(item.path) 
+                    ? 'text-[#8DB1A4]' 
+                    : 'text-gray-100 hover:text-gray-300'
+                }`}
               >
                 {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full" />
+                <span 
+                  className={`absolute -bottom-1 left-0 h-0.5 bg-[#8DB1A4] transition-all ${
+                    isActive(item.path) ? 'w-full' : 'w-0 group-hover:w-full'
+                  }`} 
+                />
               </Link>
             ))}
-            {/* Resume link as external PDF */}
-            <a
-              href="/Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2 text-sm font-medium text-gray-100 hover:text-gray-300 transition-colors relative group"
-            >
-              Resume
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full" />
-            </a>
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex justify-center p-2 rounded-md text-gray-100 hover:text-gray-300 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black"
+              className="inline-flex justify-center p-2 rounded-md text-gray-100 hover:text-gray-300 hover:bg-gray-800/50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#8DB1A4]"
             >
               <span className="sr-only">Open main menu</span>
               {!isOpen ? (
@@ -88,29 +91,23 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white border-t border-gray-200"
+            className="md:hidden bg-gray-900/95 backdrop-blur-md border-t border-gray-700"
           >
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col items-center">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   href={item.path}
-                  className="w-full text-center px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-gray-600 hover:bg-gray-100"
+                  className={`w-full text-center px-3 py-2 rounded-md text-base font-medium transition-colors ${
+                    isActive(item.path)
+                      ? 'text-[#8DB1A4] bg-gray-800/50'
+                      : 'text-gray-100 hover:text-[#8DB1A4] hover:bg-gray-800/30'
+                  }`}
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}
                 </Link>
               ))}
-              {/* Resume link as external PDF */}
-              <a
-                href="/Resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full text-center px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-gray-600 hover:bg-gray-100"
-                onClick={() => setIsOpen(false)}
-              >
-                Resume
-              </a>
             </div>
           </motion.div>
         )}
