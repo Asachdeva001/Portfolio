@@ -9,7 +9,6 @@ export const metadata = {
   description: 'Passionate full-stack developer creating elegant, high-performance digital solutions. Specializing in React, Next.js, Node.js, and modern web technologies.',
   keywords: 'Full Stack Developer, React, Next.js, Node.js, JavaScript, Web Development, Portfolio',
   author: 'Aashish Sachdeva',
-  viewport: 'width=device-width, initial-scale=1',
 };
 
 // AppWrapper client component
