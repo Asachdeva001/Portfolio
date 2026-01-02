@@ -14,7 +14,7 @@ When I'm not coding, you'll find me exploring new technologies, contributing to 
   email: "ashisach001@gmail.com",
   phone: "+91 7973322998",
   resume: "/Resume.pdf",
-  avatar: "/avatar.jpg",
+  avatar: "/avatar.png",
   professionalSummary: "Passionate Computer Science student with strong expertise in full-stack web development. Experienced in building scalable applications using modern technologies including React, Next.js, Node.js, and MongoDB. Proven ability to translate complex requirements into elegant, user-friendly solutions. Committed to writing clean, maintainable code and staying current with emerging technologies."
 };
 
