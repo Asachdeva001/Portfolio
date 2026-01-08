@@ -20,13 +20,6 @@ export const socialLinks = [
     icon: "email",
     username: "ashisach001@gmail.com"
   },
-  {
-    id: "twitter",
-    platform: "Twitter",
-    url: "https://twitter.com/yourusername",
-    icon: "twitter",
-    username: "@yourusername"
-  }
 ];
 
 export default socialLinks;
