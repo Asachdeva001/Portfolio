@@ -17,7 +17,6 @@ export default function EducationCard({ education, index = 0 }) {
     startDate,
     endDate,
     current,
-    gpa,
     achievements,
     description
   } = education;
@@ -58,11 +57,6 @@ export default function EducationCard({ education, index = 0 }) {
             <span className="text-sm text-gray-300">
               Field: {field}
             </span>
-            {gpa && (
-              <span className="text-sm text-gray-300">
-                GPA: {gpa}
-              </span>
-            )}
           </div>
         </div>
 

@@ -178,7 +178,6 @@ export function validateEducationData(data) {
   }).map(edu => ({
     ...edu,
     current: edu.current || false,
-    gpa: edu.gpa || null,
     achievements: Array.isArray(edu.achievements) ? edu.achievements : []
   }));
 }
