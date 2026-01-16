@@ -84,7 +84,7 @@ export default function AboutSection() {
               viewport={{ once: true }}
               className="text-center p-6 bg-gray-800/30 backdrop-blur-sm rounded-xl border border-gray-700/50"
             >
-              <div className="text-3xl font-bold text-[#8DB1A4] mb-2">5+</div>
+              <div className="text-3xl font-bold text-[#8DB1A4] mb-2">12+</div>
               <div className="text-sm text-gray-400">Projects Completed</div>
             </motion.div>
             
@@ -95,8 +95,8 @@ export default function AboutSection() {
               viewport={{ once: true }}
               className="text-center p-6 bg-gray-800/30 backdrop-blur-sm rounded-xl border border-gray-700/50"
             >
-              <div className="text-3xl font-bold text-[#8DB1A4] mb-2">2+</div>
-              <div className="text-sm text-gray-400">Years Experience</div>
+              <div className="text-3xl font-bold text-[#8DB1A4] mb-2">1</div>
+              <div className="text-sm text-gray-400">Year Experience</div>
             </motion.div>
             
             <motion.div
@@ -106,7 +106,7 @@ export default function AboutSection() {
               viewport={{ once: true }}
               className="text-center p-6 bg-gray-800/30 backdrop-blur-sm rounded-xl border border-gray-700/50"
             >
-              <div className="text-3xl font-bold text-[#8DB1A4] mb-2">10+</div>
+              <div className="text-3xl font-bold text-[#8DB1A4] mb-2">20+</div>
               <div className="text-sm text-gray-400">Technologies</div>
             </motion.div>
             
