@@ -1,26 +1,216 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------- */
+/* Theme Definitions                                    */
+/* ---------------------------------------------------- */
+
 :root {
-  --background: linear-gradient(135deg, #0A0F0D 0%, #2D4F4A 50%, #8DB1A4 100%);
-  --foreground: #171717;
+  --bg-gradient: linear-gradient(135deg, #070B0A 0%, #0F1D19 50%, #1A332C 100%);
+  --bg-color: #070B0A;
+  --bg-color-rgb: 7, 11, 10;
+  --foreground: #F1F5F9;
+  --primary: #8DB1A4;
+  --primary-rgb: 141, 177, 164;
+  --accent: #F9D29D;
+  --accent-rgb: 249, 210, 157;
+  --glow-color: rgba(141, 177, 164, 0.15);
+  --font-heading: var(--font-outfit);
+  --font-body: var(--font-inter);
+  --font-code: var(--font-jetbrains-mono);
 }
 
-@theme inline {
-  --color-background: var(--background);
+.theme-cyberpunk {
+  --bg-gradient: linear-gradient(135deg, #070B0A 0%, #0F1D19 50%, #1A332C 100%);
+  --bg-color: #070B0A;
+  --bg-color-rgb: 7, 11, 10;
+  --foreground: #F1F5F9;
+  --primary: #8DB1A4;
+  --primary-rgb: 141, 177, 164;
+  --accent: #F9D29D;
+  --accent-rgb: 249, 210, 157;
+  --glow-color: rgba(141, 177, 164, 0.15);
+}
+
+.theme-cosmic {
+  --bg-gradient: linear-gradient(135deg, #04040D 0%, #0D0826 50%, #1F0D42 100%);
+  --bg-color: #04040D;
+  --bg-color-rgb: 4, 4, 13;
+  --foreground: #F8FAFC;
+  --primary: #a855f7;
+  --primary-rgb: 168, 85, 247;
+  --accent: #06b6d4;
+  --accent-rgb: 6, 182, 212;
+  --glow-color: rgba(168, 85, 247, 0.2);
+}
+
+.theme-gold {
+  --bg-gradient: linear-gradient(135deg, #0A0A0A 0%, #171717 50%, #262626 100%);
+  --bg-color: #0A0A0A;
+  --bg-color-rgb: 10, 10, 10;
+  --foreground: #F3F4F6;
+  --primary: #F9D29D;
+  --primary-rgb: 249, 210, 157;
+  --accent: #D1D5DB;
+  --accent-rgb: 209, 213, 219;
+  --glow-color: rgba(249, 210, 157, 0.15);
+}
+
+.theme-matrix {
+  --bg-gradient: linear-gradient(180deg, #000000 0%, #050E07 100%);
+  --bg-color: #000000;
+  --bg-color-rgb: 0, 0, 0;
+  --foreground: #22C55E;
+  --primary: #22C55E;
+  --primary-rgb: 34, 197, 94;
+  --accent: #15803D;
+  --accent-rgb: 21, 128, 61;
+  --glow-color: rgba(34, 197, 94, 0.3);
+  --font-heading: var(--font-jetbrains-mono);
+  --font-body: var(--font-jetbrains-mono);
+}
+
+/* ---------------------------------------------------- */
+/* Tailwind Extension                                   */
+/* ---------------------------------------------------- */
+
+@theme {
+  --color-background: var(--bg-color);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-heading);
+  --font-mono: var(--font-code);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: linear-gradient(135deg, #0A0F0D 0%, #2D4F4A 50%, #8DB1A4 100%);
-    --foreground: #ededed;
-  }
+/* ---------------------------------------------------- */
+/* Base & Typography Styles                             */
+/* ---------------------------------------------------- */
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 body {
-  background: var(--background);
+  background: var(--bg-gradient) !important;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+  transition: color 0.5s ease;
+  scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading), sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(var(--primary-rgb), 0.3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--primary-rgb), 0.6);
+}
+
+/* ---------------------------------------------------- */
+/* Glassmorphism & Visual Effects                       */
+/* ---------------------------------------------------- */
+
+.glass-panel {
+  background: rgba(var(--bg-color-rgb), 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.glass-panel-hover {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-panel-hover:hover {
+  border-color: rgba(var(--primary-rgb), 0.3);
+  box-shadow: 0 12px 40px 0 rgba(var(--primary-rgb), 0.1);
+  transform: translateY(-2px);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glow-btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.glow-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(var(--primary-rgb), 0.4) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.glow-btn:hover::after {
+  opacity: 1;
+}
+
+/* Grid overlay background */
+.bg-grid-overlay {
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center;
+}
+
+/* Scanlines for Matrix Mode */
+.theme-matrix .bg-grid-overlay::after {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 9999;
+  background-size: 100% 4px, 6px 100%;
+  pointer-events: none;
+  opacity: 0.15;
+}
+
+/* ---------------------------------------------------- */
+/* Micro Interactions & Animations                      */
+/* ---------------------------------------------------- */
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 8s infinite ease-in-out;
+}
+
+/* Custom interactive classes */
+.interactive-item {
+  cursor: none !important;
+}
+
+/* Hide standard cursor when using custom cursor */
+.custom-cursor-active, 
+.custom-cursor-active * {
+  cursor: none !important;
 }
