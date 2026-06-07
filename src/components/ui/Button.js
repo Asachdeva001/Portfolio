@@ -24,11 +24,11 @@ export default function Button({
   type = 'button',
   ...props
 }) {
-  const baseStyles = 'px-8 py-3 rounded-lg font-semibold shadow-md transition-all duration-300 inline-flex items-center justify-center';
+  const baseStyles = 'px-10 py-3.5 rounded-lg font-semibold shadow-md transition-all duration-300 inline-flex items-center justify-center';
   
   const variantStyles = {
-    primary: 'text-white',
-    secondary: 'border border-[#8DB1A4] text-[#8DB1A4] bg-transparent hover:bg-[#8DB1A4] hover:text-[#0A0F0D]'
+    primary: 'text-white border border-white/10',
+    secondary: 'border border-primary text-primary bg-transparent hover:bg-primary hover:text-background'
   };
 
   const disabledStyles = disabled ? 'opacity-50 cursor-not-allowed' : '';
@@ -36,11 +36,11 @@ export default function Button({
   const combinedClassName = `${baseStyles} ${variantStyles[variant]} ${disabledStyles} ${className}`;
 
   const gradientStyle = variant === 'primary' ? {
-    background: 'linear-gradient(135deg, #0A0F0D, #2D4F4A, #8DB1A4)'
+    background: 'linear-gradient(135deg, var(--bg-color), var(--primary))'
   } : {};
 
   const hoverGradientStyle = variant === 'primary' ? {
-    background: 'linear-gradient(135deg, #8DB1A4, #2D4F4A, #0A0F0D)'
+    background: 'linear-gradient(135deg, var(--primary), var(--bg-color))'
   } : {};
 
   const handleMouseOver = (e) => {

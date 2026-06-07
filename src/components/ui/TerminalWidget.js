@@ -16,21 +16,29 @@ export default function TerminalWidget({ isInline = false, onClose }) {
   const [cmdHistory, setCmdHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const terminalEndRef = useRef(null);
+  const consoleContainerRef = useRef(null);
   const inputRef = useRef(null);
 
   // Auto-scroll on new output
   useEffect(() => {
-    terminalEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (consoleContainerRef.current) {
+      consoleContainerRef.current.scrollTo({
+        top: consoleContainerRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
   }, [history]);
 
   // Focus input on console click
   const focusInput = () => {
-    inputRef.current?.focus();
+    inputRef.current?.focus({ preventScroll: true });
   };
 
   useEffect(() => {
-    focusInput();
-  }, []);
+    if (!isInline) {
+      focusInput();
+    }
+  }, [isInline]);
 
   const handleCommand = (cmdString) => {
     const trimmed = cmdString.trim();
@@ -200,7 +208,10 @@ export default function TerminalWidget({ isInline = false, onClose }) {
       </div>
 
       {/* Console output display */}
-      <div className="p-4 flex-1 overflow-y-auto space-y-1 text-sm select-text custom-scrollbar">
+      <div 
+        ref={consoleContainerRef}
+        className="p-4 flex-1 overflow-y-auto space-y-1 text-sm select-text custom-scrollbar"
+      >
         {history.map((line, idx) => {
           let colorClass = 'text-gray-300';
           if (line.type === 'info') colorClass = 'text-primary font-bold';
@@ -233,7 +244,7 @@ export default function TerminalWidget({ isInline = false, onClose }) {
           onChange={(e) => setInputVal(e.target.value)}
           onKeyDown={handleKeyDown}
           className="bg-transparent border-none outline-none flex-1 text-primary focus:ring-0 p-0"
-          autoFocus
+          autoFocus={!isInline}
           spellCheck="false"
           autoComplete="off"
         />

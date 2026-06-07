@@ -7,7 +7,7 @@ import { loadDataSync } from '@/lib/dataLoader';
 import personalData from '@/data/personal';
 import dynamic from 'next/dynamic';
 
-const MorphingGlassShape = dynamic(() => import('@/components/ui/MorphingGlassShape'), { ssr: false });
+const DevIDEConsole = dynamic(() => import('@/components/ui/DevIDEConsole'), { ssr: false });
 const TerminalWidget = dynamic(() => import('@/components/ui/TerminalWidget'), { ssr: false });
 
 export default function HeroSection() {
@@ -42,7 +42,7 @@ export default function HeroSection() {
           </div>
 
           {/* Action Triggers */}
-          <div className="flex flex-wrap gap-4 z-20">
+          <div className="flex flex-wrap gap-6 z-20 mt-6 mb-10">
             <Button href="/projects" variant="primary" className="glow-btn">
               View Work
             </Button>
@@ -55,7 +55,7 @@ export default function HeroSection() {
           </div>
 
           {/* Inline CLI terminal console */}
-          <div className="w-full pt-4 z-10 hidden sm:block">
+          <div className="w-full pt-12 md:pt-16 z-10 hidden sm:block">
             <div className="text-xs text-neutral-400 mb-2.5 font-mono flex items-center space-x-1.5 select-none">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
               <span>Interactive SSH console: type &quot;help&quot; to begin</span>
@@ -64,10 +64,10 @@ export default function HeroSection() {
           </div>
         </motion.div>
 
-        {/* Right Side: Interactive 3D Canvas */}
-        <div className="lg:col-span-5 flex justify-center items-center relative min-h-[350px] md:min-h-[450px]">
+        {/* Right Side: Interactive IDE Console Dashboard */}
+        <div className="lg:col-span-5 flex justify-center items-center relative w-full">
           <div className="absolute inset-0 bg-radial-gradient from-[var(--primary)]/10 to-transparent blur-3xl pointer-events-none rounded-full w-full h-full" />
-          <MorphingGlassShape />
+          <DevIDEConsole />
         </div>
       </div>
       

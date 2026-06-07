@@ -71,12 +71,12 @@ const Navbar = () => {
             </div>
 
             {/* Desktop Navigation Links */}
-            <div className="hidden md:flex items-center space-x-1">
+            <div className="hidden md:flex items-center gap-x-4 lg:gap-x-6">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   href={item.path}
-                  className={`px-4 py-2 text-sm font-medium transition-colors relative group font-sans ${
+                  className={`px-3 py-2 text-sm font-medium transition-colors relative group font-sans shrink-0 ${
                     isActive(item.path) 
                       ? 'text-[var(--primary)]' 
                       : 'text-gray-100 hover:text-gray-300'

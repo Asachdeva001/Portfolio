@@ -14,11 +14,21 @@ export default function SkillCard({ skill, categoryColor = '#8DB1A4', index = 0 
       transition={{ duration: 0.5, delay: index * 0.04 }}
       className="h-full"
     >
-      <SpotlightCard className="p-6 h-full flex flex-col justify-between">
+      <SpotlightCard className="p-6 h-full flex flex-col justify-between group">
         <div>
           {/* Icon and Name */}
-          <div className="flex items-center space-x-3 mb-4">
-            <span className="text-3xl select-none">{icon}</span>
+          <div className="flex items-center space-x-4 mb-4">
+            <div 
+              className="w-12 h-12 flex items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-110 group-hover:border-[var(--accent)] group-hover:shadow-[0_0_12px_rgba(var(--primary-rgb),0.35)]"
+              style={{
+                background: 'rgba(var(--primary-rgb), 0.08)',
+                border: '1px solid rgba(var(--primary-rgb), 0.2)',
+                boxShadow: 'inset 0 0 8px rgba(var(--primary-rgb), 0.05)',
+                transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+              }}
+            >
+              <span className="text-2xl select-none">{icon}</span>
+            </div>
             <h3 className="text-lg font-bold font-heading" style={{ color: 'var(--primary)' }}>
               {name}
             </h3>

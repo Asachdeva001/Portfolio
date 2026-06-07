@@ -23,13 +23,13 @@ export default function SectionHeading({
       whileInView="animate"
       viewport={{ once: true }}
       variants={fadeInVariants}
-      className={`mb-12 ${centered ? 'text-center' : ''} ${className}`}
+      className={`mb-12 ${centered ? 'text-center flex flex-col items-center' : 'text-left flex flex-col items-start'} ${className}`}
     >
-      <h2 className="text-3xl sm:text-4xl font-bold text-gray-100 mb-4">
+      <h2 className="text-3xl sm:text-4xl font-bold text-gray-100 mb-4 w-full">
         {title}
       </h2>
       {subtitle && (
-        <p className="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto">
+        <p className={`text-lg sm:text-xl text-gray-400 max-w-3xl w-full ${centered ? 'text-center mx-auto' : 'text-left ml-0 mr-auto'}`}>
           {subtitle}
         </p>
       )}

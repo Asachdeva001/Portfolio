@@ -87,10 +87,13 @@
 /* Base & Typography Styles                             */
 /* ---------------------------------------------------- */
 
-* {
+*, ::before, ::after {
   box-sizing: border-box;
-  padding: 0;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, figure, blockquote, dl, dd {
   margin: 0;
+  padding: 0;
 }
 
 body {
@@ -101,6 +104,16 @@ body {
   min-height: 100vh;
   transition: color 0.5s ease;
   scroll-behavior: smooth;
+}
+
+main {
+  padding-top: 6rem !important;
+}
+
+@media (min-width: 768px) {
+  main {
+    padding-top: 7rem !important;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {

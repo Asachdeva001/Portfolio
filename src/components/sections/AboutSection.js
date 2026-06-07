@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Link from 'next/link';
+import Button from '@/components/ui/Button';
 import SectionHeading from '@/components/ui/SectionHeading';
 import { loadDataSync } from '@/lib/dataLoader';
 import personalData from '@/data/personal';
@@ -23,60 +23,30 @@ export default function AboutSection() {
         viewport={{ once: true }}
         className="max-w-4xl mx-auto"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="flex flex-col items-center text-center space-y-12">
           {/* Text Content */}
-          <div className="space-y-6">
-            <p className="text-lg text-gray-300 leading-relaxed">
+          <div className="space-y-6 max-w-3xl flex flex-col items-center">
+            <p className="text-lg text-gray-300 leading-relaxed text-center md:text-center md:text-justify">
               {personal.bio}
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/about"
-                className="inline-flex items-center text-[#8DB1A4] hover:text-[#2D4F4A] transition-colors font-medium"
-              >
+            <div className="flex flex-wrap justify-center gap-6 pt-4">
+              <Button href="/about" variant="primary">
                 Learn More About Me
-                <svg
-                  className="w-4 h-4 ml-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
-                </svg>
-              </Link>
-              
-              <a
+              </Button>
+              <Button 
                 href={personal.resume}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center text-[#8DB1A4] hover:text-[#2D4F4A] transition-colors font-medium"
+                variant="secondary"
               >
                 Download Resume
-                <svg
-                  className="w-4 h-4 ml-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  />
-                </svg>
-              </a>
+              </Button>
             </div>
           </div>
 
           {/* Stats or Highlights */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 w-full">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}

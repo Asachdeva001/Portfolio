@@ -13,9 +13,9 @@ const AnimatedAS = () => (
   >
     <defs>
       <linearGradient id="as-gradient" x1="0" y1="0" x2="400" y2="400" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#0A0F0D" />
-        <stop offset="0.5" stopColor="#2D4F4A" />
-        <stop offset="1" stopColor="#8DB1A4" />
+        <stop stopColor="var(--bg-color)" />
+        <stop offset="0.5" stopColor="var(--primary)" />
+        <stop offset="1" stopColor="var(--accent)" />
       </linearGradient>
     </defs>
     <motion.g
@@ -42,7 +42,7 @@ const AnimatedAS = () => (
         fontSize="150"
         stroke="url(#as-gradient)"
         strokeWidth="6"
-        fill="white"
+        fill="rgba(var(--primary-rgb), 0.04)"
         initial={{
           strokeDasharray: 900,
           strokeDashoffset: 900,
@@ -58,7 +58,7 @@ const AnimatedAS = () => (
         }}
         style={{
           paintOrder: 'stroke fill',
-          filter: 'drop-shadow(0 4px 24px rgba(0, 0, 1, 0.3))',
+          filter: 'drop-shadow(0 0 25px rgba(var(--primary-rgb), 0.65))',
         }}
       >
         AS
@@ -69,7 +69,12 @@ const AnimatedAS = () => (
 
 const SplashScreen = () => {
   return (
-    <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center" style={{ background: 'linear-gradient(135deg, #0A0F0D 0%, #2D4F4A 50%, #8DB1A4 100%)' }}>
+    <div 
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-grid-overlay" 
+      style={{ 
+        background: 'var(--bg-gradient)' 
+      }}
+    >
       <div className="relative w-full h-full">
         <AnimatedAS />
       </div>
@@ -77,7 +82,7 @@ const SplashScreen = () => {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.5 }}
-        className="absolute bottom-[15%] text-4xl md:text-5xl font-bold text-gray-100 text-center"
+        className="absolute bottom-[15%] text-4xl md:text-5xl font-bold text-center text-gradient animate-pulse-slow"
       >
         Aashish Sachdeva
       </motion.h1>

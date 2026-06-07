@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
         <ThemeProvider>
           <AppWrapper>
             <Navbar />
-            <main className="min-h-screen pt-16 relative z-10">
+            <main className="min-h-screen pt-24 md:pt-28 relative z-10">
               {children}
             </main>
             <Footer />

@@ -5,7 +5,7 @@ import SplashScreen from './SplashScreen';
 import dynamic from 'next/dynamic';
 
 // Load client-only components dynamically inside client component wrapper to prevent SSR build issues
-const ThreeBackground = dynamic(() => import('./ui/ThreeBackground'), { ssr: false });
+const InteractiveCodeBackground = dynamic(() => import('./ui/InteractiveCodeBackground'), { ssr: false });
 const CustomCursor = dynamic(() => import('./ui/CustomCursor'), { ssr: false });
 
 const AppWrapper = ({ children }) => {
@@ -22,7 +22,7 @@ const AppWrapper = ({ children }) => {
 
   return (
     <>
-      <ThreeBackground />
+      <InteractiveCodeBackground />
       <CustomCursor />
       {children}
     </>

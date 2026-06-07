@@ -5,7 +5,7 @@ import SkillsSection from '@/components/sections/SkillsSection';
 
 export default function Home() {
   return (
-    <div className="space-y-0">
+    <div className="flex flex-col gap-16 sm:gap-24 md:gap-32">
       <HeroSection />
       <AboutSection />
       <ProjectsSection />

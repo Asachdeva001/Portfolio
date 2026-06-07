@@ -25,7 +25,10 @@ export default function Skills() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-2xl font-semibold mb-8" style={{ color: category.color }}>
+            <h2 
+              className="text-2xl font-semibold mb-8" 
+              style={{ color: category.id === 'backend' || category.id === 'devops' ? 'var(--accent)' : 'var(--primary)' }}
+            >
               {category.title}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
