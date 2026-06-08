@@ -2,20 +2,36 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useTheme } from '../ThemeProvider';
+import { useTerminal } from '../TerminalContext';
+import { getAashBotResponse } from '@/utils/daemonAi';
 import projectsData from '@/data/projects';
 import skillsData from '@/data/skills';
 
 export default function TerminalWidget({ isInline = false, onClose }) {
   const { theme, setTheme, themes } = useTheme();
-  const [history, setHistory] = useState([
-    { text: "Welcome to Aashish's Interactive Terminal Console [v2.4.0]", type: "info" },
-    { text: "Type 'help' to see the list of available commands.", type: "muted" },
-    { text: "", type: "spacer" }
-  ]);
+  const {
+    history,
+    setHistory,
+    cmdHistory,
+    setCmdHistory,
+    historyIndex,
+    setHistoryIndex,
+    chatMode,
+    setChatMode,
+    voiceEnabled,
+    toggleVoice,
+    speakText,
+    isListening,
+    setIsListening,
+    isWalkthroughActive,
+    walkthroughStep,
+    startWalkthrough,
+    advanceWalkthrough,
+    retreatWalkthrough,
+    endWalkthrough
+  } = useTerminal();
+
   const [inputVal, setInputVal] = useState('');
-  const [cmdHistory, setCmdHistory] = useState([]);
-  const [historyIndex, setHistoryIndex] = useState(-1);
-  const terminalEndRef = useRef(null);
   const consoleContainerRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -40,24 +56,144 @@ export default function TerminalWidget({ isInline = false, onClose }) {
     }
   }, [isInline]);
 
+  // STT Voice Command Recognition
+  const startSpeechRecognition = () => {
+    if (typeof window === 'undefined') return;
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      setHistory(prev => [
+        ...prev,
+        { text: "[AashBot] Speech Recognition is not supported by your browser. Please try Chrome or Edge.", type: "error" },
+        { text: "", type: "spacer" }
+      ]);
+      speakText("Voice recognition is not supported in this browser.");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.onstart = () => {
+      setIsListening(true);
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    recognition.onerror = (event) => {
+      console.error(event.error);
+      setIsListening(false);
+      setHistory(prev => [
+        ...prev,
+        { text: `[AashBot] Voice Recognition Error: ${event.error}`, type: "error" },
+        { text: "", type: "spacer" }
+      ]);
+    };
+
+    recognition.onresult = (event) => {
+      const speechToText = event.results[0][0].transcript;
+      setInputVal(speechToText);
+      // Automatically execute the command
+      setTimeout(() => {
+        handleCommand(speechToText);
+      }, 600);
+    };
+
+    recognition.start();
+  };
+
   const handleCommand = (cmdString) => {
     const trimmed = cmdString.trim();
     if (!trimmed) return;
 
-    const newHistory = [...history, { text: `visitor@aashish-sachdeva:~$ ${trimmed}`, type: "command" }];
+    const currentPrompt = chatMode 
+      ? `aashbot@portfolio:~$ ${trimmed}` 
+      : `visitor@aashish-sachdeva:~$ ${trimmed}`;
+
+    const newHistory = [...history, { text: currentPrompt, type: "command" }];
     const parts = trimmed.split(' ');
     const command = parts[0].toLowerCase();
     const args = parts.slice(1);
 
-    // Save to cmd history
+    // Save to CLI commands history list
     const updatedCmdHistory = [...cmdHistory, trimmed];
     setCmdHistory(updatedCmdHistory);
     setHistoryIndex(updatedCmdHistory.length);
 
+    // 1. ROUTE CONVERSATION DIRECTLY IF IN CHATMODE
+    if (chatMode) {
+      if (['exit', 'bye', 'quit', 'back'].includes(command)) {
+        setChatMode(false);
+        newHistory.push(
+          { text: "[*] Closing AashBot session...", type: "info" },
+          { text: "Returning to standard Linux console. Type 'help' for core commands.", type: "muted" }
+        );
+        speakText("Exited AashBot chat. Standard terminal is active.");
+      } else if (command === 'clear') {
+        setHistory([]);
+        setInputVal('');
+        return;
+      } else {
+        // Run query through AI parser
+        const reply = getAashBotResponse(trimmed);
+        
+        newHistory.push(
+          { text: "AashBot:", type: "success" },
+          { text: reply.text, type: "text" }
+        );
+
+        if (reply.suggestions && reply.suggestions.length > 0) {
+          newHistory.push({ 
+            text: `Suggestions: ${reply.suggestions.map(s => `'${s}'`).join(', ')}`, 
+            type: "muted" 
+          });
+        }
+
+        speakText(reply.speakText);
+
+        if (reply.triggerWalkthrough) {
+          startWalkthrough();
+          setInputVal('');
+          return;
+        }
+      }
+
+      newHistory.push({ text: "", type: "spacer" });
+      setHistory(newHistory);
+      setInputVal('');
+      return;
+    }
+
+    // 2. ROUTE TO WALKTHROUGH NAVIGATION CONTROLS IF TOUR IS ACTIVE
+    if (isWalkthroughActive) {
+      if (command === 'next') {
+        advanceWalkthrough();
+        setInputVal('');
+        return;
+      } else if (command === 'back') {
+        retreatWalkthrough();
+        setInputVal('');
+        return;
+      } else if (['stop', 'exit', 'finish', 'quit'].includes(command)) {
+        endWalkthrough(command === 'finish');
+        setInputVal('');
+        return;
+      }
+    }
+
+    // 3. STANDARD SYSTEM CLI SHELL COMMANDS
     switch (command) {
       case 'help':
         newHistory.push(
           { text: "Available commands:", type: "info" },
+          { text: "  aashbot     - Launch AashBot chat sub-shell session (to talk to AI)", type: "success" },
+          { text: "  ask [query] - Query AashBot directly without leaving shell", type: "success" },
+          { text: "  walkthrough - Start the interactive website walkthrough tour", type: "success" },
+          { text: "  voice [on]  - Toggle voice synthesis engine on or off", type: "info" },
           { text: "  about       - Detailed biography and profile summary", type: "text" },
           { text: "  projects    - List all technical projects", type: "text" },
           { text: "  skills      - Show categorized skillset", type: "text" },
@@ -66,6 +202,64 @@ export default function TerminalWidget({ isInline = false, onClose }) {
           { text: "  hack        - Run high-tech simulation script", type: "text" },
           ...(onClose ? [{ text: "  exit        - Close terminal console", type: "text" }] : [])
         );
+        break;
+
+      case 'aashbot':
+      case 'chat':
+        setChatMode(true);
+        newHistory.push(
+          { text: "[*] Launching AashBot Interactive Guide Session...", type: "info" },
+          { text: "[+] Connection established. System online.", type: "success" },
+          { text: "AashBot: Hello! I'm here. Ask me anything about Aashish's background, skills, or portfolio. Type 'exit' to close this chat mode.", type: "text" }
+        );
+        speakText("AashBot session active. Ask me anything, or type exit to return to standard console.");
+        break;
+
+      case 'ask':
+        if (args.length === 0) {
+          newHistory.push(
+            { text: "Usage: ask [your question]", type: "error" },
+            { text: "Example: ask what are your core skills?", type: "muted" }
+          );
+        } else {
+          const queryStr = args.join(' ');
+          const reply = getAashBotResponse(queryStr);
+          newHistory.push(
+            { text: "AashBot:", type: "success" },
+            { text: reply.text, type: "text" }
+          );
+          speakText(reply.speakText);
+
+          if (reply.triggerWalkthrough) {
+            startWalkthrough();
+            setInputVal('');
+            return;
+          }
+        }
+        break;
+
+      case 'walkthrough':
+      case 'tour':
+        startWalkthrough();
+        setInputVal('');
+        return;
+
+      case 'voice':
+        if (args.length === 0) {
+          newHistory.push({ text: `Text-to-Speech status: ${voiceEnabled ? 'ENABLED' : 'DISABLED'}. Type 'voice on' or 'voice off' to change.`, type: "info" });
+        } else {
+          const opt = args[0].toLowerCase();
+          if (opt === 'on' || opt === 'enable') {
+            if (!voiceEnabled) toggleVoice();
+            newHistory.push({ text: "Voice synthesis engine activated.", type: "success" });
+            setTimeout(() => speakText("Voice synthesis active. Ready!"), 200);
+          } else if (opt === 'off' || opt === 'disable') {
+            if (voiceEnabled) toggleVoice();
+            newHistory.push({ text: "Voice synthesis engine deactivated.", type: "muted" });
+          } else {
+            newHistory.push({ text: `Invalid voice command: '${opt}'. Use 'voice on' or 'voice off'.`, type: "error" });
+          }
+        }
         break;
 
       case 'about':
@@ -149,7 +343,10 @@ export default function TerminalWidget({ isInline = false, onClose }) {
         break;
 
       default:
-        newHistory.push({ text: `Command not found: '${command}'. Type 'help' for options.`, type: "error" });
+        newHistory.push({ 
+          text: `Command not found: '${command}'. Did you want to speak with AashBot? Type 'aashbot' or 'ask [question]'.`, 
+          type: "error" 
+        });
     }
 
     newHistory.push({ text: "", type: "spacer" });
@@ -188,29 +385,65 @@ export default function TerminalWidget({ isInline = false, onClose }) {
       }`}
       style={{
         boxShadow: '0 20px 50px rgba(0, 0, 0, 0.4)',
-        background: 'rgba(5, 7, 7, 0.75)'
+        background: 'rgba(5, 7, 7, 0.82)'
       }}
     >
       {/* Top Window Bar */}
       <div className="bg-neutral-900/80 px-4 py-3 flex items-center justify-between border-b border-white/5 select-none">
         <div className="flex items-center space-x-2">
-          <div 
-            onClick={onClose} 
-            className={`w-3 h-3 rounded-full bg-red-500/80 hover:bg-red-500 cursor-pointer flex items-center justify-center`}
-          />
+          {onClose ? (
+            <div 
+              onClick={onClose} 
+              className="w-3 h-3 rounded-full bg-red-500/80 hover:bg-red-500 cursor-pointer flex items-center justify-center"
+            />
+          ) : (
+            <div className="w-3 h-3 rounded-full bg-red-500/40" />
+          )}
           <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
           <div className="w-3 h-3 rounded-full bg-green-500/80" />
         </div>
-        <div className="text-xs text-neutral-400 select-none font-sans">
-          visitor@aashish-sachdeva: {isInline ? '~/home' : '~/ssh-console'}
+        
+        {/* Title display */}
+        <div className="text-xs text-neutral-400 select-none font-sans flex items-center space-x-2">
+          <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+          <span>
+            {chatMode 
+              ? 'AashBot AI Session' 
+              : isWalkthroughActive 
+                ? `Tour: Step ${walkthroughStep + 1}/6 (${themes.find(t => t.id === theme)?.name})`
+                : `visitor@aashish-sachdeva: ${isInline ? '~/home' : '~/ssh-console'}`
+            }
+          </span>
         </div>
-        <div className="w-12" /> {/* spacer */}
+
+        {/* Audio and Tour Controls in Window Header */}
+        <div className="flex items-center space-x-3">
+          {/* TTS Speaker Icon Indicator */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleVoice();
+            }}
+            className="text-neutral-400 hover:text-primary transition-colors focus:outline-none"
+            title={voiceEnabled ? "Mute Speech (Voice On)" : "Enable Speech (Voice Off)"}
+          >
+            {voiceEnabled ? (
+              <svg className="w-4 h-4 text-primary animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M12 18.75V5.25L7.75 9.5H4.5v5h3.25L12 18.75z" />
+              </svg>
+            ) : (
+              <svg className="w-4 h-4 text-neutral-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 9.75L19.5 12m0 0l2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25M12 18.75V5.25L7.75 9.5H4.5v5h3.25L12 18.75z" />
+              </svg>
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Console output display */}
       <div 
         ref={consoleContainerRef}
-        className="p-4 flex-1 overflow-y-auto space-y-1 text-sm select-text custom-scrollbar"
+        className="p-4 flex-1 overflow-y-auto space-y-1.5 text-sm select-text custom-scrollbar font-mono"
       >
         {history.map((line, idx) => {
           let colorClass = 'text-gray-300';
@@ -218,11 +451,11 @@ export default function TerminalWidget({ isInline = false, onClose }) {
           if (line.type === 'primary') colorClass = 'text-primary';
           if (line.type === 'muted') colorClass = 'text-neutral-500';
           if (line.type === 'command') colorClass = 'text-accent';
-          if (line.type === 'success') colorClass = 'text-emerald-400';
+          if (line.type === 'success') colorClass = 'text-emerald-400 font-semibold';
           if (line.type === 'error') colorClass = 'text-red-400';
 
           if (line.type === 'spacer') {
-            return <div key={idx} className="h-2" />;
+            return <div key={idx} className="h-1" />;
           }
 
           return (
@@ -231,23 +464,54 @@ export default function TerminalWidget({ isInline = false, onClose }) {
             </div>
           );
         })}
-        <div ref={terminalEndRef} />
       </div>
 
       {/* CLI Input Prompter */}
-      <div className="p-4 border-t border-white/5 bg-neutral-950/30 flex items-center text-sm">
-        <span className="text-accent mr-2 shrink-0 select-none">visitor@aashish-sachdeva:~$</span>
+      <div className="p-3.5 border-t border-white/5 bg-neutral-950/45 flex items-center text-sm">
+        {chatMode ? (
+          <span className="text-emerald-400 font-semibold mr-2 shrink-0 select-none">aashbot@portfolio:~$</span>
+        ) : isWalkthroughActive ? (
+          <span className="text-primary font-semibold mr-2 shrink-0 select-none">tour-guide@walkthrough:~$</span>
+        ) : (
+          <span className="text-accent mr-2 shrink-0 select-none">visitor@aashish-sachdeva:~$</span>
+        )}
+        
         <input
           ref={inputRef}
           type="text"
           value={inputVal}
           onChange={(e) => setInputVal(e.target.value)}
           onKeyDown={handleKeyDown}
-          className="bg-transparent border-none outline-none flex-1 text-primary focus:ring-0 p-0"
+          className="bg-transparent border-none outline-none flex-1 text-primary focus:ring-0 p-0 font-mono"
           autoFocus={!isInline}
           spellCheck="false"
           autoComplete="off"
+          placeholder={chatMode ? "Ask AashBot a question..." : isWalkthroughActive ? "Type 'next' or 'back'..." : "Type 'help'..."}
         />
+
+        {/* Microphone STT Voice dictation trigger */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            startSpeechRecognition();
+          }}
+          className={`ml-2 p-1.5 rounded-lg transition-all focus:outline-none ${
+            isListening 
+              ? 'bg-red-500/20 text-red-500 border border-red-500/50 animate-pulse' 
+              : 'text-neutral-400 hover:text-primary hover:bg-white/5'
+          }`}
+          title="Dictate command (Voice command)"
+        >
+          {isListening ? (
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/>
+            </svg>
+          ) : (
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+            </svg>
+          )}
+        </button>
       </div>
     </div>
   );

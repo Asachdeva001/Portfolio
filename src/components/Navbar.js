@@ -5,12 +5,13 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { useTheme } from './ThemeProvider';
+import { useTerminal } from './TerminalContext';
 import TerminalWidget from './ui/TerminalWidget';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+  const { isTerminalOpen, setIsTerminalOpen } = useTerminal();
   const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false);
   const pathname = usePathname();
   const { theme, setTheme, themes } = useTheme();
@@ -34,7 +35,7 @@ const Navbar = () => {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [setIsTerminalOpen]);
 
   const navItems = [
     { name: 'Home', path: '/' },

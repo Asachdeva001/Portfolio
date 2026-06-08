@@ -2,8 +2,9 @@ import { Outfit, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '../components/Footer';
-import ScrollToTop from '../components/ScrollToTop';
+import AashBotWidget from '@/components/ui/AashBotWidget';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import { TerminalProvider } from '@/components/TerminalContext';
 import dynamic from 'next/dynamic';
 
 const outfit = Outfit({
@@ -43,14 +44,16 @@ export default function RootLayout({ children }) {
     >
       <body className="antialiased select-none">
         <ThemeProvider>
-          <AppWrapper>
-            <Navbar />
-            <main className="min-h-screen pt-24 md:pt-28 relative z-10">
-              {children}
-            </main>
-            <Footer />
-            <ScrollToTop />
-          </AppWrapper>
+          <TerminalProvider>
+            <AppWrapper>
+              <Navbar />
+              <main className="min-h-screen pt-24 md:pt-28 relative z-10">
+                {children}
+              </main>
+              <Footer />
+              <AashBotWidget />
+            </AppWrapper>
+          </TerminalProvider>
         </ThemeProvider>
       </body>
     </html>
