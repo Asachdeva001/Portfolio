@@ -13,7 +13,7 @@ export default function AashBotAvatar({ size = 32 }) {
     const interval = setInterval(() => {
       setShiningIndex(prev => {
         let next = Math.floor(Math.random() * 4);
-        // Ensure a new blob is picked to create continuous movement
+        // Ensure a new blob is picked to create continuous movemen
         while (next === prev) {
           next = Math.floor(Math.random() * 4);
         }
