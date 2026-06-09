@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTerminal } from '../TerminalContext';
 import { getAashBotResponse } from '@/utils/daemonAi';
+import AashBotAvatar from './AashBotAvatar';
 
 export default function AashBotWidget() {
   const {
@@ -198,10 +199,12 @@ export default function AashBotWidget() {
           >
             {/* Header */}
             <div className="bg-neutral-900/80 px-4 py-3 flex items-center justify-between border-b border-white/5 shrink-0">
-              <div className="flex items-center space-x-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-sm font-bold text-white tracking-wide">AashBot</span>
-                <span className="text-[10px] text-neutral-400 font-mono">v1.2</span>
+              <div className="flex items-center space-x-2.5">
+                <AashBotAvatar size={30} />
+                <div className="flex flex-col">
+                  <span className="text-sm font-bold text-white tracking-wide leading-tight">AashBot</span>
+                  <span className="text-[8px] text-emerald-400 font-mono tracking-widest font-bold">ONLINE</span>
+                </div>
               </div>
 
               <div className="flex items-center space-x-2">
@@ -225,14 +228,7 @@ export default function AashBotWidget() {
                   )}
                 </button>
 
-                {/* Animated visualizer */}
-                {isSpeaking && (
-                  <div className="flex items-end space-x-[2px] h-3 px-1">
-                    <motion.div animate={{ height: [2, 10, 2] }} transition={{ repeat: Infinity, duration: 0.6 }} className="w-[2px] bg-primary rounded-full" />
-                    <motion.div animate={{ height: [2, 12, 2] }} transition={{ repeat: Infinity, duration: 0.5, delay: 0.2 }} className="w-[2px] bg-primary rounded-full" />
-                    <motion.div animate={{ height: [2, 8, 2] }} transition={{ repeat: Infinity, duration: 0.7, delay: 0.1 }} className="w-[2px] bg-primary rounded-full" />
-                  </div>
-                )}
+                {/* Visualizer handled dynamically inside header avatar */}
 
                 {/* Close Button */}
                 <button
@@ -353,7 +349,10 @@ export default function AashBotWidget() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-            <div className="text-xs font-bold text-primary mb-1">AashBot Online 🤖</div>
+            <div className="flex items-center space-x-2 mb-1.5 border-b border-white/5 pb-1">
+              <AashBotAvatar size={20} />
+              <span className="text-xs font-bold text-primary">AashBot Online</span>
+            </div>
             <div className="text-xs text-neutral-300 leading-normal pr-4">
               Hi! Click me to chat with Aashish's voice assistant or ask about his work!
             </div>
@@ -385,15 +384,11 @@ export default function AashBotWidget() {
         }}
       >
         {isOpen ? (
-          // Minimize Chat Icon
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
           </svg>
         ) : (
-          // AashBot Logo / Robot Icon
-          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-          </svg>
+          <AashBotAvatar size={26} />
         )}
       </motion.button>
     </div>
