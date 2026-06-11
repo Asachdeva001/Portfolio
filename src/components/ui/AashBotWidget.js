@@ -1,20 +1,123 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from '../ThemeProvider';
 import { useTerminal } from '../TerminalContext';
 import { getAashBotResponse } from '@/utils/daemonAi';
 import AashBotAvatar from './AashBotAvatar';
 
 export default function AashBotWidget() {
+  const router = useRouter();
+  const { theme, setTheme } = useTheme();
   const {
     voiceEnabled,
     toggleVoice,
     speakText,
     isSpeaking,
     isListening,
-    setIsListening
+    setIsListening,
+    contactFormState,
+    setContactFormState
   } = useTerminal();
+
+  // Executes dynamic agentic actions returned by AashBot's NLP engine
+  const executeAashBotAction = (reply) => {
+    if (!reply.action) return;
+
+    switch (reply.action) {
+      case 'update-contact-form':
+        setContactFormState(reply.payload);
+        break;
+
+      case 'submit-contact-form':
+        // Reset state and call API
+        setContactFormState({ step: null, data: { name: '', email: '', message: '' } });
+        const data = reply.payload.data;
+        
+        // Append a sending indicator message
+        const sendingMsgId = `sending-${Date.now()}`;
+        setMessages(prev => [
+          ...prev,
+          {
+            id: sendingMsgId,
+            sender: 'aashbot',
+            text: 'Sending message... 📤'
+          }
+        ]);
+
+        (async () => {
+          try {
+            const res = await fetch('/api/contact', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(data),
+            });
+            const resData = await res.json();
+            if (resData.success) {
+              setMessages(prev => [
+                ...prev.filter(m => m.id !== sendingMsgId),
+                {
+                  id: `success-${Date.now()}`,
+                  sender: 'aashbot',
+                  text: 'Your message has been sent successfully to Aashish! 🚀 Thanks for reaching out.'
+                }
+              ]);
+              speakText("Your message has been sent successfully! Aashish will get back to you soon.");
+            } else {
+              throw new Error(resData.error || 'Server error');
+            }
+          } catch (err) {
+            setMessages(prev => [
+              ...prev.filter(m => m.id !== sendingMsgId),
+              {
+                id: `error-${Date.now()}`,
+                sender: 'aashbot',
+                text: `Error sending message: ${err.message}. Please try the Contact page form directly instead.`
+              }
+            ]);
+            speakText("Error submitting your message. Please try the contact form page directly.");
+          }
+        })();
+        break;
+
+      case 'change-theme':
+        setTheme(reply.payload.themeId);
+        break;
+
+      case 'navigate':
+        router.push(reply.payload.path);
+        break;
+
+      case 'download-resume':
+        if (typeof window !== 'undefined') {
+          const link = document.createElement('a');
+          link.href = reply.payload.path;
+          link.download = 'Aashish_Sachdeva_Resume.pdf';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+        break;
+
+      case 'close-terminal':
+        setIsOpen(false);
+        break;
+
+      case 'toggle-voice':
+        const targetVal = reply.payload.enable;
+        if (targetVal === 'toggle') {
+          toggleVoice();
+        } else if (targetVal !== voiceEnabled) {
+          toggleVoice();
+        }
+        break;
+
+      default:
+        break;
+    }
+  };
 
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -90,8 +193,18 @@ export default function AashBotWidget() {
     setInputVal('');
 
     // 2. Get AashBot response
-    setTimeout(() => {
-      const reply = getAashBotResponse(trimmed);
+    setTimeout(async () => {
+      let reply;
+      try {
+        const res = await fetch('/api/aashbot', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query: trimmed, contactFormState }),
+        });
+        reply = await res.json();
+      } catch (err) {
+        reply = getAashBotResponse(trimmed, contactFormState);
+      }
       
       const botMsg = {
         id: `bot-${Date.now()}`,
@@ -104,6 +217,9 @@ export default function AashBotWidget() {
 
       // Read reply aloud if voice is enabled
       speakText(reply.speakText);
+
+      // Execute dynamic action from response
+      executeAashBotAction(reply);
     }, 600);
   };
 

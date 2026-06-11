@@ -16,6 +16,21 @@ const JOKES = [
   "What is a programmer's favorite hangout place? Foo Bar!"
 ];
 
+const ROASTS = [
+  "I'd roast you, but my garbage collector would just run and clean you up anyway. 🧹",
+  "You look like the type of developer who commits directly to main and comments out tests to pass CI/CD. 🛑",
+  "Your CSS layout looks like a toddler with finger paints: absolute positioning and negative margins everywhere. 👶🎨",
+  "I would roast you, but you already look like a junior dev's first attempt at centering a div. 🫠",
+  "You're like a JavaScript console warning: ignored by everyone and only showing up when things are already broken. ⚠️",
+  "Your coding style is a great argument for why code comments were invented—nobody else would have guessed what you were trying to do. 📝",
+  "Are you written in PHP? Because you look like a collection of legacy decisions nobody wants to maintain. 💾",
+  "Your git commit messages are probably just 'fix', 'fix again', and 'please work'. Don't talk to me about code quality. 🤷",
+  "I've seen cleaner code in Stack Overflow threads from 2008. 📉",
+  "Are you a missing semicolon? Because you're causing errors in places you shouldn't even be. 🚫",
+  "My local model has only 3 billion parameters, and yet it's still more coherent than your logic. 🧠",
+  "Your thinking has more memory leaks than Google Chrome with 50 tabs open. 🐏"
+];
+
 const RESPONSES = {
   greetings: {
     text: "Hello! I am AashBot, Aashish's custom-built digital twin guide. 🤖\nI can speak, listen, answer questions about Aashish, or guide you through a visual walkthrough of his portfolio!\n\nWhat would you like to know? (Try asking about his 'skills', 'projects', or type 'walkthrough')",
@@ -91,7 +106,7 @@ const RESPONSES = {
   }
 };
 
-export function getAashBotResponse(query) {
+export function getAashBotResponse(query, contactFormState) {
   const q = query.toLowerCase().trim().replace(/[?.,!]/g, '');
 
   if (!q) {
@@ -102,7 +117,168 @@ export function getAashBotResponse(query) {
     };
   }
 
-  // Strict whitelist for Aashish / Portfolio relevancy
+  // 1. INTERCEPT MULTI-TURN CONVERSATIONAL CONTACT FORM SESSIONS
+  if (contactFormState && contactFormState.step) {
+    const step = contactFormState.step;
+    const data = { ...contactFormState.data };
+
+    // Support cancellation at any point
+    if (/\b(cancel|stop|exit|quit|abort)\b/i.test(q)) {
+      return {
+        text: "Alright, I've cancelled the message flow. Returning to standard chat mode. 🛰️",
+        speakText: "Alright, I have cancelled the message. Returning to standard chat mode.",
+        suggestions: ["skills", "projects", "walkthrough"],
+        action: "update-contact-form",
+        payload: { step: null, data: { name: '', email: '', message: '' } }
+      };
+    }
+
+    if (step === 'awaiting-name') {
+      let name = query.trim();
+      const cleanMatch = name.match(/^(my name is|i am|this is|call me)\s+(.+)$/i);
+      if (cleanMatch) {
+        name = cleanMatch[2];
+      }
+      data.name = name;
+      return {
+        text: `Nice to meet you, **${name}**! 🤝\nWhat is your **email address** so Aashish can get back to you?`,
+        speakText: `Nice to meet you, ${name}! What is your email address so Aashish can get back to you?`,
+        suggestions: ["cancel"],
+        action: "update-contact-form",
+        payload: { step: 'awaiting-email', data }
+      };
+    }
+
+    if (step === 'awaiting-email') {
+      const email = query.trim().toLowerCase();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        return {
+          text: "That doesn't look like a valid email address. 😅\nPlease type a **valid email address** (e.g. name@domain.com):",
+          speakText: "That doesn't look like a valid email address. Please type a valid email address.",
+          suggestions: ["cancel"],
+          action: "update-contact-form",
+          payload: { step: 'awaiting-email', data }
+        };
+      }
+      data.email = email;
+      return {
+        text: "Got it! 📝 What **message** would you like to send to Aashish?",
+        speakText: "Got it! What message would you like to send to Aashish?",
+        suggestions: ["cancel"],
+        action: "update-contact-form",
+        payload: { step: 'awaiting-message', data }
+      };
+    }
+
+    if (step === 'awaiting-message') {
+      data.message = query.trim();
+      return {
+        text: `Perfect! I've gathered all the details. Here is what I am sending:\n\n• **Name:** ${data.name}\n• **Email:** ${data.email}\n• **Message:** "${data.message}"\n\nI am sending your message to Aashish now... 🚀`,
+        speakText: "Perfect! I have gathered all the details and I am sending your message to Aashish now.",
+        suggestions: [],
+        action: "submit-contact-form",
+        payload: { step: null, data }
+      };
+    }
+  }
+
+  // 2. PARSE EXPLICIT AGENTIC ACTION COMMANDS
+
+  // A. Resume Download Action
+  if (/\b(download|get|save|grab)\s+(resume|cv)\b/i.test(q) || /\b(resume|cv)\s+download\b/i.test(q)) {
+    return {
+      text: "Downloading Aashish's Resume PDF for you... 📄",
+      speakText: "Downloading Aashish's Resume PDF for you.",
+      suggestions: ["projects", "skills"],
+      action: "download-resume",
+      payload: { path: "/Resume.pdf" }
+    };
+  }
+
+  // B. Page Navigation Action
+  const navMatch = q.match(/\b(go\s+to|open|show|navigate\s+to|visit)\s+(about|projects|skills|certifications|contact|home)\b/i);
+  if (navMatch) {
+    const section = navMatch[2].toLowerCase();
+    const path = section === 'home' ? '/' : `/${section}`;
+    const sectionName = section.charAt(0).toUpperCase() + section.slice(1);
+    return {
+      text: `Navigating straight to the **${sectionName}** page... 🚀`,
+      speakText: `Navigating to the ${sectionName} page.`,
+      suggestions: ["walkthrough", "resume"],
+      action: "navigate",
+      payload: { path }
+    };
+  }
+
+  // C. Theme Switching Action
+  const themeMatch = q.match(/\b(change|set|switch|go\s+to|select)\s+theme\s+to\s+(cyberpunk|cosmic|gold|matrix)\b/i) || 
+                     q.match(/\b(cyberpunk|cosmic|gold|matrix)\s+theme\b/i) ||
+                     q.match(/\bchange\s+theme\s+(cyberpunk|cosmic|gold|matrix)\b/i);
+  if (themeMatch) {
+    const themeId = themeMatch[2] || themeMatch[1];
+    const themeName = themeId.charAt(0).toUpperCase() + themeId.slice(1);
+    return {
+      text: `Switching the site theme to **${themeName}**! 🎨`,
+      speakText: `Switching the site theme to ${themeName}.`,
+      suggestions: ["projects", "skills"],
+      action: "change-theme",
+      payload: { themeId }
+    };
+  }
+
+  // D. Close Terminal/Console Action
+  if (/\b(close|exit|quit)\s+(terminal|console|shell)\b/i.test(q)) {
+    return {
+      text: "Closing the terminal console screen... 🚪",
+      speakText: "Closing the terminal.",
+      suggestions: [],
+      action: "close-terminal"
+    };
+  }
+
+  // E. Voice Control Action
+  if (/\b(turn\s+voice\s+on|enable\s+voice|unmute\s+voice)\b/i.test(q)) {
+    return {
+      text: "Voice synthesis audio activated! 🔊",
+      speakText: "Voice synthesis active.",
+      suggestions: ["tell me a joke"],
+      action: "toggle-voice",
+      payload: { enable: true }
+    };
+  }
+  if (/\b(turn\s+voice\s+off|disable\s+voice|mute\s+voice)\b/i.test(q)) {
+    return {
+      text: "Voice synthesis audio muted. 🔇",
+      speakText: "",
+      suggestions: ["skills"],
+      action: "toggle-voice",
+      payload: { enable: false }
+    };
+  }
+  if (/\b(toggle\s+voice)\b/i.test(q)) {
+    return {
+      text: "Toggling voice settings...",
+      speakText: "Toggling voice settings.",
+      suggestions: [],
+      action: "toggle-voice",
+      payload: { enable: 'toggle' }
+    };
+  }
+
+  // F. Conversational Contact Trigger
+  if (/\b(contact|email|message|fill\s+contact\s+form|send\s+(a\s+)?message|hire\s+me)\b/i.test(q) && 
+      !/\b(linkedin|github|social|phone|address|location)\b/i.test(q)) {
+    return {
+      text: "I can help you write and submit a message to Aashish directly from this chat! ✉️\nFirst, **what is your name?** (Type 'cancel' to exit)",
+      speakText: "I can help you write and submit a message to Aashish directly from this chat. First, what is your name?",
+      suggestions: ["cancel"],
+      action: "update-contact-form",
+      payload: { step: 'awaiting-name', data: { name: '', email: '', message: '' } }
+    };
+  }
+
+  // 3. FALLBACK TO STANDARD STATIC ON-TOPIC PARSES
   const isOnTopic = [
     /\b(hi|hello|hey|yo|greetings|sup|hola|howdy|good\s+morning|good\s+afternoon|good\s+evening)\b/,
     /\b(help|commands|what can you do|what to ask|how to use)\b/,
@@ -113,7 +289,7 @@ export function getAashBotResponse(query) {
     /\b(education|college|school|pec|punjab engineering|university|cgpa|grades|study|degree)\b/,
     /\b(contact|email|phone|social|linkedin|github|reach|connect|address|location|city|country|india|chandigarh)\b/,
     /\b(hobbies|interests|fun|about|background|bio)\b/,
-    /\b(joke|funny|laugh|humor|tell me a joke)\b/,
+    /\b(joke|funny|laugh|humor|tell me a joke|roast|roast\s+me|roast\s+you|suck|stupid|dumb|bad\s+bot|useless|slow\s+bot|horrible|trash|garbage|jerk|idiot|loser|weak)\b/,
     /\b(walkthrough|tour|guide|site tour|show me around)\b/,
     /\b(hack|override|admin|system|weather|time|location)\b/,
     /\b(bye|goodbye|exit|quit|close|thanks|thank you)\b/
@@ -121,7 +297,7 @@ export function getAashBotResponse(query) {
 
   if (!isOnTopic) {
     return {
-      text: "I am AashBot, specialized as Aashish's digital portfolio assistant. 🛰️\nI cannot answer general knowledge, coding help, or off-topic questions. Try asking about Aashish's 'skills', 'experience', 'projects', or 'education'!",
+      text: "I am AashBot, specialized as Aashish's digital portfolio assistant. 🛰️\nI cannot answer general knowledge or off-topic questions. Try asking about Aashish's 'skills', 'experience', 'projects', or 'education'!",
       speakText: "I am AashBot, specialized as Aashish's digital portfolio assistant. I cannot answer general or off-topic questions. Try asking about Aashish's skills, experience, projects, or education.",
       suggestions: ["skills", "projects", "education"]
     };
@@ -167,7 +343,7 @@ export function getAashBotResponse(query) {
     return RESPONSES.education;
   }
 
-  // Contact matching
+  // Contact matching (LinkedIn/Github/Phone generic responses)
   if (/\b(contact|email|phone|social|linkedin|github|reach|connect|hire me)\b/.test(q)) {
     return RESPONSES.contact;
   }
@@ -180,6 +356,17 @@ export function getAashBotResponse(query) {
       text: `😂 AashBot Joke Database:\n"${jokeText}"`,
       speakText: jokeText,
       suggestions: ["another joke", "projects"]
+    };
+  }
+
+  // Roasts matching
+  if (/\b(roast|suck|stupid|dumb|bad\s+bot|useless|slow\s+bot|horrible|trash|garbage|jerk|idiot|loser|weak)\b/i.test(q)) {
+    const randomIndex = Math.floor(Math.random() * ROASTS.length);
+    const roastText = ROASTS[randomIndex];
+    return {
+      text: `🔥 AashBot Savage Roast Mode:\n"${roastText}"`,
+      speakText: roastText,
+      suggestions: ["roast me again", "skills", "projects"]
     };
   }
 

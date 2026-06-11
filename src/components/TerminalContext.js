@@ -37,6 +37,12 @@ export function TerminalProvider({ children }) {
   const [isWalkthroughActive, setIsWalkthroughActive] = useState(false);
   const [walkthroughStep, setWalkthroughStep] = useState(0);
 
+  // Contact Form Session Flow State for AashBot
+  const [contactFormState, setContactFormState] = useState({
+    step: null, // null | 'awaiting-name' | 'awaiting-email' | 'awaiting-message'
+    data: { name: '', email: '', message: '' }
+  });
+
   // Sync voice preference with localStorage
   useEffect(() => {
     const savedVoice = localStorage.getItem('aashbot-voice');
@@ -267,7 +273,9 @@ export function TerminalProvider({ children }) {
       startWalkthrough,
       advanceWalkthrough,
       retreatWalkthrough,
-      endWalkthrough
+      endWalkthrough,
+      contactFormState,
+      setContactFormState
     }}>
       {children}
     </TerminalContext.Provider>

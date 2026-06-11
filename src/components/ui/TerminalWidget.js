@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useTheme } from '../ThemeProvider';
 import { useTerminal } from '../TerminalContext';
 import { getAashBotResponse } from '@/utils/daemonAi';
@@ -8,6 +9,7 @@ import projectsData from '@/data/projects';
 import skillsData from '@/data/skills';
 
 export default function TerminalWidget({ isInline = false, onClose }) {
+  const router = useRouter();
   const { theme, setTheme, themes } = useTheme();
   const {
     history,
@@ -28,8 +30,95 @@ export default function TerminalWidget({ isInline = false, onClose }) {
     startWalkthrough,
     advanceWalkthrough,
     retreatWalkthrough,
-    endWalkthrough
+    endWalkthrough,
+    contactFormState,
+    setContactFormState
   } = useTerminal();
+
+  // Executes dynamic agentic actions returned by AashBot's NLP engine
+  const executeAashBotAction = (reply, newHistoryList) => {
+    if (!reply.action) return;
+
+    switch (reply.action) {
+      case 'update-contact-form':
+        setContactFormState(reply.payload);
+        break;
+
+      case 'submit-contact-form':
+        // Reset state and call API async
+        setContactFormState({ step: null, data: { name: '', email: '', message: '' } });
+        const data = reply.payload.data;
+        (async () => {
+          try {
+            const res = await fetch('/api/contact', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(data),
+            });
+            const resData = await res.json();
+            if (resData.success) {
+              setHistory(prev => [
+                ...prev,
+                { text: "[AashBot] Message sent successfully! 🚀", type: "success" },
+                { text: "Aashish will get back to you soon. Thanks for reaching out!", type: "muted" },
+                { text: "", type: "spacer" }
+              ]);
+              speakText("Your message has been sent successfully! Aashish will get back to you soon.");
+            } else {
+              throw new Error(resData.error || 'Server error');
+            }
+          } catch (err) {
+            setHistory(prev => [
+              ...prev,
+              { text: `[AashBot] Error submitting message: ${err.message}`, type: "error" },
+              { text: "Please try filling out the Contact page form directly instead.", type: "muted" },
+              { text: "", type: "spacer" }
+            ]);
+            speakText("Error submitting your message. Please try the contact form page instead.");
+          }
+        })();
+        break;
+
+      case 'change-theme':
+        setTheme(reply.payload.themeId);
+        break;
+
+      case 'navigate':
+        router.push(reply.payload.path);
+        break;
+
+      case 'download-resume':
+        if (typeof window !== 'undefined') {
+          const link = document.createElement('a');
+          link.href = reply.payload.path;
+          link.download = 'Aashish_Sachdeva_Resume.pdf';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+        break;
+
+      case 'close-terminal':
+        if (onClose) {
+          setTimeout(() => onClose(), 800);
+        } else {
+          newHistoryList.push({ text: "Terminal console cannot be closed in inline mode.", type: "muted" });
+        }
+        break;
+
+      case 'toggle-voice':
+        const targetVal = reply.payload.enable;
+        if (targetVal === 'toggle') {
+          toggleVoice();
+        } else if (targetVal !== voiceEnabled) {
+          toggleVoice();
+        }
+        break;
+
+      default:
+        break;
+    }
+  };
 
   const [inputVal, setInputVal] = useState('');
   const consoleContainerRef = useRef(null);
@@ -133,38 +222,56 @@ export default function TerminalWidget({ isInline = false, onClose }) {
           { text: "Returning to standard Linux console. Type 'help' for core commands.", type: "muted" }
         );
         speakText("Exited AashBot chat. Standard terminal is active.");
+        setHistory(newHistory);
+        setInputVal('');
       } else if (command === 'clear') {
         setHistory([]);
         setInputVal('');
         return;
       } else {
-        // Run query through AI parser
-        const reply = getAashBotResponse(trimmed);
-        
-        newHistory.push(
-          { text: "AashBot:", type: "success" },
-          { text: reply.text, type: "text" }
-        );
+        // Run query through AI proxy route asynchronously
+        (async () => {
+          let reply;
+          try {
+            const res = await fetch('/api/aashbot', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ query: trimmed, contactFormState }),
+            });
+            reply = await res.json();
+          } catch (err) {
+            // Absolute fallback client-side if Next.js proxy route is down
+            reply = getAashBotResponse(trimmed, contactFormState);
+          }
 
-        if (reply.suggestions && reply.suggestions.length > 0) {
-          newHistory.push({ 
-            text: `Suggestions: ${reply.suggestions.map(s => `'${s}'`).join(', ')}`, 
-            type: "muted" 
-          });
-        }
+          const updatedHistory = [...newHistory,
+            { text: "AashBot:", type: "success" },
+            { text: reply.text, type: "text" }
+          ];
 
-        speakText(reply.speakText);
+          if (reply.suggestions && reply.suggestions.length > 0) {
+            updatedHistory.push({ 
+              text: `Suggestions: ${reply.suggestions.map(s => `'${s}'`).join(', ')}`, 
+              type: "muted" 
+            });
+          }
 
-        if (reply.triggerWalkthrough) {
-          startWalkthrough();
-          setInputVal('');
-          return;
-        }
+          speakText(reply.speakText);
+
+          if (reply.triggerWalkthrough) {
+            startWalkthrough();
+            setInputVal('');
+            return;
+          }
+
+          // Execute dynamic action from response
+          executeAashBotAction(reply, updatedHistory);
+
+          updatedHistory.push({ text: "", type: "spacer" });
+          setHistory(updatedHistory);
+        })();
+        setInputVal('');
       }
-
-      newHistory.push({ text: "", type: "spacer" });
-      setHistory(newHistory);
-      setInputVal('');
       return;
     }
 
@@ -221,20 +328,43 @@ export default function TerminalWidget({ isInline = false, onClose }) {
             { text: "Usage: ask [your question]", type: "error" },
             { text: "Example: ask what are your core skills?", type: "muted" }
           );
+          newHistory.push({ text: "", type: "spacer" });
+          setHistory(newHistory);
         } else {
           const queryStr = args.join(' ');
-          const reply = getAashBotResponse(queryStr);
-          newHistory.push(
-            { text: "AashBot:", type: "success" },
-            { text: reply.text, type: "text" }
-          );
-          speakText(reply.speakText);
+          // Run query through AI proxy route
+          (async () => {
+            let reply;
+            try {
+              const res = await fetch('/api/aashbot', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ query: queryStr, contactFormState }),
+              });
+              reply = await res.json();
+            } catch (err) {
+              reply = getAashBotResponse(queryStr, contactFormState);
+            }
 
-          if (reply.triggerWalkthrough) {
-            startWalkthrough();
-            setInputVal('');
-            return;
-          }
+            const updatedHistory = [...newHistory,
+              { text: "AashBot:", type: "success" },
+              { text: reply.text, type: "text" }
+            ];
+
+            speakText(reply.speakText);
+
+            if (reply.triggerWalkthrough) {
+              startWalkthrough();
+              setInputVal('');
+              return;
+            }
+
+            // Execute dynamic action from response
+            executeAashBotAction(reply, updatedHistory);
+
+            updatedHistory.push({ text: "", type: "spacer" });
+            setHistory(updatedHistory);
+          })();
         }
         break;
 
