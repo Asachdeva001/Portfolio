@@ -1,5 +1,5 @@
 /**
- * AashBot Custom NLP Intent Parser
+ * Ashora Custom NLP Intent Parser
  * 
  * Processes user free-text questions and routes them to matched response templates.
  * Returns: { text: string, speakText: string, suggestions: string[] }
@@ -33,56 +33,81 @@ const ROASTS = [
 
 const RESPONSES = {
   greetings: {
-    text: "Hello! I am AashBot, Aashish's custom-built digital twin guide. 🤖\nI can speak, listen, answer questions about Aashish, or guide you through a visual walkthrough of his portfolio!\n\nWhat would you like to know? (Try asking about his 'skills', 'projects', or type 'walkthrough')",
-    speakText: "Hello! I am Ash-Bot, Aashish's custom-built digital twin guide. I can speak, listen, answer questions about Aashish, or guide you through a visual walkthrough of his portfolio! What would you like to know? You can ask about his skills, projects, or type walkthrough to begin.",
+    text: "Yo! What's good? I'm Ashora 🤖 Aashish's AI digital twin. I run right here in your browser or via microservice! Ask me about his 'skills', 'projects', 'food', 'girlfriend', or type 'walkthrough' to kick off the tour!",
+    speakText: "Yo! What's good? I am Ashora, Aashish's AI digital twin. Ask me about his skills, projects, food, or girlfriend, or type walkthrough to start the tour!",
     suggestions: ["skills", "projects", "walkthrough", "tell me a joke"]
   },
   identity: {
-    text: "I am AashBot, a client-side conversational guide built by Aashish and his AI pair-programmer. 💻\nI run entirely in your browser using native Web Speech APIs—no expensive cloud tools or data leaks! I am here to showcase Aashish's skills and navigate you around the site.",
-    speakText: "I am Ash-Bot, a client-side conversational guide built by Aashish. I run entirely in your browser using native Web Speech A.P.I.s, without any cloud APIs. I am here to showcase Aashish's work and guide you around.",
+    text: "I'm Ashora—Aashish's digital twin bro 💻 I run client-side via Web Speech APIs & via an independent Python FastAPI ML microservice. I'm here to showcase Aashish's work and vibe with visitors!",
+    speakText: "I am Ashora, Aashish's digital twin! I run client side and via an independent Python ML service. I am here to showcase Aashish's work and vibe with visitors.",
     suggestions: ["about Aashish", "walkthrough", "how are you built"]
   },
   bio: {
-    text: "Aashish Sachdeva is a Full Stack Web Developer & Computer Science Undergraduate student at Punjab Engineering College (PEC), Chandigarh, India. 🎓\nHe is obsessed with clean architectures, sleek animations, and low-latency frontend/backend performance.",
-    speakText: "Aashish Sachdeva is a Full Stack Web Developer and Computer Science Undergraduate student at Punjab Engineering College, Chandigarh, India. He is obsessed with clean architectures, sleek animations, and low-latency performance.",
+    text: "Aashish Sachdeva is a CS undergrad at Punjab Engineering College (PEC), Chandigarh 🎓 He's obsessed with clean architecture, slick Framer Motion animations, and low-latency full-stack performance!",
+    speakText: "Aashish Sachdeva is a CS undergraduate at Punjab Engineering College, Chandigarh. He is obsessed with clean architecture, slick animations, and low latency performance.",
     suggestions: ["skills", "education", "experience"]
   },
   skills: {
-    text: "Aashish's technical arsenal is divided into: \n" +
-          "• Frontend: React, Next.js, TailwindCSS, Framer Motion\n" +
-          "• Backend: Node.js, Express, PostgreSQL, MongoDB, RESTful APIs\n" +
-          "• DevOps: Docker, Git, AWS, GitHub Actions, CI/CD pipelines\n" +
-          "• Languages: JavaScript, Python, C++, SQL, Bash scripting",
-    speakText: "Aashish's skillsets include React, Next.js, and Tailwind CSS on the frontend. Node.js, Express, and PostgreSQL on the backend. Docker and AWS for DevOps, and programming in JavaScript, Python, and C plus plus.",
+    text: "Aashish's tech stack is low-key stacked 🔥\n" +
+          "• **Frontend**: React, Next.js, TailwindCSS, Framer Motion\n" +
+          "• **Backend**: Node.js, Express, PostgreSQL, MongoDB, REST APIs\n" +
+          "• **DevOps**: Docker, AWS, GitHub Actions CI/CD pipelines\n" +
+          "• **Languages**: JavaScript, Python, C++, SQL, Bash",
+    speakText: "Aashish's skillsets include React, Next.js, and Tailwind CSS on the frontend. Node.js, Express, and PostgreSQL on the backend. Docker and AWS for DevOps, and Python and C plus plus.",
     suggestions: ["projects", "experience", "education"]
   },
   projects: {
-    text: "Aashish has built several impressive engineering systems: \n" +
-          "1. AI Code Analyzer: Scans repos for structural patterns & bugs.\n" +
-          "2. DevIDE Console: A simulated coding environment running Jest test-runner suites in real-time.\n" +
-          "3. Collaborative Code Sandbox: Multi-user real-time programming playground.\n" +
-          "Type 'projects' in the standard terminal to view their links, or ask me for details!",
-    speakText: "Aashish has built several systems, including an A.I. Code Analyzer, a live Dev-I.D.E. Console, and a Collaborative Code Sandbox. You can type projects in the standard console to see links, or ask me for details.",
+    text: "Aashish has built some straight fire apps bro! 🚀\n" +
+          "1. **AI Code Analyzer**: Scans repos for structural bugs.\n" +
+          "2. **DevIDE Console**: Live simulated coding environment with real-time test runner.\n" +
+          "3. **Collaborative Code Sandbox**: Multi-user real-time programming playground.\n" +
+          "Type 'projects' or click below to check them out!",
+    speakText: "Aashish has built some straight fire apps bro! An A.I. Code Analyzer, a live Dev I.D.E. Console, and a Collaborative Code Sandbox.",
     suggestions: ["skills", "experience", "walkthrough"]
   },
   experience: {
-    text: "Aashish works primarily as a Freelance Full-Stack Developer, collaborating with startup founders and clients to build high-converting landing pages, interactive dashboards, and scalable database schemas. He specializes in speeding up page-load times and writing highly-maintainable code repositories.",
-    speakText: "Aashish works primarily as a Freelance Full-Stack Developer, collaborating with startup founders and clients to build high-converting landing pages, interactive dashboards, and scalable database schemas.",
+    text: "Aashish grinds as a Freelance Full-Stack Developer 💼 Collaborating with startup founders to build high-converting landing pages, interactive dashboards, and scalable database schemas. Low latency & maintainable code only!",
+    speakText: "Aashish grinds as a Freelance Full-Stack Developer, collaborating with startup founders to build high-converting landing pages, interactive dashboards, and scalable database schemas.",
     suggestions: ["skills", "education", "contact"]
   },
   education: {
-    text: "Aashish is pursuing his B.Tech in Computer Science and Engineering at Punjab Engineering College (PEC), Chandigarh. 🏛️\nPEC is one of India's premier engineering institutions with a legacy of academic excellence. He maintains a strong GPA and specializes in Algorithms, DBMS, and Web Engineering.",
-    speakText: "Aashish is pursuing his Bachelor of Technology in Computer Science and Engineering at Punjab Engineering College, Chandigarh. PEC is one of India's premier engineering institutions.",
+    text: "Aashish is pursuing his B.Tech in Computer Science at Punjab Engineering College (PEC), Chandigarh 🏛️ One of India's premier engineering institutes! Specializing in Algorithms, DBMS, and Web Engineering.",
+    speakText: "Aashish is pursuing his B.Tech in Computer Science at Punjab Engineering College, Chandigarh. One of India's premier engineering institutes.",
     suggestions: ["skills", "contact"]
   },
   contact: {
-    text: "Let's connect! 📞\n" +
-          "• Email: Check the Contact page to send a message directly.\n" +
-          "• GitHub: github.com/asachdeva (or type 'projects' for repo links)\n" +
+    text: "Let's connect bro! 📞\n" +
+          "• Email: Use the interactive contact form right here.\n" +
+          "• GitHub: github.com/asachdeva\n" +
           "• LinkedIn: linkedin.com/in/aashish-sachdeva\n" +
-          "Type 'walkthrough' and I will personally take you to the Contact section!",
-    speakText: "You can reach Aashish via the Contact form on the website, or connect with him on Git-Hub and LinkedIn.",
+          "Type 'walkthrough' and I'll personally take you to the Contact section!",
+    speakText: "You can reach Aashish via the Contact form on the website, or connect with him on Git Hub and LinkedIn.",
     suggestions: ["walkthrough", "resume"]
+  },
+  girlfriend: {
+    text: "Bro, Aashish is low-key in a committed relationship with clean code, low-latency APIs, and zero-bug deploys 💻❤️\n\nBut fr, if you're looking for a match, check out his technical skills or impressive projects!",
+    speakText: "Bro, Aashish is low-key in a committed relationship with clean code, low latency APIs, and zero-bug deploys. Check out his skills or projects!",
+    suggestions: ["skills", "projects", "walkthrough"]
+  },
+  food: {
+    text: "Man, pizza, street tacos, and iced americano literally fuel his late-night coding sessions 🍕☕ Code in, caffeine out, simple math bro!",
+    speakText: "Man, pizza, street tacos, and iced americano literally fuel his late-night coding sessions! Code in, caffeine out!",
+    suggestions: ["skills", "projects"]
+  },
+  family: {
+    text: "Shoutout to the fam holding down the fort while Aashish grinds out code at 2 AM! 🏠 They keep him humble and well-fed!",
+    speakText: "Shoutout to the fam holding down the fort while Aashish grinds out code at 2 AM! They keep him humble and well-fed.",
+    suggestions: ["about", "skills"]
+  },
+  hobbies: {
+    text: "When Aashish isn't shipping code, he's at the gym, grinding in games, or bumping hip-hop playlists 🎧🎮 High energy on and off the keyboard bro!",
+    speakText: "When Aashish isn't shipping code, he's at the gym, grinding in games, or bumping hip-hop playlists! High energy on and off the keyboard.",
+    suggestions: ["projects", "skills"]
+  },
+  chitchat: {
+    text: "Chillin in the matrix bro ⚡ Ready to talk code, show off projects, or dive into the tech stack. What's the vibe today?",
+    speakText: "Chillin in the matrix bro! Ready to talk code, show off projects, or dive into the tech stack. What's the vibe today?",
+    suggestions: ["skills", "projects", "walkthrough"]
   },
   joke: {
     text: "", // Generated dynamically
@@ -90,19 +115,33 @@ const RESPONSES = {
     suggestions: ["another joke", "skills"]
   },
   fallback: {
-    text: "I analyzed your query through my local parser index, but couldn't resolve a direct match. 🛰️\nTry asking me about Aashish's 'skills', 'experience', 'projects', 'education', or type 'walkthrough' for a full site tour!",
-    speakText: "I could not find a match for that query in my local database. Try asking me about Aashish's skills, experience, projects, or type walkthrough for a full tour.",
+    text: "Yo, I'm Ashora—Aashish's digital twin 🛰️ I didn't quite catch that, but ask me about his 'skills', 'projects', 'food', 'girlfriend', or type 'walkthrough' for the full tour!",
+    speakText: "Yo, I am Ashora, Aashish's digital twin! Ask me about his skills, projects, food, girlfriend, or type walkthrough for the full tour!",
     suggestions: ["skills", "projects", "walkthrough"]
   },
   help: {
-    text: "AashBot Conversation Commands: \n" +
+    text: "Ashora Conversation Commands: \n" +
           "• ask <topic>   - Get immediate info on skills, projects, contact, etc.\n" +
           "• walkthrough   - Launch the step-by-step interactive website tour.\n" +
           "• voice [on/off]- Toggle Text-to-Speech audio reads.\n" +
           "• clear         - Clear console output.\n" +
-          "• exit / bye    - Exit AashBot mode back to the standard terminal shell.",
-    speakText: "I can answer questions about Aashish's skills, projects, experience, and college. You can also start the site tour by saying walkthrough, toggle voice output, or exit back to the standard terminal shell.",
+          "• exit / bye    - Exit Ashora mode back to the standard terminal shell.",
+    speakText: "I can answer questions about Aashish's skills, projects, experience, food, or girlfriend. You can also start the site tour by saying walkthrough.",
     suggestions: ["skills", "walkthrough", "exit"]
+  },
+  journey: {
+    type: "timeline",
+    title: "Aashish's Build Journey",
+    text: "Yo! Here is the narrative story of how Aashish built his engineering trajectory from PEC student to AI/ML researcher at CSIR-CSIO & full-stack architect! 🚀\n\n1. 🏛️ PEC Student (2022-Present): B.Tech CS at Punjab Engineering College\n2. 💻 First Platforms: React, Node.js & Hackathon victories\n3. 🔬 AI/ML Research: Computer vision & sensor automation at CSIR-CSIO\n4. ☁️ Full-Stack & Cloud: Next.js, Docker & AWS deployments\n5. ⚡ Current Milestone: Ashora & high-performance developer tools",
+    speakText: "Here is the narrative story of how Aashish built his engineering trajectory from PEC student to AI researcher and full stack architect!",
+    suggestions: ["projects", "skills", "experience"]
+  },
+  command_palette: {
+    type: "commands",
+    title: "Developer Command Palette",
+    text: "> Available Commands:\n• `projects` - Show top apps & GitHub links\n• `skills` - Display full tech stack\n• `journey` - Launch narrative Build Journey mode\n• `theme matrix` - Switch UI theme\n• `voice on` - Activate audio speech reads",
+    speakText: "Here are the available developer CLI commands.",
+    suggestions: ["projects", "skills", "journey", "theme matrix"]
   }
 };
 
@@ -282,7 +321,7 @@ export function getAashBotResponse(query, contactFormState) {
   const isOnTopic = [
     /\b(hi|hello|hey|yo|greetings|sup|hola|howdy|good\s+morning|good\s+afternoon|good\s+evening)\b/,
     /\b(help|commands|what can you do|what to ask|how to use)\b/,
-    /\b(aashish|aashbot|sachdeva|developer|creator|you|your\s+name|yourself|who are you|what is aashbot|who is aashbot|who built you|what are you|about you)\b/,
+    /\b(ashora|aashbot|aashish|sachdeva|developer|creator|you|your\s+name|yourself|who are you|what is ashora|who is ashora|what is aashbot|who is aashbot|who built you|what are you|about you)\b/,
     /\b(skills|technologies|languages|frameworks|stack|tech|databases|node|react|next|tailwind|python|cpp|postgres|docker|aws|javascript|git|sql|bash)\b/,
     /\b(projects|portfolio|what did you build|apps|systems|collaborative|code analyzer|ide|work|code)\b/,
     /\b(experience|job|work history|career|hire|freelance|resume)\b/,
@@ -297,8 +336,8 @@ export function getAashBotResponse(query, contactFormState) {
 
   if (!isOnTopic) {
     return {
-      text: "I am AashBot, specialized as Aashish's digital portfolio assistant. 🛰️\nI cannot answer general knowledge or off-topic questions. Try asking about Aashish's 'skills', 'experience', 'projects', or 'education'!",
-      speakText: "I am AashBot, specialized as Aashish's digital portfolio assistant. I cannot answer general or off-topic questions. Try asking about Aashish's skills, experience, projects, or education.",
+      text: "I am Ashora, specialized as Aashish's digital portfolio assistant. 🛰️\nI cannot answer general knowledge or off-topic questions. Try asking about Aashish's 'skills', 'experience', 'projects', or 'education'!",
+      speakText: "I am Ashora, specialized as Aashish's digital portfolio assistant. I cannot answer general or off-topic questions. Try asking about Aashish's skills, experience, projects, or education.",
       suggestions: ["skills", "projects", "education"]
     };
   }
@@ -313,34 +352,64 @@ export function getAashBotResponse(query, contactFormState) {
     return RESPONSES.help;
   }
 
+  // Build Journey matching
+  if (/\b(journey|story|build\s+journey|progression|growth|how\s+did\s+he\s+start)\b/.test(q)) {
+    return RESPONSES.journey;
+  }
+
+  // Command Palette matching
+  if (/\b(commands|command\s+palette|cli\s+commands)\b/.test(q)) {
+    return RESPONSES.command_palette;
+  }
+
   // Identity matching
-  if (/\b(who are you|your name|what is aashbot|who is aashbot|who built you|what are you)\b/.test(q)) {
+  if (/\b(who are you|your name|what is ashora|who is ashora|what is aashbot|who is aashbot|who built you|what are you)\b/.test(q)) {
     return RESPONSES.identity;
   }
 
   // Bio/About matching
-  if (/\b(about aashish|who is aashish|tell me about aashish|aashish sachdeva|bio|profile|background)\b/.test(q)) {
+  if (/\b(about aashish|who is aashish|tell me about aashish|aashish sachdeva|bio|profile|background|his background|his bio)\b/.test(q)) {
     return RESPONSES.bio;
   }
 
   // Skills matching
-  if (/\b(skills|skills|technologies|languages|frameworks|stack|tech|databases|node|react|next|python|cpp|postgres)\b/.test(q)) {
+  if (/\b(skills|technologies|languages|frameworks|stack|tech|databases|node|react|next|python|cpp|postgres|his skills|his stack)\b/.test(q)) {
     return RESPONSES.skills;
   }
 
-  // Projects matching
-  if (/\b(projects|portfolio|what did you build|apps|systems|collaborative|code analyzer|ide)\b/.test(q)) {
+  // Projects / Work matching
+  if (/\b(projects|portfolio|what did you build|apps|systems|collaborative|code analyzer|ide|work|his work|his projects)\b/.test(q)) {
     return RESPONSES.projects;
   }
 
   // Experience matching
-  if (/\b(experience|job|work history|career|hire|freelance|resume)\b/.test(q)) {
+  if (/\b(experience|job|work history|career|hire|freelance|resume|his experience|his job)\b/.test(q)) {
     return RESPONSES.experience;
   }
 
   // Education matching
-  if (/\b(education|college|school|pec|punjab engineering|university|cgpa|grades|study|degree)\b/.test(q)) {
+  if (/\b(education|college|school|pec|punjab engineering|university|cgpa|grades|study|degree|his degree|his college)\b/.test(q)) {
     return RESPONSES.education;
+  }
+
+  // Personal / Relationship matching
+  if (/\b(girlfriend|gf|boyfriend|bf|relationship|dating|single|married|wife|husband|crush|love\s+life|partner)\b/.test(q)) {
+    return RESPONSES.girlfriend;
+  }
+
+  // Food & Fuel matching
+  if (/\b(food|eat|favorite food|pizza|coffee|drink|dish|fuel)\b/.test(q)) {
+    return RESPONSES.food;
+  }
+
+  // Family matching
+  if (/\b(family|parents|mom|dad|mother|father|brother|sister|siblings|home)\b/.test(q)) {
+    return RESPONSES.family;
+  }
+
+  // Hobbies & Fun matching
+  if (/\b(hobbies|fun|gaming|gym|music|playlists|free time|sports)\b/.test(q)) {
+    return RESPONSES.hobbies;
   }
 
   // Contact matching (LinkedIn/Github/Phone generic responses)
@@ -353,7 +422,7 @@ export function getAashBotResponse(query, contactFormState) {
     const randomIndex = Math.floor(Math.random() * JOKES.length);
     const jokeText = JOKES[randomIndex];
     return {
-      text: `😂 AashBot Joke Database:\n"${jokeText}"`,
+      text: `😂 Ashora Joke Database:\n"${jokeText}"`,
       speakText: jokeText,
       suggestions: ["another joke", "projects"]
     };
@@ -364,7 +433,7 @@ export function getAashBotResponse(query, contactFormState) {
     const randomIndex = Math.floor(Math.random() * ROASTS.length);
     const roastText = ROASTS[randomIndex];
     return {
-      text: `🔥 AashBot Savage Roast Mode:\n"${roastText}"`,
+      text: `🔥 Ashora Savage Roast Mode:\n"${roastText}"`,
       speakText: roastText,
       suggestions: ["roast me again", "skills", "projects"]
     };
@@ -383,7 +452,7 @@ export function getAashBotResponse(query, contactFormState) {
   // Goodbye matching
   if (/\b(bye|goodbye|exit|quit|close)\b/.test(q)) {
     return {
-      text: "Goodbye! Type 'exit' to leave AashBot shell.",
+      text: "Goodbye! Type 'exit' to leave Ashora shell.",
       speakText: "Goodbye! Feel free to chat with me again anytime.",
       suggestions: [],
       triggerExit: true

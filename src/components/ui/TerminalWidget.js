@@ -200,7 +200,7 @@ export default function TerminalWidget({ isInline = false, onClose }) {
     if (!trimmed) return;
 
     const currentPrompt = chatMode 
-      ? `aashbot@portfolio:~$ ${trimmed}` 
+      ? `ashora@portfolio:~$ ${trimmed}` 
       : `visitor@aashish-sachdeva:~$ ${trimmed}`;
 
     const newHistory = [...history, { text: currentPrompt, type: "command" }];
@@ -311,15 +311,16 @@ export default function TerminalWidget({ isInline = false, onClose }) {
         );
         break;
 
+      case 'ashora':
       case 'aashbot':
       case 'chat':
         setChatMode(true);
         newHistory.push(
-          { text: "[*] Launching AashBot Interactive Guide Session...", type: "info" },
+          { text: "[*] Launching Ashora Interactive Guide Session...", type: "info" },
           { text: "[+] Connection established. System online.", type: "success" },
-          { text: "AashBot: Hello! I'm here. Ask me anything about Aashish's background, skills, or portfolio. Type 'exit' to close this chat mode.", type: "text" }
+          { text: "Ashora: Hello! I'm here. Ask me anything about Aashish's background, skills, or portfolio. Type 'exit' to close this chat mode.", type: "text" }
         );
-        speakText("AashBot session active. Ask me anything, or type exit to return to standard console.");
+        speakText("Ashora session active. Ask me anything, or type exit to return to standard console.");
         break;
 
       case 'ask':
@@ -599,7 +600,7 @@ export default function TerminalWidget({ isInline = false, onClose }) {
       {/* CLI Input Prompter */}
       <div className="p-3.5 border-t border-white/5 bg-neutral-950/45 flex items-center text-sm">
         {chatMode ? (
-          <span className="text-emerald-400 font-semibold mr-2 shrink-0 select-none">aashbot@portfolio:~$</span>
+          <span className="text-emerald-400 font-semibold mr-2 shrink-0 select-none">ashora@portfolio:~$</span>
         ) : isWalkthroughActive ? (
           <span className="text-primary font-semibold mr-2 shrink-0 select-none">tour-guide@walkthrough:~$</span>
         ) : (
@@ -616,7 +617,7 @@ export default function TerminalWidget({ isInline = false, onClose }) {
           autoFocus={!isInline}
           spellCheck="false"
           autoComplete="off"
-          placeholder={chatMode ? "Ask AashBot a question..." : isWalkthroughActive ? "Type 'next' or 'back'..." : "Type 'help'..."}
+          placeholder={chatMode ? "Ask Ashora a question..." : isWalkthroughActive ? "Type 'next' or 'back'..." : "Type 'help'..."}
         />
 
         {/* Microphone STT Voice dictation trigger */}
