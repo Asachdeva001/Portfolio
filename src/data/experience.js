@@ -1,5 +1,56 @@
 export const experiences = [
   {
+    id: "exp-5",
+    company: "NatWest Group",
+    position: "Digi X Tech Intern",
+    location: "Gurugram, India",
+    startDate: "May 2026",
+    endDate: "July 2026",
+    current: false,
+    description:
+      "Engineered automated telemetry and data pipeline infrastructure for banking systems, metrics parsing, and executive dashboards.",
+    achievements: [
+      "Built a utility pipeline to fetch XML reports from consumer pipelines, parse them into standardized JSON, and stream logs to Grafana",
+      "Integrated OpenTelemetry (OTLP) connections for real-time observability, metric publishing, and alerting",
+      "Designed and developed interactive Grafana dashboards displaying operational KPIs, system metrics, and trend plots",
+      "Engineered an automated summarizer module to compute and aggregate monthly performance metrics for downstream Power BI dashboards"
+    ],
+    technologies: [
+      "Java",
+      "Python",
+      "OpenTelemetry (OTLP)",
+      "Grafana",
+      "Power BI",
+      "Data Pipelines",
+      "XML/JSON"
+    ]
+  },
+  {
+    id: "exp-4",
+    company: "CSIR-CSIO",
+    position: "AI/ML Research Intern",
+    location: "Chandigarh, India",
+    startDate: "January 2026",
+    endDate: "May 2026",
+    current: false,
+    description:
+      "Conducted AI/ML research on geological Digital Elevation Model (DEM) data to identify subterranean palaeochannels and reconstruct terrain profiles.",
+    achievements: [
+      "Evaluated and deployed 3 machine learning and deep learning models on spatial DEM geological datasets",
+      "Successfully identified subterranean palaeochannels and reconstructed their cross-sectional profiles",
+      "Automated sensor data processing and spatial feature extraction pipelines using Python and MATLAB"
+    ],
+    technologies: [
+      "Python",
+      "MATLAB",
+      "Machine Learning",
+      "Deep Learning",
+      "DEM Data Analysis",
+      "Automation",
+      "Geological Modeling"
+    ]
+  },
+  {
     id: "exp-3",
     company: "Growero.io",
     position: "Full Stack Web Developer Intern",

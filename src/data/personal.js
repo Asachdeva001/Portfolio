@@ -1,21 +1,21 @@
 export const personalData = {
   name: "Aashish Sachdeva",
-  title: "Full Stack Developer",
-  tagline: "A Passionate web developer creating elegant, high-performance digital solutions that combine usability, visual appeal, and seamless functionality",
-  bio: "I'm a Computer Science student at Punjab Engineering College (PEC), passionate about building impactful digital solutions. I specialize in full-stack web development with experience in technologies like HTML5, CSS, JavaScript, React, and the MERN stack. I enjoy translating ideas into clean, responsive, and engaging web experiences. I stay updated on emerging technologies and cloud infrastructure. Driven by curiosity and creativity, I'm always eager to learn, build, and contribute—whether through code, design, or strategy.",
-  extendedBio: `I'm a Computer Science student at Punjab Engineering College (PEC), passionate about building impactful digital solutions. My journey in web development started with a curiosity about how websites work, and it has evolved into a deep passion for creating elegant, high-performance applications.
+  title: "Full Stack Developer & AI Systems Engineer",
+  tagline: "Building systems that scale beyond me",
+  bio: "Computer Science student at Punjab Engineering College (PEC) engineering high-performance web applications, AI/ML research models, and telemetry pipelines. Experienced across enterprise environments (NatWest Group), research labs (CSIR-CSIO), and full-stack cloud products. Driven by building resilient, automated systems that scale seamlessly.",
+  extendedBio: `I'm a Computer Science student at Punjab Engineering College (PEC), Chandigarh, obsessed with clean architecture, distributed observability, and high-performance software engineering. My focus lies at the intersection of full-stack web platforms, machine learning research, and cloud infrastructure.
 
-I specialize in full-stack web development with hands-on experience in modern technologies including React, Next.js, Node.js, Express, MongoDB, and PostgreSQL. I'm particularly interested in building scalable applications that solve real-world problems and provide exceptional user experiences.
+My experience spans building enterprise-grade telemetry pipelines and Grafana dashboards at NatWest Group using OpenTelemetry and Java/Python, to conducting AI/ML research at CSIR-CSIO evaluating deep learning models on geological DEM data. Whether optimizing database queries, deploying containerized microservices, or training ML algorithms, I prioritize scalability, system reliability, and developer experience.
 
-Beyond coding, I'm fascinated by the intersection of design and development. I believe that great software is not just about functionality—it's about creating intuitive, accessible, and visually appealing experiences that users love.
+I specialize in modern stacks including React, Next.js, Node.js, Java, Python, PostgreSQL, Docker, and AWS. Beyond writing code, I value automated testing, CI/CD deployment workflows, and building intuitive developer tools like Ashora AI.
 
-When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or learning about cloud infrastructure and DevOps practices. I'm always eager to collaborate on interesting projects and connect with fellow developers.`,
+When I'm not architecting systems, you'll find me exploring emerging AI/ML models, benchmarking API latency, or contributing to tech communities. I'm always open to collaborating on high-impact engineering challenges.`,
   location: "Chandigarh, India",
   email: "ashisach001@gmail.com",
   phone: "+91 7973322998",
   resume: "/Resume.pdf",
   avatar: "/avatar.png",
-  professionalSummary: "Passionate Computer Science student with strong expertise in full-stack web development. Experienced in building scalable applications using modern technologies including React, Next.js, Node.js, and MongoDB. Proven ability to translate complex requirements into elegant, user-friendly solutions. Committed to writing clean, maintainable code and staying current with emerging technologies."
+  professionalSummary: "Computer Science student at Punjab Engineering College (PEC) with proven experience in full-stack software development, AI/ML research, and telemetry infrastructure. Demonstrated track record building enterprise data pipelines (NatWest Group), ML geological models (CSIR-CSIO), and scalable cloud applications using React, Next.js, Java, Python, PostgreSQL, and Docker. Passionate about system reliability, distributed observability, and clean architecture."
 };
 
 export default personalData;
