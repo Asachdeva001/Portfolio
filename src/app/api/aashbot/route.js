@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getAashBotResponse } from '@/utils/daemonAi';
 
-const AASHBOT_BRAIN_URL = process.env.AASHBOT_BRAIN_URL || 'http://localhost:8000';
+const AASHBOT_BRAIN_URL = process.env.AASHBOT_BRAIN_URL || 'https://aashbot-brain.onrender.com';
 
 export async function POST(request) {
   try {
