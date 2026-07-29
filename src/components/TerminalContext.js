@@ -43,11 +43,24 @@ export function TerminalProvider({ children }) {
     data: { name: '', email: '', message: '' }
   });
 
-  // Sync voice preference with localStorage
+  // Available browser speech voices cache
+  const voicesRef = useRef([]);
+
+  // Sync voice preference and load available speech synthesis voices asynchronously
   useEffect(() => {
     const savedVoice = localStorage.getItem('aashbot-voice');
     if (savedVoice) {
       setVoiceEnabled(savedVoice === 'true');
+    }
+
+    if (typeof window !== 'undefined' && window.speechSynthesis) {
+      const updateVoices = () => {
+        voicesRef.current = window.speechSynthesis.getVoices();
+      };
+      updateVoices();
+      if (window.speechSynthesis.onvoiceschanged !== undefined) {
+        window.speechSynthesis.onvoiceschanged = updateVoices;
+      }
     }
   }, []);
 
@@ -73,13 +86,19 @@ export function TerminalProvider({ children }) {
     
     if (!voiceEnabled) return;
 
-    // Clean terminal prompt tokens and brackets from screen read-out
+    // Clean terminal prompt tokens, markdown syntax, links, and formatting for natural readout
     const cleanText = text
       .replace(/visitor@aashish-sachdeva:~\$/g, '')
       .replace(/aashbot@portfolio:~\$/g, '')
+      .replace(/ashora@portfolio:~\$/g, '')
       .replace(/\[\*\]|\[!\]|\[\+\]/g, '')
       .replace(/██╔══██╗|██╔════╝|█████╗|██║|███████╗/g, '') // strip ASCII titles
-      .replace(/  +/g, ' ')
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // markdown links [text](url) -> text
+      .replace(/https?:\/\/\S+/g, '') // strip raw URLs
+      .replace(/[*_~`]/g, '') // strip markdown bold/italic/code symbols
+      .replace(/^[•\-\*]\s+/gm, '') // strip bullet point markers
+      .replace(/[\r\n]+/g, '. ') // replace line breaks with pauses
+      .replace(/\s+/g, ' ') // collapse whitespace
       .trim();
 
     if (!cleanText) return;
@@ -90,8 +109,8 @@ export function TerminalProvider({ children }) {
     utterance.onend = () => setIsSpeaking(false);
     utterance.onerror = () => setIsSpeaking(false);
 
-    const voices = window.speechSynthesis.getVoices();
-    // Prioritize premium British accent (en-GB), Edge Natural, Google UK/US, and fallback
+    const voices = voicesRef.current.length > 0 ? voicesRef.current : window.speechSynthesis.getVoices();
+    // Prioritize premium natural voices, British accents (en-GB), Edge Natural, Google UK/US
     const preferredVoice = 
       voices.find(v => v.lang === 'en-GB' && (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Sonia'))) ||
       voices.find(v => v.lang === 'en-GB') ||

@@ -9,14 +9,14 @@ export const skillCategories = [
         icon: "⚛️",
         description: "Advanced proficiency in building dynamic user interfaces with React. Experience with hooks, context API, and state management.",
         proficiency: 90,
-        projects: ["AI-Workspace", "Noteflow", "NewsDiary"]
+        projects: ["Portfolio", "Noteflow", "NewsDiary"]
       },
       {
         name: "Next.js",
         icon: "▲",
         description: "Expertise in building full-stack applications with Next.js, including server-side rendering, API routes, and static site generation.",
         proficiency: 85,
-        projects: ["Portfolio", "AI-Workspace"]
+        projects: ["Portfolio", "Ashora-Brain"]
       },
       {
         name: "TypeScript",
@@ -30,56 +30,84 @@ export const skillCategories = [
         icon: "🎨",
         description: "Proficient in building responsive and modern UIs using Tailwind CSS, with focus on component design and responsive layouts.",
         proficiency: 90,
-        projects: ["Portfolio", "AI-Workspace", "NewsDiary"]
+        projects: ["Portfolio", "NewsDiary"]
       },
       {
-        name: "Redux",
-        icon: "📦",
-        description: "Experience in state management using Redux, including middleware, reducers, and complex state interactions.",
-        proficiency: 75,
-        projects: ["E-commerce Cart", "User Dashboard"]
+        name: "Framer Motion",
+        icon: "✨",
+        description: "Experience in creating smooth, high-performance UI animations and page transitions.",
+        proficiency: 85,
+        projects: ["Portfolio"]
       }
     ]
   },
   {
     id: "backend",
-    title: "Backend Development",
+    title: "Backend & Systems",
     color: "#2D4F4A",
     skills: [
+      {
+        name: "Java",
+        icon: "☕",
+        description: "Strong proficiency in Java for backend service development, Object-Oriented design, and enterprise telemetry pipelines.",
+        proficiency: 85,
+        projects: ["NatWest Telemetry Pipeline"]
+      },
+      {
+        name: "Python",
+        icon: "🐍",
+        description: "Advanced knowledge of Python for FastAPI microservices, data processing pipelines, AI/ML research models, and automation scripts.",
+        proficiency: 90,
+        projects: ["Ashora AI Microservice", "CSIR-CSIO DEM Research"]
+      },
       {
         name: "Node.js",
         icon: "🟢",
         description: "Advanced knowledge of Node.js for building scalable server-side applications and RESTful APIs.",
         proficiency: 85,
-        projects: ["AI-Workspace", "Authentication Service"]
+        projects: ["Authentication Service", "Growero.io"]
       },
       {
-        name: "Express.js",
-        icon: "🚂",
-        description: "Expertise in creating robust web applications and APIs using Express.js, with focus on middleware and routing.",
-        proficiency: 85,
-        projects: ["AI-Workspace", "REST API"]
+        name: "FastAPI / Express.js",
+        icon: "⚡",
+        description: "Expertise in building asynchronous high-performance APIs, Pydantic schemas, and middleware integration.",
+        proficiency: 88,
+        projects: ["Ashora AI Microservice"]
       },
       {
-        name: "REST APIs",
+        name: "REST APIs & WebSockets",
         icon: "🌐",
-        description: "Deep understanding of REST principles, API design, and implementation of secure and scalable endpoints.",
+        description: "Deep understanding of RESTful API design, WebSockets, real-time data streaming, and secure endpoints.",
+        proficiency: 88,
+        projects: ["Live Telemetry Stream", "Interactive Terminal"]
+      }
+    ]
+  },
+  {
+    id: "observability",
+    title: "Observability & Data Engineering",
+    color: "#4A90E2",
+    skills: [
+      {
+        name: "OpenTelemetry (OTLP)",
+        icon: "📡",
+        description: "Proficient in implementing distributed telemetry pipelines, OTLP metric streaming, and log standardization.",
         proficiency: 85,
-        projects: ["Payment Gateway Integration", "User Management API"]
+        projects: ["NatWest Pipeline"]
       },
       {
-        name: "GraphQL",
+        name: "Grafana & Power BI",
         icon: "📊",
-        description: "Experience in building GraphQL APIs with Apollo Server, including schema design and resolver implementation.",
-        proficiency: 70,
-        projects: ["Real-time Dashboard", "Content Management System"]
+        description: "Experience building real-time observability dashboards, operational KPI tracking, and automated monthly analytics summarizers.",
+        proficiency: 85,
+        projects: ["NatWest Grafana Dashboard", "Power BI Summarizer"]
       },
       {
-        name: "WebSockets",
-        icon: "🔌",
-        description: "Proficient in implementing real-time features using WebSockets for live updates and bidirectional communication.",
-        proficiency: 75,
-        projects: ["Chat Application", "Live Tracking System"]
+        name: "XML / JSON Pipelines",
+        icon: "🔄",
+        description: "Architecting automated utility parsing pipelines to convert structured XML consumer reports into standardized JSON schemas.",
+        proficiency: 90,
+        projects: ["NatWest Utility Pipeline"]
       }
     ]
   },
@@ -89,32 +117,25 @@ export const skillCategories = [
     color: "#0A0F0D",
     skills: [
       {
-        name: "MongoDB",
-        icon: "🍃",
-        description: "Advanced experience with MongoDB, including schema design, indexing, and aggregation pipelines.",
-        proficiency: 85,
-        projects: ["AI-Workspace", "User Analytics System"]
-      },
-      {
         name: "PostgreSQL",
         icon: "🐘",
-        description: "Strong knowledge of PostgreSQL, including complex queries, transactions, and database optimization.",
-        proficiency: 75,
-        projects: ["Financial System", "Inventory Management"]
+        description: "Strong knowledge of PostgreSQL, relational schema design, complex query optimization, and transactions.",
+        proficiency: 85,
+        projects: ["Enterprise Storage", "Portfolio Backend"]
+      },
+      {
+        name: "MongoDB",
+        icon: "🍃",
+        description: "Advanced experience with MongoDB, schema design, document indexing, and aggregation pipelines.",
+        proficiency: 85,
+        projects: ["User Analytics System", "Growero.io"]
       },
       {
         name: "Redis",
         icon: "🔴",
-        description: "Experience in using Redis for caching, session management, and real-time data processing.",
-        proficiency: 70,
-        projects: ["Rate Limiting", "Caching Layer"]
-      },
-      {
-        name: "AWS S3",
-        icon: "☁️",
-        description: "Proficient in managing cloud storage with AWS S3, including file uploads, CDN integration, and security.",
+        description: "Experience in using Redis for caching, session management, and real-time pub/sub messaging.",
         proficiency: 75,
-        projects: ["Media Storage", "Backup System"]
+        projects: ["Caching Layer"]
       },
       {
         name: "Firebase",
@@ -127,71 +148,64 @@ export const skillCategories = [
   },
   {
     id: "devops",
-    title: "DevOps & Tools",
+    title: "DevOps & Cloud",
     color: "#F9D29D",
     skills: [
       {
         name: "Docker",
         icon: "🐳",
-        description: "Proficient in containerization with Docker, including multi-stage builds and container orchestration.",
-        proficiency: 75,
-        projects: ["Microservices", "Development Environment"]
+        description: "Proficient in containerization with Docker, multi-stage builds, and deployment on cloud instances.",
+        proficiency: 80,
+        projects: ["Ashora AI Container", "Growero.io"]
       },
       {
-        name: "AWS",
+        name: "AWS & Render",
         icon: "☁️",
-        description: "Experience with AWS services including EC2, Lambda, and CloudFront for scalable cloud infrastructure.",
-        proficiency: 70,
-        projects: ["Serverless API", "Cloud Infrastructure"]
+        description: "Experience deploying web services, cloud infrastructure, EC2/S3, and automated cloud deployments.",
+        proficiency: 80,
+        projects: ["Ashora Deployment", "Cloud Infrastructure"]
       },
       {
-        name: "Git & GitHub",
+        name: "Git & GitHub Actions",
         icon: "🐙",
-        description: "Advanced knowledge of version control with Git, including branching strategies and CI/CD integration.",
+        description: "Advanced version control, branching strategies, and CI/CD automated deployment pipelines.",
         proficiency: 90,
-        projects: ["Team Collaboration", "Automated Workflows"]
+        projects: ["CI/CD Pipeline", "Team Collaboration"]
       },
       {
-        name: "CI/CD",
-        icon: "🔄",
-        description: "Experience in setting up continuous integration and deployment pipelines for automated testing and deployment.",
-        proficiency: 70,
-        projects: ["Automated Testing", "Deployment Pipeline"]
-      },
-      {
-        name: "Linux",
+        name: "Linux & Bash",
         icon: "🐧",
-        description: "Strong understanding of Linux systems, including server management, shell scripting, and security.",
-        proficiency: 75,
+        description: "Strong understanding of Linux server administration, shell scripting, and automation.",
+        proficiency: 80,
         projects: ["Server Management", "Automation Scripts"]
       }
     ]
   },
   {
-    id: "other",
-    title: "Other Technologies",
+    id: "ai_ml",
+    title: "AI / ML & Spatial Data",
     color: "#F2B880",
     skills: [
       {
-        name: "Python",
-        icon: "🐍",
-        description: "Proficient in Python for scripting, automation, and data analysis tasks.",
-        proficiency: 80,
-        projects: ["Data Analysis", "Automation Scripts"]
-      },
-      {
-        name: "Pandas",
-        icon: "🧸",
-        description: "Experience with Pandas for data manipulation and analysis in Python.",
-        proficiency: 75,
-        projects: ["Data Processing", "Analytics Dashboard"]
-      },
-      {
-        name: "Scikit-Learn",
+        name: "Scikit-Learn & PyTorch",
         icon: "🔬",
-        description: "Knowledge of machine learning fundamentals using Scikit-Learn for predictive modeling.",
-        proficiency: 70,
-        projects: ["ML Models", "Prediction System"]
+        description: "Building machine learning classification pipelines, NLP models, and deep learning architectures.",
+        proficiency: 82,
+        projects: ["Ashora ML Intent Pipeline", "CSIR-CSIO Research"]
+      },
+      {
+        name: "MATLAB & DEM Analysis",
+        icon: "📐",
+        description: "Evaluating Digital Elevation Model (DEM) data, terrain spatial profile reconstruction, and signal processing.",
+        proficiency: 80,
+        projects: ["CSIR-CSIO Palaeochannel Research"]
+      },
+      {
+        name: "Gemini RAG & LLMs",
+        icon: "🤖",
+        description: "Integrating Google GenAI Gemini APIs, RAG context synthesis, and custom digital twin agentic personas.",
+        proficiency: 88,
+        projects: ["Ashora AI Engine"]
       }
     ]
   }

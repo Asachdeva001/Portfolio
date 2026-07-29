@@ -152,47 +152,57 @@ export default function TerminalWidget({ isInline = false, onClose }) {
     if (!SpeechRecognition) {
       setHistory(prev => [
         ...prev,
-        { text: "[AashBot] Speech Recognition is not supported by your browser. Please try Chrome or Edge.", type: "error" },
+        { text: "[AashBot] Speech Recognition is not supported by your browser. Please try Chrome, Edge, or Safari.", type: "error" },
         { text: "", type: "spacer" }
       ]);
       speakText("Voice recognition is not supported in this browser.");
       return;
     }
 
-    const recognition = new SpeechRecognition();
-    recognition.continuous = false;
-    recognition.lang = 'en-US';
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
+    try {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.lang = 'en-US';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
 
-    recognition.onstart = () => {
-      setIsListening(true);
-    };
+      recognition.onstart = () => {
+        setIsListening(true);
+      };
 
-    recognition.onend = () => {
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+
+      recognition.onerror = (event) => {
+        console.error(event.error);
+        setIsListening(false);
+        const errMsg = event.error === 'not-allowed'
+          ? "Microphone permission denied. Please allow microphone access in your browser."
+          : `Voice recognition stopped: ${event.error}`;
+        setHistory(prev => [
+          ...prev,
+          { text: `[AashBot] ${errMsg}`, type: "error" },
+          { text: "", type: "spacer" }
+        ]);
+      };
+
+      recognition.onresult = (event) => {
+        const speechToText = event.results[0][0].transcript;
+        if (speechToText) {
+          setInputVal(speechToText);
+          // Automatically execute the command
+          setTimeout(() => {
+            handleCommand(speechToText);
+          }, 600);
+        }
+      };
+
+      recognition.start();
+    } catch (err) {
       setIsListening(false);
-    };
-
-    recognition.onerror = (event) => {
-      console.error(event.error);
-      setIsListening(false);
-      setHistory(prev => [
-        ...prev,
-        { text: `[AashBot] Voice Recognition Error: ${event.error}`, type: "error" },
-        { text: "", type: "spacer" }
-      ]);
-    };
-
-    recognition.onresult = (event) => {
-      const speechToText = event.results[0][0].transcript;
-      setInputVal(speechToText);
-      // Automatically execute the command
-      setTimeout(() => {
-        handleCommand(speechToText);
-      }, 600);
-    };
-
-    recognition.start();
+      console.error("SpeechRecognition error:", err);
+    }
   };
 
   const handleCommand = (cmdString) => {

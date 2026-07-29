@@ -67,6 +67,7 @@ export function validateProjectsData(data) {
     return isValid;
   }).map(project => ({
     ...project,
+    image: project.image || null,
     longDescription: project.longDescription || project.description,
     liveUrl: project.liveUrl || null,
     featured: project.featured || false,

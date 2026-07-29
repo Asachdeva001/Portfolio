@@ -233,41 +233,59 @@ export default function AashBotWidget() {
         {
           id: `err-${Date.now()}`,
           sender: 'aashbot',
-          text: "Voice recognition is not supported in this browser. Try Chrome or Edge."
+          text: "Voice recognition is not supported in this browser. Please try Chrome, Edge, or Safari."
         }
       ]);
       speakText("Voice recognition is not supported in this browser.");
       return;
     }
 
-    const recognition = new SpeechRecognition();
-    recognition.continuous = false;
-    recognition.lang = 'en-US';
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
+    try {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.lang = 'en-US';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
 
-    recognition.onstart = () => {
-      setIsListening(true);
-      setShowWelcome(false);
-    };
+      recognition.onstart = () => {
+        setIsListening(true);
+        setShowWelcome(false);
+      };
 
-    recognition.onend = () => {
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+
+      recognition.onerror = (event) => {
+        setIsListening(false);
+        const errMsg = event.error === 'not-allowed'
+          ? "Microphone access was denied. Please grant microphone permissions in your browser to use voice dictation."
+          : `Voice dictation notice: ${event.error || 'Stopped listening'}`;
+        setMessages(prev => [
+          ...prev,
+          {
+            id: `err-${Date.now()}`,
+            sender: 'aashbot',
+            text: errMsg
+          }
+        ]);
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        if (transcript) {
+          setInputVal(transcript);
+          setTimeout(() => {
+            handleSend(transcript);
+          }, 600);
+        }
+      };
+
+      recognition.start();
+    } catch (err) {
       setIsListening(false);
-    };
-
-    recognition.onerror = () => {
-      setIsListening(false);
-    };
-
-    recognition.onresult = (event) => {
-      const transcript = event.results[0][0].transcript;
-      setInputVal(transcript);
-      setTimeout(() => {
-        handleSend(transcript);
-      }, 650);
-    };
-
-    recognition.start();
+      console.error("SpeechRecognition error:", err);
+    }
   };
 
   // Scroll to top callback
@@ -319,7 +337,13 @@ export default function AashBotWidget() {
                 <AashBotAvatar size={30} />
                 <div className="flex flex-col">
                   <span className="text-sm font-bold text-white tracking-wide leading-tight">AashBot</span>
-                  <span className="text-[8px] text-emerald-400 font-mono tracking-widest font-bold">ONLINE</span>
+                  {isListening ? (
+                    <span className="text-[8px] text-red-400 font-mono tracking-widest font-bold animate-pulse">LISTENING...</span>
+                  ) : isSpeaking ? (
+                    <span className="text-[8px] text-primary font-mono tracking-widest font-bold animate-pulse">SPEAKING...</span>
+                  ) : (
+                    <span className="text-[8px] text-emerald-400 font-mono tracking-widest font-bold">ONLINE</span>
+                  )}
                 </div>
               </div>
 

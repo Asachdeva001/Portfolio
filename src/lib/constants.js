@@ -13,9 +13,9 @@ export const DATA_TYPES = {
 
 export const REQUIRED_FIELDS = {
   personal: ['name', 'title', 'email'],
-  projects: ['id', 'title', 'description', 'image', 'technologies'],
+  projects: ['id', 'title', 'description', 'technologies'],
   skills: ['name', 'icon', 'description'],
-  certifications: ['title', 'issuer', 'date', 'image'],
+  certifications: ['title', 'issuer', 'date'],
   experience: ['company', 'position', 'startDate', 'endDate'],
   education: ['institution', 'degree', 'field', 'startDate', 'endDate'],
   social: ['platform', 'url']
