@@ -66,8 +66,13 @@ const RESPONSES = {
     suggestions: ["skills", "experience", "walkthrough"]
   },
   experience: {
-    text: "Aashish grinds as a Freelance Full-Stack Developer 💼 Collaborating with startup founders to build high-converting landing pages, interactive dashboards, and scalable database schemas. Low latency & maintainable code only!",
-    speakText: "Aashish grinds as a Freelance Full-Stack Developer, collaborating with startup founders to build high-converting landing pages, interactive dashboards, and scalable database schemas.",
+    text: "Aashish has experience spanning enterprise tech, AI research, and full-stack engineering 💼\n" +
+          "• **NatWest Group**: Digi X Tech Intern (Telemetry, OTLP & Grafana Dashboards)\n" +
+          "• **CSIR-CSIO**: AI/ML Research Intern (DEM Spatial Modeling & Palaeochannel Analysis)\n" +
+          "• **Growero.io**: Full Stack Web Developer Intern (SSO, Auth & CI/CD Pipelines)\n" +
+          "• **Freelance**: Full Stack Developer (6+ Production Web Apps)\n" +
+          "• **WebinOrbit**: Frontend Web Developer Intern (Analytics Dashboards)",
+    speakText: "Aashish has software engineering experience across NatWest Group, CSIR-CSIO, Growero.io, Freelance projects, and WebinOrbit.",
     suggestions: ["skills", "education", "contact"]
   },
   education: {

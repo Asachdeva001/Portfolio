@@ -50,15 +50,19 @@ export default function DevIDEConsole() {
 export default technicalSkills;`,
     'experience.py': `class DeveloperExperience:
     def __init__(self):
-        self.company = "Freelance"
-        self.role = "Full-Stack Dev"
-        self.duration = "1+ Years"
+        self.history = [
+            {"company": "NatWest Group", "role": "Digi X Tech Intern"},
+            {"company": "CSIR-CSIO", "role": "AI/ML Research Intern"},
+            {"company": "Growero.io", "role": "Full-Stack Web Dev Intern"},
+            {"company": "Freelance", "role": "Full-Stack Web Developer"},
+            {"company": "WebinOrbit", "role": "Frontend Web Dev Intern"}
+        ]
 
-    def get_focus(self):
+    def get_summary(self):
         return [
-            "Highly responsive layouts",
-            "Computationally clean code",
-            "Performance optimization"
+            "Data & Telemetry Pipelines (Grafana/OTLP)",
+            "AI/ML DEM Spatial Research (Python/MATLAB)",
+            "Production Web Apps & Performance Optimization"
         ]`,
     'terminal.sh': `#!/bin/bash
 echo "[-] Initializing diagnostic tests..."

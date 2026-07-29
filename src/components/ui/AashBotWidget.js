@@ -130,7 +130,7 @@ export default function AashBotWidget() {
     {
       id: 'welcome',
       sender: 'aashbot',
-      text: "Hi! I am AashBot, Aashish's voice-enabled assistant. 🤖 Ask me about his skills, projects, or background, or click the mic to talk!",
+      text: "Hi! I am Ashora, Aashish's voice-enabled assistant. 🤖 Ask me about his skills, projects, or background, or click the mic to talk!",
       suggestions: ["skills", "projects", "education"]
     }
   ]);
@@ -336,7 +336,7 @@ export default function AashBotWidget() {
               <div className="flex items-center space-x-2.5">
                 <AashBotAvatar size={30} />
                 <div className="flex flex-col">
-                  <span className="text-sm font-bold text-white tracking-wide leading-tight">AashBot</span>
+                  <span className="text-sm font-bold text-white tracking-wide leading-tight">Ashora</span>
                   {isListening ? (
                     <span className="text-[8px] text-red-400 font-mono tracking-widest font-bold animate-pulse">LISTENING...</span>
                   ) : isSpeaking ? (
@@ -491,7 +491,7 @@ export default function AashBotWidget() {
             </button>
             <div className="flex items-center space-x-2 mb-1.5 border-b border-white/5 pb-1">
               <AashBotAvatar size={20} />
-              <span className="text-xs font-bold text-primary">AashBot Online</span>
+              <span className="text-xs font-bold text-primary">Ashora Online</span>
             </div>
             <div className="text-xs text-neutral-300 leading-normal pr-4">
               Hi! Click me to chat with Aashish's voice assistant or ask about his work!

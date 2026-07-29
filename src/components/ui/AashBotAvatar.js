@@ -91,23 +91,27 @@ export default function AashBotAvatar({ size = 32 }) {
           />
         )}
 
-        {/* Monogram characters */}
-        <motion.span
-          className="font-sans font-black tracking-tight"
+        {/* Futuristic AI Emblem Logo */}
+        <motion.div
           style={{
-            fontSize,
+            width: size * 0.56,
+            height: size * 0.56,
             color: 'var(--bg-color)',
-            textShadow: '0 0.5px 1px rgba(0, 0, 0, 0.15)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            lineHeight: 1,
-            marginTop: '-0.05em', // Adjust for vertical optical alignment
-            transform: 'translateZ(10px)', // Creates a floating 3D parallax effect
+            transform: 'translateZ(10px)',
           }}
         >
-          AB
-        </motion.span>
+          <svg
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="w-full h-full filter drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]"
+          >
+            {/* Sleek futuristic 4-point AI Neural Spark + Orbit nodes */}
+            <path d="M12 1.5L14.8 9.2L22.5 12L14.8 14.8L12 22.5L9.2 14.8L1.5 12L9.2 9.2L12 1.5Z" />
+          </svg>
+        </motion.div>
       </motion.div>
     </div>
   );

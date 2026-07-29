@@ -59,7 +59,7 @@ export default function TerminalWidget({ isInline = false, onClose }) {
             if (resData.success) {
               setHistory(prev => [
                 ...prev,
-                { text: "[AashBot] Message sent successfully! 🚀", type: "success" },
+                { text: "[Ashora] Message sent successfully! 🚀", type: "success" },
                 { text: "Aashish will get back to you soon. Thanks for reaching out!", type: "muted" },
                 { text: "", type: "spacer" }
               ]);
@@ -70,7 +70,7 @@ export default function TerminalWidget({ isInline = false, onClose }) {
           } catch (err) {
             setHistory(prev => [
               ...prev,
-              { text: `[AashBot] Error submitting message: ${err.message}`, type: "error" },
+              { text: `[Ashora] Error submitting message: ${err.message}`, type: "error" },
               { text: "Please try filling out the Contact page form directly instead.", type: "muted" },
               { text: "", type: "spacer" }
             ]);
@@ -152,7 +152,7 @@ export default function TerminalWidget({ isInline = false, onClose }) {
     if (!SpeechRecognition) {
       setHistory(prev => [
         ...prev,
-        { text: "[AashBot] Speech Recognition is not supported by your browser. Please try Chrome, Edge, or Safari.", type: "error" },
+        { text: "[Ashora] Speech Recognition is not supported by your browser. Please try Chrome, Edge, or Safari.", type: "error" },
         { text: "", type: "spacer" }
       ]);
       speakText("Voice recognition is not supported in this browser.");
@@ -182,7 +182,7 @@ export default function TerminalWidget({ isInline = false, onClose }) {
           : `Voice recognition stopped: ${event.error}`;
         setHistory(prev => [
           ...prev,
-          { text: `[AashBot] ${errMsg}`, type: "error" },
+          { text: `[Ashora] ${errMsg}`, type: "error" },
           { text: "", type: "spacer" }
         ]);
       };
@@ -228,10 +228,10 @@ export default function TerminalWidget({ isInline = false, onClose }) {
       if (['exit', 'bye', 'quit', 'back'].includes(command)) {
         setChatMode(false);
         newHistory.push(
-          { text: "[*] Closing AashBot session...", type: "info" },
+          { text: "[*] Closing Ashora session...", type: "info" },
           { text: "Returning to standard Linux console. Type 'help' for core commands.", type: "muted" }
         );
-        speakText("Exited AashBot chat. Standard terminal is active.");
+        speakText("Exited Ashora chat. Standard terminal is active.");
         setHistory(newHistory);
         setInputVal('');
       } else if (command === 'clear') {
@@ -255,7 +255,7 @@ export default function TerminalWidget({ isInline = false, onClose }) {
           }
 
           const updatedHistory = [...newHistory,
-            { text: "AashBot:", type: "success" },
+            { text: "Ashora:", type: "success" },
             { text: reply.text, type: "text" }
           ];
 
@@ -307,8 +307,8 @@ export default function TerminalWidget({ isInline = false, onClose }) {
       case 'help':
         newHistory.push(
           { text: "Available commands:", type: "info" },
-          { text: "  aashbot     - Launch AashBot chat sub-shell session (to talk to AI)", type: "success" },
-          { text: "  ask [query] - Query AashBot directly without leaving shell", type: "success" },
+          { text: "  ashora      - Launch Ashora chat sub-shell session (to talk to AI)", type: "success" },
+          { text: "  ask [query] - Query Ashora directly without leaving shell", type: "success" },
           { text: "  walkthrough - Start the interactive website walkthrough tour", type: "success" },
           { text: "  voice [on]  - Toggle voice synthesis engine on or off", type: "info" },
           { text: "  about       - Detailed biography and profile summary", type: "text" },
@@ -358,7 +358,7 @@ export default function TerminalWidget({ isInline = false, onClose }) {
             }
 
             const updatedHistory = [...newHistory,
-              { text: "AashBot:", type: "success" },
+              { text: "Ashora:", type: "success" },
               { text: reply.text, type: "text" }
             ];
 
@@ -485,7 +485,7 @@ export default function TerminalWidget({ isInline = false, onClose }) {
 
       default:
         newHistory.push({ 
-          text: `Command not found: '${command}'. Did you want to speak with AashBot? Type 'aashbot' or 'ask [question]'.`, 
+          text: `Command not found: '${command}'. Did you want to speak with Ashora? Type 'ashora' or 'ask [question]'.`, 
           type: "error" 
         });
     }
@@ -549,7 +549,7 @@ export default function TerminalWidget({ isInline = false, onClose }) {
           <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
           <span>
             {chatMode 
-              ? 'AashBot AI Session' 
+              ? 'Ashora AI Session' 
               : isWalkthroughActive 
                 ? `Tour: Step ${walkthroughStep + 1}/6 (${themes.find(t => t.id === theme)?.name})`
                 : `visitor@aashish-sachdeva: ${isInline ? '~/home' : '~/ssh-console'}`

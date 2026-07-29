@@ -16,7 +16,7 @@ export function TerminalProvider({ children }) {
   const [history, setHistory] = useState([
     { text: "Welcome to Aashish's Interactive Terminal Console [v2.5.0]", type: "info" },
     { text: "Type 'help' to see the list of available commands.", type: "muted" },
-    { text: "Type 'aashbot' or 'chat' to start a conversation with the AI guide.", type: "success" },
+    { text: "Type 'ashora' or 'chat' to start a conversation with the AI guide.", type: "success" },
     { text: "Type 'walkthrough' or 'tour' to begin an interactive portfolio tour.", type: "success" },
     { text: "", type: "spacer" }
   ]);
@@ -132,8 +132,8 @@ export function TerminalProvider({ children }) {
       title: "Hero Dashboard",
       path: "/",
       sectionId: "hero",
-      text: "Welcome to Aashish's portfolio! I am AashBot, your interactive guide. We are starting in the Hero Section. On the right, you can see a live Developer IDE Console that showcases real-time code typing simulations and diagnostic test runs. Type 'next' or click Next to explore the About section!",
-      speak: "Welcome to Aashish's portfolio! I am Ash-Bot, your interactive guide. We are starting in the Hero Section. On the right, you can see a live Developer I.D.E. Console that showcases real-time code typing and diagnostics. Type 'next' or click Next to explore the About section!"
+      text: "Welcome to Aashish's portfolio! I am Ashora, your interactive guide. We are starting in the Hero Section. On the right, you can see a live Developer IDE Console that showcases real-time code typing simulations and diagnostic test runs. Type 'next' or click Next to explore the About section!",
+      speak: "Welcome to Aashish's portfolio! I am Ashora, your interactive guide. We are starting in the Hero Section. On the right, you can see a live Developer I.D.E. Console that showcases real-time code typing and diagnostics. Type 'next' or click Next to explore the About section!"
     },
     {
       title: "About Me",
@@ -191,14 +191,14 @@ export function TerminalProvider({ children }) {
     setIsTerminalOpen(true);
     setChatMode(false);
     
-    const introText = "Starting interactive portfolio tour with AashBot...";
+    const introText = "Starting interactive portfolio tour with Ashora...";
     const initialText = walkthroughSteps[0].text;
     
     setHistory(prev => [
       ...prev,
       { text: `visitor@aashish-sachdeva:~$ walkthrough`, type: "command" },
       { text: introText, type: "info" },
-      { text: `[AashBot] Step 1/6 - ${walkthroughSteps[0].title}`, type: "primary" },
+      { text: `[Ashora] Step 1/6 - ${walkthroughSteps[0].title}`, type: "primary" },
       { text: initialText, type: "text" },
       { text: "Controls: Type 'next' or click Next on the screen.", type: "muted" },
       { text: "", type: "spacer" }
@@ -221,7 +221,7 @@ export function TerminalProvider({ children }) {
     setHistory(prev => [
       ...prev,
       { text: `visitor@aashish-sachdeva:~$ next`, type: "command" },
-      { text: `[AashBot] Step ${nextStep + 1}/6 - ${walkthroughSteps[nextStep].title}`, type: "primary" },
+      { text: `[Ashora] Step ${nextStep + 1}/6 - ${walkthroughSteps[nextStep].title}`, type: "primary" },
       { text: walkthroughSteps[nextStep].text, type: "text" },
       { text: "", type: "spacer" }
     ]);
@@ -238,7 +238,7 @@ export function TerminalProvider({ children }) {
     setHistory(prev => [
       ...prev,
       { text: `visitor@aashish-sachdeva:~$ back`, type: "command" },
-      { text: `[AashBot] Step ${prevStep + 1}/6 - ${walkthroughSteps[prevStep].title}`, type: "primary" },
+      { text: `[Ashora] Step ${prevStep + 1}/6 - ${walkthroughSteps[prevStep].title}`, type: "primary" },
       { text: walkthroughSteps[prevStep].text, type: "text" },
       { text: "", type: "spacer" }
     ]);

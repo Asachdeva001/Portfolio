@@ -5,7 +5,7 @@ export const projects = [
     description: "An enterprise-grade AI operating system and venue management platform designed for FIFA World Cup 2026.",
     longDescription:
       "StadiumOS AI is a next-generation tournament operations and fan experience platform designed for high-capacity venues and global sporting events like the FIFA World Cup 2026. Built as an enterprise-grade AI operating system, it provides real-time operations monitoring, ticket validation, access control, crowd flow management, multilingual assistance, and on-demand fan support.",
-    image: null,
+    image: "/projects/StadiumOS.png",
     technologies: ["TypeScript", "Next.js", "AI Operating System", "Real-Time Systems", "Crowd Analytics"],
     repos: "https://github.com/Asachdeva001/StadiumOS",
     liveUrl: null,
@@ -18,12 +18,25 @@ export const projects = [
     description: "AI candidate ranking & vector embedding engine evaluating large talent pools against job requirements.",
     longDescription:
       "VectoTalent is a high-performance candidate ranking engine designed to evaluate large pools of candidates (100,000+) against specific job descriptions using high-dimensional vector embeddings, zero honeypot leakage, and semantic similarity search.",
-    image: null,
+    image: "/projects/VectoTalent.png",
     technologies: ["Python", "Vector Search", "Embeddings", "FastAPI", "AI Matching"],
     repos: "https://github.com/Asachdeva001/vectotalent",
     liveUrl: null,
     featured: true,
     category: "AI / Enterprise"
+  },
+  {
+    id: "greenpulse-ai",
+    title: "GreenPulse AI",
+    description: "An all-in-one carbon footprint tracking, reduction, and gamification platform with a Smart AI Assistant.",
+    longDescription:
+      "GreenPulse AI (PromptWars Virtual V3) is a sustainability platform that tracks, reduces, and gamifies carbon footprints. Utilizing a conversational Smart AI Assistant, it dynamically parses free-text user statements regarding daily habits, mobility, and energy consumption to calculate carbon impact, suggest actionable reduction goals, and reward eco-friendly milestones.",
+    image: "/projects/greenpulse.png",
+    technologies: ["JavaScript", "Python", "Conversational AI", "NLP", "Sustainability Tech"],
+    repos: "https://github.com/Asachdeva001/PromptWars-Virtual_V3",
+    liveUrl: null,
+    featured: true,
+    category: "AI / Sustainability"
   },
   {
     id: "hivemind",
@@ -35,7 +48,7 @@ export const projects = [
     technologies: ["Python", "Multi-Agent Systems", "Agentic Swarm", "LLMs", "Autonomous Agents"],
     repos: "https://github.com/Asachdeva001/hivemind",
     liveUrl: null,
-    featured: true,
+    featured: false,
     category: "AI / Autonomous Agents"
   },
   {
@@ -68,24 +81,11 @@ export const projects = [
     category: "Mobile / Event Tech"
   },
   {
-    id: "greenpulse-ai",
-    title: "GreenPulse AI",
-    description: "An all-in-one carbon footprint tracking, reduction, and gamification platform with a Smart AI Assistant.",
-    longDescription:
-      "GreenPulse AI (PromptWars Virtual V3) is a sustainability platform that tracks, reduces, and gamifies carbon footprints. Utilizing a conversational Smart AI Assistant, it dynamically parses free-text user statements regarding daily habits, mobility, and energy consumption to calculate carbon impact, suggest actionable reduction goals, and reward eco-friendly milestones.",
-    image: null,
-    technologies: ["JavaScript", "Python", "Conversational AI", "NLP", "Sustainability Tech"],
-    repos: "https://github.com/Asachdeva001/PromptWars-Virtual_V3",
-    liveUrl: null,
-    featured: false,
-    category: "AI / Sustainability"
-  },
-  {
     id: "aashbot-brain",
-    title: "AashBot Brain",
+    title: "Ashora Brain",
     description: "Core AI dataset pipeline and embeddings engine powering interactive portfolio assistants.",
     longDescription:
-      "AashBot Brain serves as the core intelligence engine and dataset processing pipeline behind interactive conversational portfolio agents. It handles document parsing, vector indexing, retrieval-augmented generation (RAG) context loading, and continuous prompt refinement.",
+      "Ashora Brain serves as the core intelligence engine and dataset processing pipeline behind interactive conversational portfolio agents. It handles document parsing, vector indexing, retrieval-augmented generation (RAG) context loading, and continuous prompt refinement.",
     image: null,
     technologies: ["Python", "RAG", "Vector Indexing", "LLM Embeddings", "AI Pipeline"],
     repos: "https://github.com/Asachdeva001/aashbot-brain",
