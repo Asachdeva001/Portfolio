@@ -51,7 +51,7 @@ export const projects = [
       { label: "Guardrails Core", url: "https://github.com/Asachdeva001/LLM-Encryption-GuardRails" }
     ],
     liveUrl: null,
-    featured: true,
+    featured: false,
     category: "AI / Security"
   },
   {
@@ -64,7 +64,7 @@ export const projects = [
     technologies: ["TypeScript", "React Native", "Firebase", "Real-Time Updates", "Location Services"],
     repos: "https://github.com/Asachdeva001/FanFlow",
     liveUrl: null,
-    featured: true,
+    featured: false,
     category: "Mobile / Event Tech"
   },
   {
@@ -77,7 +77,7 @@ export const projects = [
     technologies: ["JavaScript", "Python", "Conversational AI", "NLP", "Sustainability Tech"],
     repos: "https://github.com/Asachdeva001/PromptWars-Virtual_V3",
     liveUrl: null,
-    featured: true,
+    featured: false,
     category: "AI / Sustainability"
   },
   {
@@ -90,7 +90,7 @@ export const projects = [
     technologies: ["Python", "RAG", "Vector Indexing", "LLM Embeddings", "AI Pipeline"],
     repos: "https://github.com/Asachdeva001/aashbot-brain",
     liveUrl: null,
-    featured: true,
+    featured: false,
     category: "AI / Core Engine"
   },
   {
@@ -103,7 +103,7 @@ export const projects = [
     technologies: ["TypeScript", "Full Stack", "Data Analytics", "GovTech", "Cybersecurity"],
     repos: "https://github.com/Asachdeva001/SIH25_01",
     liveUrl: null,
-    featured: true,
+    featured: false,
     category: "AI / GovTech"
   },
   {
@@ -116,7 +116,7 @@ export const projects = [
     technologies: ["TypeScript", "Generative AI", "LLMs", "React", "AMD AI Stack"],
     repos: "https://github.com/Asachdeva001/AMD-Submission-Repo",
     liveUrl: null,
-    featured: true,
+    featured: false,
     category: "AI / GenAI"
   },
   {
@@ -129,7 +129,7 @@ export const projects = [
     technologies: ["TypeScript", "Computer Vision", "AI Voice Assistant", "Bluetooth Beacons", "Full Stack"],
     repos: "https://github.com/Asachdeva001/WalmartHackathon",
     liveUrl: null,
-    featured: true,
+    featured: false,
     category: "AI / Full Stack"
   },
   {
@@ -142,7 +142,7 @@ export const projects = [
     technologies: ["Python", "Machine Learning", "Elasticsearch", "Agentic RAG", "Sentiment Analysis"],
     repos: "https://github.com/Asachdeva001/Blogathon",
     liveUrl: null,
-    featured: true,
+    featured: false,
     category: "Data Science / AI"
   },
   {
@@ -158,7 +158,7 @@ export const projects = [
       { label: "Backend", url: "https://github.com/Asachdeva001/mhc-backend" }
     ],
     liveUrl: "https://mhc-frontend-sagw.vercel.app",
-    featured: true,
+    featured: false,
     category: "AI / Health Tech"
   },
   {
@@ -171,7 +171,7 @@ export const projects = [
     technologies: ["JavaScript", "Mobile App", "Computer Vision", "Real-Time AI"],
     repos: "https://github.com/Asachdeva001/Mobilothon",
     liveUrl: null,
-    featured: true,
+    featured: false,
     category: "AI / Mobile"
   },
   {
@@ -184,7 +184,7 @@ export const projects = [
     technologies: ["TypeScript", "AI", "NLP Legal Search", "GovTech"],
     repos: "https://github.com/Asachdeva001/CopPal",
     liveUrl: null,
-    featured: true,
+    featured: false,
     category: "AI / GovTech"
   },
   {
@@ -226,7 +226,7 @@ export const projects = [
       { label: "Backend", url: "https://github.com/Asachdeva001/AIWorkspace-Server" }
     ],
     liveUrl: null,
-    featured: true,
+    featured: false,
     category: "Full Stack"
   },
   {
@@ -239,7 +239,7 @@ export const projects = [
     technologies: ["React.js", "Firebase", "Material-UI", "Real-Time Sync"],
     repos: "https://github.com/Asachdeva001/Noteflow",
     liveUrl: "https://noteflow-blond.vercel.app",
-    featured: true,
+    featured: false,
     category: "Frontend"
   },
   {

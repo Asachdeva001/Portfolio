@@ -11,8 +11,8 @@ import projects from '@/data/projects';
 export default function ProjectsSection() {
   const allProjects = loadDataSync('projects', projects);
   
-  // Filter featured projects for homepage
-  const featuredProjects = allProjects.filter(project => project.featured);
+  // Filter featured projects for homepage (top 3)
+  const featuredProjects = allProjects.filter(project => project.featured).slice(0, 3);
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
